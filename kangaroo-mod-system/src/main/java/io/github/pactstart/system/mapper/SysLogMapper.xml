@@ -12,13 +12,11 @@
         <result column="operate_time" jdbcType="TIMESTAMP" property="operateTime"/>
         <result column="operate_ip" jdbcType="VARCHAR" property="operateIp"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="old_value" jdbcType="LONGVARCHAR" property="oldValue"/>
-        <result column="new_value" jdbcType="LONGVARCHAR" property="newValue"/>
     </resultMap>
 
-    <resultMap id="ResultMapWithBLOBs" type="com.ufang.system.entity.SysLog" extends="BaseResultMap">
-        <result column="old_value" property="oldValue" jdbcType="LONGVARCHAR"/>
-        <result column="new_value" property="newValue" jdbcType="LONGVARCHAR"/>
+    <resultMap id="ResultMapWithBLOBs" type="io.github.pactstart.system.entity.SysLog" extends="BaseResultMap">
+        <result column="old_value" jdbcType="LONGVARCHAR" property="oldValue"/>
+        <result column="new_value" jdbcType="LONGVARCHAR" property="newValue"/>
     </resultMap>
 
     <sql id="Base_Column_List">

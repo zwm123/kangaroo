@@ -13,7 +13,7 @@
     </appender>
 
     <appender name="FILE-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logPath}/ufang-admin.log</file>
+        <file>${logPath}/kangaroo-admin.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%level] [%class:%line] - %m %n</pattern>
         </encoder>
@@ -29,7 +29,7 @@
             <appender-ref ref="STDOUT"/>
         </root>
         <logger name="org.mybatis" level="trace"/>
-        <logger name="com.ufang" level="trace"/>
+        <logger name="io.github.pactstart" level="trace"/>
     </springProfile>
 
     <springProfile name="test">
@@ -37,7 +37,7 @@
             <appender-ref ref="STDOUT"/>
         </root>
         <logger name="org.mybatis" level="trace"/>
-        <logger name="com.ufang" level="trace"/>
+        <logger name="io.github.pactstart" level="trace"/>
     </springProfile>
 
     <springProfile name="prod">
@@ -45,6 +45,6 @@
             <appender-ref ref="FILE-OUT"/>
         </root>
         <logger name="org.mybatis" level="trace"/>
-        <logger name="com.ufang" level="trace"/>
+        <logger name="io.github.pactstart" level="trace"/>
     </springProfile>
 </configuration>

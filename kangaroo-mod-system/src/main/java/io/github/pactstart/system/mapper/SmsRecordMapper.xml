@@ -45,7 +45,7 @@
         ORDER BY id desc
     </select>
 
-    <select id="statByDate" parameterType="Map" resultType="com.ufang.sms.model.SmsStat">
+    <select id="statByDate" parameterType="Map" resultType="io.github.pactstart.system.model.SmsStat">
         SELECT
         operate_time as stat_date,
         SUM(IF(success,true,1)) as success,

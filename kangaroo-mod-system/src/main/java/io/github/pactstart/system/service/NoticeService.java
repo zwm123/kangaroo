@@ -10,7 +10,7 @@ public interface NoticeService {
      *
      * @param sendDto
      */
-    void sendMemberNotice(MemberNoticeSendDto sendDto);
+    void sendMemberNotice(MemberNoticeSendDto memberNoticeSendDto);
 
     /**
      * 会员消息已读

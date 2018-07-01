@@ -26,9 +26,9 @@
         order by create_time DESC
     </select>
 
-    <select id="queryMyPlatformNotice" parameterType="Map" resultType="com.ufang.notice.entity.PlatformNotice">
+    <select id="queryMyPlatformNotice" parameterType="Map" resultMap="BaseResultMap">
         select t1.*,IF(ISNULL(t2.member_id),false,true) as readed from platform_notice t1
-        left join notice_readed t2 on t1.id = platform_notice_id and t2.member_id = #{memberId}
+        left join platform_notice_readed t2 on t1.id = platform_notice_id and t2.member_id = #{memberId}
         <where>
             t1.status = #{status}
             <if test="readed != null">
@@ -48,7 +48,7 @@
 
     <select id="countUnreadByMemberId" parameterType="Map" resultType="Integer">
          select count(0) as count from platform_notice t1
-        left join notice_readed t2 on t1.id = platform_notice_id and t2.member_id = #{memberId}
+        left join platform_notice_readed t2 on t1.id = platform_notice_id and t2.member_id = #{memberId}
         where t2.member_id IS NULL
     </select>
 </mapper>

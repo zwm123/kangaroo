@@ -32,7 +32,7 @@ public class ConfigComponent implements ApplicationListener<ContextRefreshedEven
     }
 
     public void reload() {
-        if (configService != null) {
+        if (configService == null) {
             logger.warn("未配置ConfigService Bean");
             return;
         }

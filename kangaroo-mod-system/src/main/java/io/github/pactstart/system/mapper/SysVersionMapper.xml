@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ufang.config.dao.SysVersionMapper">
-    <resultMap id="BaseResultMap" type="com.ufang.config.entity.SysVersion">
+<mapper namespace="io.github.pactstart.system.dao.SysVersionMapper">
+    <resultMap id="BaseResultMap" type="io.github.pactstart.system.entity.SysVersion">
         <!--
           WARNING - @mbg.generated
         -->

@@ -28,7 +28,7 @@ public class Swagger2Config {
                 .groupName("系统API接口文档")
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.ufang.admin.system.controller"))
+                .apis(RequestHandlerSelectors.basePackage("io.github.pactstart.admin.system.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

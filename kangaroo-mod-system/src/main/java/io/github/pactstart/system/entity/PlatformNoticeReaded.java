@@ -3,8 +3,8 @@ package io.github.pactstart.system.entity;
 import javax.persistence.*;
 import java.util.Date;
 
-@Table(name = "notice_readed")
-public class NoticeReaded {
+@Table(name = "platform_notice_readed")
+public class PlatformNoticeReaded {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer id;

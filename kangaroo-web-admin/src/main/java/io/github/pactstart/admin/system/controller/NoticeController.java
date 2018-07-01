@@ -26,6 +26,7 @@ import javax.validation.Valid;
 @RequestMapping(value = "/notice", method = RequestMethod.POST, consumes = "application/json")
 @RestController
 public class NoticeController {
+
     @Autowired
     private NoticeService noticeService;
 

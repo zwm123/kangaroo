@@ -13,12 +13,12 @@ import io.github.pactstart.commonutils.JsonUtils;
 import io.github.pactstart.jpush.autoconfigure.JPushService;
 import io.github.pactstart.jpush.autoconfigure.PushObject;
 import io.github.pactstart.system.dao.MemberNoticeMapper;
-import io.github.pactstart.system.dao.NoticeReadedMapper;
 import io.github.pactstart.system.dao.PlatformNoticeMapper;
+import io.github.pactstart.system.dao.PlatformNoticeReadedMapper;
 import io.github.pactstart.system.dto.*;
 import io.github.pactstart.system.entity.MemberNotice;
-import io.github.pactstart.system.entity.NoticeReaded;
 import io.github.pactstart.system.entity.PlatformNotice;
+import io.github.pactstart.system.entity.PlatformNoticeReaded;
 import io.github.pactstart.system.enums.MemberNoticeStatusEnum;
 import io.github.pactstart.system.enums.NoticeTypeEnum;
 import io.github.pactstart.system.enums.PlatformNoticeStatusEnum;
@@ -43,15 +43,14 @@ public class NoticeServiceImpl implements NoticeService {
     private PlatformNoticeMapper platformNoticeMapper;
 
     @Autowired
-    private NoticeReadedMapper noticeReadedMapper;
+    private PlatformNoticeReadedMapper platformNoticeReadedMapper;
 
     @Autowired
     private JPushService jPushService;
 
-    @Autowired
     @Override
-    public void sendMemberNotice(MemberNoticeSendDto sendDto) {
-        MemberNotice memberNotice = MapperUtils.map(sendDto, MemberNotice.class);
+    public void sendMemberNotice(MemberNoticeSendDto memberNoticeSendDto) {
+        MemberNotice memberNotice = MapperUtils.map(memberNoticeSendDto, MemberNotice.class);
         memberNotice.setReaded(false);
         memberNotice.setDel(false);
         memberNotice.setStatus(MemberNoticeStatusEnum.SENDING.getValue());
@@ -61,8 +60,8 @@ public class NoticeServiceImpl implements NoticeService {
         Map<String, Object> extras = Maps.newHashMap();
         extras.put("bizType", memberNotice.getBizType());
         extras.put("showType", memberNotice.getShowType());
-        extras.put("noticeType", sendDto.getNoticeType());
-        boolean result = sendJpush(getAlias(sendDto.getMemberId()), sendDto.getTitle(), JsonUtils.obj2String(sendDto.getContent()), extras);
+        extras.put("noticeType", memberNoticeSendDto.getNoticeType());
+        boolean result = sendJpush(getAlias(memberNoticeSendDto.getMemberId()), memberNoticeSendDto.getTitle(), JsonUtils.obj2String(memberNoticeSendDto.getContent()), extras);
 
         memberNoticeMapper.updateStatus(memberNotice.getId(), result ? MemberNoticeStatusEnum.SEND_SUCCESS.getValue() : MemberNoticeStatusEnum.SEND_FAIL.getValue());
     }
@@ -130,12 +129,12 @@ public class NoticeServiceImpl implements NoticeService {
             throw new ApplicationException(ResponseCode.INVALID_PARAM, "平台通知不存在");
         }
 
-        Example example = new Example(NoticeReaded.class);
+        Example example = new Example(PlatformNoticeReaded.class);
         example.createCriteria().andEqualTo("platformNoticeId", readDto.getPlatformNoticeId()).andEqualTo("memberId", readDto.getMemberId());
-        if (noticeReadedMapper.selectCountByExample(example) == 0) {
-            NoticeReaded noticeReaded = MapperUtils.map(readDto, NoticeReaded.class);
+        if (platformNoticeReadedMapper.selectCountByExample(example) == 0) {
+            PlatformNoticeReaded noticeReaded = MapperUtils.map(readDto, PlatformNoticeReaded.class);
             noticeReaded.setCreateTime(new Date());
-            noticeReadedMapper.insert(noticeReaded);
+            platformNoticeReadedMapper.insert(noticeReaded);
         }
 
         return MapperUtils.map(platformNotice, PlatformNoticeDto.class);
@@ -170,11 +169,11 @@ public class NoticeServiceImpl implements NoticeService {
     public void readPlatformNoticeAll(Integer memberId) {
         List<PlatformNotice> platformNoticeList = platformNoticeMapper.queryMyPlatformNotice(memberId, PlatformNoticeStatusEnum.PUBLISH.getValue(), false);
         for (PlatformNotice platformNotice : platformNoticeList) {
-            NoticeReaded noticeReaded = new NoticeReaded();
+            PlatformNoticeReaded noticeReaded = new PlatformNoticeReaded();
             noticeReaded.setMemberId(memberId);
             noticeReaded.setPlatformNoticeId(platformNotice.getId());
             noticeReaded.setCreateTime(new Date());
-            noticeReadedMapper.insert(noticeReaded);
+            platformNoticeReadedMapper.insert(noticeReaded);
         }
     }
 

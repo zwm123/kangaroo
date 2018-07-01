@@ -33,6 +33,10 @@
             <artifactId>redis-mq-spring-boot-starter</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>cn.jpush.api</groupId>
+            <artifactId>jpush-client</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
