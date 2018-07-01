@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 
 public class IpUtils {
 
-    private static final String UNKNOW = "unknown";
+    private static final String UNKNOWN = "unknown";
 
     private IpUtils() {
         throw new IllegalAccessError("Utility class");

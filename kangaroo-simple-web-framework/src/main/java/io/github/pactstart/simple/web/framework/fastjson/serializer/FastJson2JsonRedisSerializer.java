@@ -1,6 +1,6 @@
 package io.github.pactstart.simple.web.framework.fastjson.serializer;
 
-import com.ufang.commonutils.JsonUtils;
+import io.github.pactstart.commonutils.JsonUtils;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 

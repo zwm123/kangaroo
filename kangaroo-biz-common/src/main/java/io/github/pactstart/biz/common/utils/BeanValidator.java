@@ -3,8 +3,8 @@ package io.github.pactstart.biz.common.utils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ufang.common.errorcode.ResponseCode;
-import com.ufang.common.exception.ApplicationException;
+import io.github.pactstart.biz.common.errorcode.ResponseCode;
+import io.github.pactstart.biz.common.exception.ApplicationException;
 import org.apache.commons.collections.MapUtils;
 
 import javax.validation.ConstraintViolation;
