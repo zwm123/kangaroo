@@ -11,6 +11,7 @@ kangaroo-parent maven父项目，全局依赖管理和插件管理
 4. redis-mq-spring-boot-starter 基于spring-data-redis的简易封装，为你的应用快速提供Redis的MQ功能。
 5. aliyun-mq-spring-boot-starter 阿里云消息队列服务通过spring-boot-starter的方式封装。
 6. cache-spring-boot-starter 对外暴露统一的缓存接口，通过配置决定缓存的实现方式。
+7. aliyun-oss-spring-boot-starter 阿里云对象存储服务通过spring-boot-starter的方式封装。
 
 ### 基础组件
 1. kangaroo-basedao 基于tkmybatis和pagehelper提供数据操作基类和分页支持。
@@ -19,3 +20,7 @@ kangaroo-parent maven父项目，全局依赖管理和插件管理
 4. kangaroo-httputils 提供http相关的工具类。
 5. kangaroo-biz-common 业务基础组件，定义了基础的全局异常码和全局异常。
 6. kangaroo-simple-web-framework 封装web应用相关常用基础配置和工具类。
+7、kangaroo-mod-system 封装web后台常用的功能组件，例如：RBAC权限管理、系统配置、版本管理、短信管理、通知管理、文件上传
+
+### 其他
+kangaroo-web-admin 管理系统demo

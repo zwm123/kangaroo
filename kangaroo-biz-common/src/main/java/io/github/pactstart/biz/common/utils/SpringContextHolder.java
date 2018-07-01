@@ -1,6 +1,6 @@
 package io.github.pactstart.biz.common.utils;
 
-import com.ufang.common.enums.Env;
+import io.github.pactstart.biz.common.enums.Env;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Environment;

@@ -88,6 +88,31 @@
                 <version>1.0</version>
             </dependency>
             <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>cache-spring-boot-starter</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>aliyun-sms-spring-boot-starter</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>aliyun-sts-spring-boot-starter</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>aliyun-oss-spring-boot-starter</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>jpush-spring-boot-starter</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>

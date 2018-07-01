@@ -1,0 +1,12 @@
+{
+  "Statement": [
+    {
+      "Action": [
+        "oss:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": ["acs:oss:*:*:*"]
+    }
+  ],
+  "Version": "1"
+}
