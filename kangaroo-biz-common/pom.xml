@@ -14,10 +14,6 @@
     <version>1.0</version>
 
     <dependencies>
-        <dependency>
-            <groupId>io.github.pactstart</groupId>
-            <artifactId>kangaroo-basedao</artifactId>
-        </dependency>
         <!-- fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>

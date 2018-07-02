@@ -75,7 +75,6 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
         data.put("url", url);
         data.put("ip", IpUtils.getClientIpAddr(request));
         data.put("device", request.getHeader("device"));
-        data.put("citycode", request.getHeader("citycode"));
         AuthenticationInfo authenticationInfo = RequestHolder.getAuthenticationInfo();
         if (authenticationInfo != null) {
             data.put("userId", authenticationInfo.getUserId());
