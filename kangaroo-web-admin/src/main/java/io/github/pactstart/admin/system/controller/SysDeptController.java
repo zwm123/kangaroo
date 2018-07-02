@@ -17,7 +17,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -48,7 +51,7 @@ public class SysDeptController {
 
     @ApiOperation(value = "修改部门")
     @ApiImplicitParam(name = "param", value = "部门参数", required = true, dataType = "DeptForm")
-    @PutMapping("/update.json")
+    @PostMapping("/update.json")
     public ResponseCode update(@Valid @RequestBody DeptForm deptForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
         SysDeptDto sysDeptDto = MapperUtils.map(deptForm, SysDeptDto.class);
@@ -60,7 +63,7 @@ public class SysDeptController {
 
     @ApiOperation(value = "删除部门")
     @ApiImplicitParam(name = "param", value = "部门id", required = true, dataType = "IdForm")
-    @DeleteMapping("/delete.json")
+    @PostMapping("/delete.json")
     public ResponseCode delete(@Valid @RequestBody IdForm idForm, BindingResult br) {
         ParamValidator.validate(br);
         IdDto idDto = MapperUtils.map(idForm, IdDto.class);
@@ -69,7 +72,7 @@ public class SysDeptController {
     }
 
     @ApiOperation(value = "获取部门树形结构")
-    @GetMapping("/tree.json")
+    @PostMapping("/tree.json")
     public List<SysDeptAdaptDto> tree() {
         return sysTreeService.deptTree();
     }

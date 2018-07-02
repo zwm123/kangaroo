@@ -17,7 +17,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -48,7 +51,7 @@ public class SysAclModuleController {
 
     @ApiOperation(value = "修改权限模块")
     @ApiImplicitParam(name = "param", value = "权限模块参数", required = true, dataType = "AclModuleForm")
-    @PutMapping("/update.json")
+    @PostMapping("/update.json")
     public ResponseCode updateAclModule(@Valid @RequestBody AclModuleForm aclModuleForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
         SysAclModuleDto sysAclModuleDto = MapperUtils.map(aclModuleForm, SysAclModuleDto.class);
@@ -59,14 +62,14 @@ public class SysAclModuleController {
     }
 
     @ApiOperation(value = "获取权限模块树")
-    @GetMapping("/tree.json")
+    @PostMapping("/tree.json")
     public List<SysAclModuleAdaptDto> tree() {
         return sysTreeService.aclModuleTree();
     }
 
     @ApiOperation(value = "删除权限模块")
     @ApiImplicitParam(name = "param", value = "权限模块id", required = true, dataType = "IdForm")
-    @DeleteMapping("/delete.json")
+    @PostMapping("/delete.json")
     public ResponseCode delete(@Valid @RequestBody IdForm idForm, BindingResult br) {
         ParamValidator.validate(br);
         IdDto idDto = MapperUtils.map(idForm, IdDto.class);

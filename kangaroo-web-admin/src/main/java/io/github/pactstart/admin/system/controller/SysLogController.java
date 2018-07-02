@@ -17,7 +17,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -44,8 +47,8 @@ public class SysLogController {
 
     @ApiOperation(value = "分页查询系统日志")
     @ApiImplicitParam(name = "param", value = "查询条件", required = true, dataType = "SearchLogForm")
-    @GetMapping("/page.json")
-    public PageResultDto<SysLogDto> searchPage(@Valid SearchLogForm searchLogForm, BindingResult br) {
+    @PostMapping("/page.json")
+    public PageResultDto<SysLogDto> searchPage(@Valid @RequestBody SearchLogForm searchLogForm, BindingResult br) {
         ParamValidator.validate(br);
         LogQueryDto logQueryDto = MapperUtils.map(searchLogForm, LogQueryDto.class);
         return sysLogService.query(logQueryDto);

@@ -19,7 +19,10 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -39,15 +42,15 @@ public class SmsController {
     private SmsTemplateService smsTemplateService;
 
     @ApiOperation(value = "获取所有的短信模板")
-    @GetMapping("/template/list.json")
+    @PostMapping("/template/list.json")
     public List<SmsTemplateDto> getAllSmsTemplate() {
         return smsTemplateService.getAll();
     }
 
     @ApiOperation(value = "分页查询短信记录")
     @ApiImplicitParam(name = "param", value = "短信记录查询参数", required = true, dataType = "SmsRecordQueryForm")
-    @GetMapping("/sendRecord/page.json")
-    public PageResultDto<SmsRecordDto> query(@Valid SmsRecordQueryForm queryForm, BindingResult br) {
+    @PostMapping("/sendRecord/page.json")
+    public PageResultDto<SmsRecordDto> query(@Valid @RequestBody SmsRecordQueryForm queryForm, BindingResult br) {
         ParamValidator.validate(br);
         SmsRecordQueryDto queryDto = MapperUtils.map(queryForm, SmsRecordQueryDto.class);
         return smsRecordService.query(queryDto);
@@ -84,8 +87,8 @@ public class SmsController {
 
     @ApiOperation(value = "根据指定日期范围查询每日短信发送统计")
     @ApiImplicitParam(name = "param", value = "日期范围", required = true, dataType = "DateBetweenForm")
-    @GetMapping("/dayCount/list.json")
-    public List<SmsDayCountAdaptDto> list(@Valid DateBetweenForm param, BindingResult br) {
+    @PostMapping("/dayCount/list.json")
+    public List<SmsDayCountAdaptDto> list(@Valid @RequestBody DateBetweenForm param, BindingResult br) {
         ParamValidator.validate(br);
         SmsDayCountQueryDto queryDto = MapperUtils.map(param, SmsDayCountQueryDto.class);
         return smsDayCountService.query(queryDto);

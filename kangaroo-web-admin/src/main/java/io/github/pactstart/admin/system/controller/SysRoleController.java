@@ -26,7 +26,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -69,7 +72,7 @@ public class SysRoleController {
 
     @ApiOperation(value = "修改角色")
     @ApiImplicitParam(name = "param", value = "角色参数", required = true, dataType = "RoleForm")
-    @PutMapping("/update.json")
+    @PostMapping("/update.json")
     public ResponseCode updateRole(@Valid @RequestBody RoleForm roleForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
         SysRoleDto sysRoleDto = MapperUtils.map(roleForm, SysRoleDto.class);
@@ -81,7 +84,7 @@ public class SysRoleController {
 
     @ApiOperation(value = "删除角色")
     @ApiImplicitParam(name = "param", value = "角色id", required = true, dataType = "RoleIdParam")
-    @DeleteMapping("/delete.json")
+    @PostMapping("/delete.json")
     public ResponseCode deleteRole(@Valid @RequestBody IdForm param, BindingResult br) {
         ParamValidator.validate(br);
         IdDto idDto = MapperUtils.map(param, IdDto.class);
@@ -90,15 +93,15 @@ public class SysRoleController {
     }
 
     @ApiOperation(value = "获取所有角色")
-    @GetMapping("/list.json")
+    @PostMapping("/list.json")
     public List<SysRole> list() {
         return sysRoleService.getAll();
     }
 
     @ApiOperation(value = "获取当前用户的角色权限树")
     @ApiImplicitParam(name = "param", value = "角色id", required = true, dataType = "RoleIdParam")
-    @GetMapping("/roleTree.json")
-    public List<SysAclModuleAdaptDto> roleTree(@Valid RoleIdForm roleIdForm, BindingResult br) {
+    @PostMapping("/roleTree.json")
+    public List<SysAclModuleAdaptDto> roleTree(@Valid @RequestBody RoleIdForm roleIdForm, BindingResult br) {
         ParamValidator.validate(br);
         return sysTreeService.roleTree(roleIdForm.getRoleId(), RequestHolder.getAuthenticationInfo().getUserId());
     }
@@ -129,8 +132,8 @@ public class SysRoleController {
 
     @ApiOperation(value = "获取拥有此角色和不拥有此角色的所有用户")
     @ApiImplicitParam(name = "param", value = "角色id", required = true, dataType = "RoleIdForm")
-    @GetMapping("/users.json")
-    public ResponseCode users(@Valid RoleIdForm roleIdForm, BindingResult br) {
+    @PostMapping("/users.json")
+    public ResponseCode users(@Valid @RequestBody RoleIdForm roleIdForm, BindingResult br) {
         ParamValidator.validate(br);
         List<SysUser> selectedUserList = sysRoleUserService.getListByRoleId(roleIdForm.getRoleId());
         List<SysUser> allUserList = sysUserService.getAll();

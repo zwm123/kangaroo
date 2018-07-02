@@ -34,7 +34,7 @@ public class UploadController {
 
     @ApiOperation(value = "获取上传policy")
     @ApiImplicitParam(name = "param", value = "上传场景", required = true, dataType = "UploadPathForm")
-    @PostMapping(value = "/getOssSecurityToken.json")
+    @PostMapping(value = "/getOSSPostPolicy.json")
     public ResponseCode getOssSecurityToken(@Valid @RequestBody UploadPathForm uploadPathForm, BindingResult bindingResult, HttpServletRequest request) throws Exception {
         ParamValidator.validate(bindingResult);
         UploadPathDto uploadPathDto = MapperUtils.map(uploadPathForm, UploadPathDto.class);
@@ -54,9 +54,9 @@ public class UploadController {
         return ResponseCode.buildResponse(postPolicy);
     }
 
-    @ApiOperation(value = "App获取上传凭证")
+    @ApiOperation(value = "获取上传OSS凭证")
     @ApiImplicitParam(name = "param", value = "App获取上传凭证参数", required = true, dataType = "UploadPathForm")
-    @PostMapping(value = "/getAppOssSecurityToken.json")
+    @PostMapping(value = "/getOssSecurityToken.json")
     public ResponseCode getAppOssSecurityToken(@RequestBody @Valid UploadPathForm uploadPathForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);
         UploadPathDto uploadPathDto = MapperUtils.map(uploadPathForm, UploadPathDto.class);

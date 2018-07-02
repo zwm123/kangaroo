@@ -23,7 +23,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -58,7 +61,7 @@ public class SysAclController {
 
     @ApiOperation(value = "修改权限点")
     @ApiImplicitParam(name = "param", value = "权限点参数", required = true, dataType = "AclForm")
-    @PutMapping(value = "/update.json")
+    @PostMapping(value = "/update.json")
     public ResponseCode updateAclModule(@RequestBody @Valid AclForm aclForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
         SysAclDto sysAclDto = MapperUtils.map(aclForm, SysAclDto.class);
@@ -70,7 +73,7 @@ public class SysAclController {
 
     @ApiOperation(value = "分页查询权限点")
     @ApiImplicitParam(name = "param", value = "查询条件", required = true, dataType = "AclQueryForm")
-    @GetMapping(value = "/page.json")
+    @PostMapping(value = "/page.json")
     public PageResultDto<SysAclDto> page(@Valid AclQueryForm aclQueryForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);
         AclQueryDto aclQueryDto = MapperUtils.map(aclQueryForm, AclQueryDto.class);
@@ -79,7 +82,7 @@ public class SysAclController {
 
     @ApiOperation(value = "删除权限点")
     @ApiImplicitParam(name = "param", value = "权限点id", required = true, dataType = "IdForm")
-    @DeleteMapping(value = "/delete.json")
+    @PostMapping(value = "/delete.json")
     public ResponseCode delete(@RequestBody @Valid IdForm idForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);
         IdDto idDto = MapperUtils.map(idForm, IdDto.class);
@@ -89,7 +92,7 @@ public class SysAclController {
 
     @ApiOperation(value = "获取拥有某个权限点的所有角色和用户")
     @ApiImplicitParam(name = "param", value = "权限点id", required = true, dataType = "AclIdForm")
-    @GetMapping(value = "/acls.json")
+    @PostMapping(value = "/acls.json")
     public ResponseCode acls(@Valid AclIdForm aclIdForm, BindingResult br) {
         ParamValidator.validate(br);
         Map<String, Object> data = Maps.newHashMap();

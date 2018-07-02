@@ -41,7 +41,7 @@ public class SysVersionController {
         return ResponseCode.SUCCESS;
     }
 
-    @ApiOperation(value = "更新版本")
+    @ApiOperation(value = "修改版本")
     @ApiImplicitParam(name = "param", value = "", required = true, dataType = "SysVersionForm")
     @PostMapping("/update.json")
     public ResponseCode update(@RequestBody @Valid SysVersionForm param, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {

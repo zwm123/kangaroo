@@ -28,7 +28,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -97,7 +100,7 @@ public class SysUserController {
 
     @ApiOperation(value = "修改系统用户")
     @ApiImplicitParam(name = "param", value = "用户参数", required = true, dataType = "UserForm")
-    @PutMapping(value = "/update.json")
+    @PostMapping(value = "/update.json")
     public ResponseCode updateUser(@RequestBody @Valid UserForm userForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
         SysUserDto sysUserDto = MapperUtils.map(userForm, SysUserDto.class);
@@ -109,8 +112,8 @@ public class SysUserController {
 
     @ApiOperation(value = "分页查询系统用户")
     @ApiImplicitParam(name = "param", value = "查询条件", required = true, dataType = "UserQueryForm")
-    @GetMapping(value = "/page.json")
-    public PageResultDto<SysUserDto> page(@Valid UserQueryForm userQueryForm, BindingResult bindingResult) {
+    @PostMapping(value = "/page.json")
+    public PageResultDto<SysUserDto> page(@Valid @RequestBody UserQueryForm userQueryForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);
         UserQueryDto userQueryDto = MapperUtils.map(userQueryForm, UserQueryDto.class);
         return sysUserService.query(userQueryDto);
@@ -118,8 +121,8 @@ public class SysUserController {
 
     @ApiOperation(value = "获某个用户具备的角色和权限（树形结构)")
     @ApiImplicitParam(name = "param", value = "用户id", required = true, dataType = "UserIdForm")
-    @GetMapping(value = "/acl.json")
-    public ResponseCode acls(@Valid UserIdForm userIdForm, BindingResult bindingResult) {
+    @PostMapping(value = "/acl.json")
+    public ResponseCode acls(@Valid @RequestBody UserIdForm userIdForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);
         Map<String, Object> data = Maps.newHashMap();
         data.put("acls", sysTreeService.userAclTree(userIdForm.getUserId()));
