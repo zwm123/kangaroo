@@ -20,8 +20,8 @@ kangaroo-parent maven父项目，全局依赖管理和插件管理
 4. kangaroo-httputils 提供http相关的工具类。
 5. kangaroo-biz-common 业务基础组件，定义了基础的全局异常码和全局异常。
 6. kangaroo-simple-web-framework 封装web应用相关常用基础配置和工具类。
-7、kangaroo-mod-system 封装web后台常用的功能组件，例如：RBAC权限管理、系统配置、版本管理、短信管理、通知管理、文件上传
-8、kangaroo-weixin-toolkit 微信开发工具包，涵盖微信公众平台、微信开放平台
+7、kangaroo-mod-system 封装web后台常用的功能组件，例如：RBAC权限管理、系统配置、版本管理、短信管理、通知管理、文件上传。
+8、kangaroo-weixin-toolkit 微信开发工具包，涵盖微信公众平台、微信开放平台。
 9、kangaroo-service-dispatcher 一个service的代理转发的工具，可用于web和非web环境。
 
 ### 其他
