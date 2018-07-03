@@ -53,13 +53,6 @@ public @interface ServiceApiOperation {
      *
      * @return
      */
-    ServiceApiOperation.RateLimit[] rcl() default {};
-
-    @Target({})
-    @Retention(RUNTIME)
-    @interface RateLimit {
-
-
-    }
+    String[] rateLimits() default {};
 
 }

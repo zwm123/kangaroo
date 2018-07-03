@@ -50,6 +50,8 @@
         <everit.version>1.9.0</everit.version>
         <dom4j.version>2.0.1</dom4j.version>
         <jodd.version>3.7.1</jodd.version>
+        <poi.version>3.17</poi.version>
+        <googleauth.version>1.1.5</googleauth.version>
         <!-- end of really favorite tools -->
         <!-- logging -->
         <slf4j.version>1.7.12</slf4j.version>
@@ -89,6 +91,11 @@
             <dependency>
                 <groupId>io.github.pactstart</groupId>
                 <artifactId>kangaroo-commonutils</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>kangaroo-httputils</artifactId>
                 <version>1.0</version>
             </dependency>
             <dependency>
@@ -377,6 +384,11 @@
                 <artifactId>alipay-sdk-java</artifactId>
                 <version>20170829</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.wxpay</groupId>
+                <artifactId>wxpay-sdk</artifactId>
+                <version>0.0.3</version>
+            </dependency>
             <!-- jpush -->
             <dependency>
                 <groupId>cn.jpush.api</groupId>
@@ -417,6 +429,22 @@
                 <groupId>org.jodd</groupId>
                 <artifactId>jodd-core</artifactId>
                 <version>${jodd.version}</version>
+            </dependency>
+            <!-- poi -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.warrenstrange</groupId>
+                <artifactId>googleauth</artifactId>
+                <version>${googleauth.version}}</version>
             </dependency>
             <!-- junit -->
             <dependency>
