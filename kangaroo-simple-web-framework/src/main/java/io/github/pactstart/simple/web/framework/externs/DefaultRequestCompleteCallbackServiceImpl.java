@@ -14,15 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class DefaultRequestCompleteCallbackServiceImpl implements RequestCompleteCallbackService {
 
     @Override
     public void callback(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex, boolean servletRequestWrapperEnabled) throws Exception {
-
-        HashMap<String, Object> data = Maps.newHashMap();
+        Map<String, Object> data = Maps.newHashMap();
         String url = request.getRequestURI().toString();
         long start = (Long) request.getAttribute(HttpInterceptor.START_TIME);
         long end = System.currentTimeMillis();
@@ -71,5 +70,20 @@ public class DefaultRequestCompleteCallbackServiceImpl implements RequestComplet
             request.removeAttribute("ex");
         }
         log.info(JsonUtils.obj2String(data));
+        call(request, response, handler, ex, servletRequestWrapperEnabled, data);
+    }
+
+    /**
+     * 模板方法，供子类覆盖
+     *
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @param servletRequestWrapperEnabled
+     * @param data
+     */
+    public void call(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex, boolean servletRequestWrapperEnabled, Map<String, Object> data) {
+
     }
 }
