@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,17 +21,17 @@ public class SettingsManager {
     static {
         InputStream in = null;
         try {
-            in = Thread.currentThread().getContextClassLoader().getResourceAsStream("weixin.properties");
+            in = SettingsManager.class.getClassLoader().getResourceAsStream("weixin.properties");
             if (in == null) {
-                throw new FileNotFoundException("wexin.properties not exists!");
+                logger.warn("wexin.properties not exists!");
+            } else {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("loading weixin.properties");
+                }
+                properties.load(new InputStreamReader(in, "utf-8"));
             }
-            if (logger.isDebugEnabled()) {
-                logger.debug("loading weixin.properties");
-            }
-            properties.load(new InputStreamReader(in, "utf-8"));
         } catch (Exception e) {
             logger.error("loading weixin.properties failed", e);
-            throw new RuntimeException("loading weixin.properties failed", e);
         } finally {
             try {
                 if (in != null) {
