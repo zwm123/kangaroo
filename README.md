@@ -13,7 +13,7 @@ kangaroo-parent maven父项目，全局依赖管理和插件管理
 6. cache-spring-boot-starter 对外暴露统一的缓存接口，通过配置决定缓存的实现方式。
 7. aliyun-oss-spring-boot-starter 阿里云对象存储服务通过spring-boot-starter的方式封装。
 8. juhe-spring-boot-starter Juhe api接口通过spring-boot-starter的方式封装，提供实名认证、银行卡认证相关接口。
-9. pay-spring-boot-starter 集成支付宝支付和微信支付，通过pring-boot-starter的方式封装。
+9. pay-spring-boot-starter 集成支付宝支付和微信支付，通过spring-boot-starter的方式封装。
 
 ### 基础组件
 1. kangaroo-basedao 基于tkmybatis和pagehelper提供数据操作基类和分页支持。
