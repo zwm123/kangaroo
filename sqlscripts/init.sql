@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2018-07-02 00:09:11
+Date: 2018-07-04 23:01:18
 */
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -143,7 +143,8 @@ CREATE TABLE `platform_notice` (
 DROP TABLE IF EXISTS `platform_notice_readed`;
 CREATE TABLE `platform_notice_readed` (
   `id`                 INT(11)  NOT NULL AUTO_INCREMENT,
-  `platform_notice_id` INT(11)  NOT NULL,
+  `platform_notice_id` INT(11)  NOT NULL
+  COMMENT '平台通知id',
   `member_id`          INT(11)  NOT NULL
   COMMENT '会员id',
   `create_time`        DATETIME NOT NULL
@@ -186,7 +187,8 @@ DROP TABLE IF EXISTS `sms_record`;
 CREATE TABLE `sms_record` (
   `id`           INT(11)      NOT NULL AUTO_INCREMENT
   COMMENT '自增长主键',
-  `template_id`  VARCHAR(50)  NOT NULL,
+  `template_id`  VARCHAR(50)  NOT NULL
+  COMMENT '短信模板id',
   `content`      VARCHAR(255) NOT NULL
   COMMENT '短信内容',
   `params`       VARCHAR(100) NOT NULL DEFAULT ''
@@ -229,6 +231,39 @@ CREATE TABLE `sms_template` (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8
   COMMENT ='短信模板';
+
+-- ----------------------------
+-- Table structure for suggestion
+-- ----------------------------
+DROP TABLE IF EXISTS `suggestion`;
+CREATE TABLE `suggestion` (
+  `id`           INT(11)       NOT NULL AUTO_INCREMENT,
+  `source`       INT(11)       NOT NULL
+  COMMENT '来源',
+  `member_id`    INT(11)       NOT NULL
+  COMMENT '用户id',
+  `contact_info` VARCHAR(255)  NOT NULL
+  COMMENT '联系方式',
+  `problem_type` INT(11)       NOT NULL
+  COMMENT '问题类型(0-功能异常，1-设计不合理，2-其他问题)',
+  `content`      VARCHAR(255)  NOT NULL
+  COMMENT '建议内容',
+  `attachs`      VARCHAR(1024) NOT NULL
+  COMMENT '附件',
+  `status`       INT(11)       NOT NULL
+  COMMENT '状态',
+  `create_time`  DATETIME      NOT NULL
+  COMMENT '创建时间',
+  `reply`        VARCHAR(255)  NOT NULL
+  COMMENT '回复',
+  `operator`     VARCHAR(20)   NOT NULL
+  COMMENT '处理人',
+  `operate_time` DATETIME      NOT NULL
+  COMMENT '处理时间',
+  PRIMARY KEY (`id`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
 
 -- ----------------------------
 -- Table structure for sys_acl
@@ -345,7 +380,6 @@ CREATE TABLE `sys_log` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  AUTO_INCREMENT = 7
   DEFAULT CHARSET = utf8;
 
 -- ----------------------------
@@ -355,7 +389,8 @@ DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `id`           INT(11)     NOT NULL AUTO_INCREMENT
   COMMENT '角色id',
-  `name`         VARCHAR(20) NOT NULL,
+  `name`         VARCHAR(20) NOT NULL
+  COMMENT '角色名称',
   `type`         INT(11)     NOT NULL DEFAULT '1'
   COMMENT '角色的类型，1：管理员角色，2：其他',
   `status`       INT(11)     NOT NULL DEFAULT '1'

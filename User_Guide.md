@@ -1,7 +1,7 @@
 ## User Guide
 If you want need web functionality, follow below steps:
 
-1. add a maven dependency in you pom.xml
+1. add a maven dependency in your pom.xml
 ```xml
 <dependency>
     <groupId>io.github.pactstart</groupId>

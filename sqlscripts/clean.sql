@@ -16,3 +16,4 @@ TRUNCATE config_log;
 TRUNCATE platform_notice;
 TRUNCATE member_notice;
 TRUNCATE notice_readed;
+TRUNCATE suggestion;
