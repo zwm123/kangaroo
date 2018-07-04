@@ -21,7 +21,7 @@ public class Application {
 
 }
 ```
-3. config example in application.properties:
+3. supported config in application.properties:
 ```properteis
 application.web.framework.servlet-request-wrapper-enabled=true
 application.web.framework.enable-ajax=false
@@ -50,12 +50,13 @@ If you want integrate a manage backend quickly , follow below steps:
 ```xml
 <dependency>
     <groupId>io.github.pactstart</groupId>
-    <artifactId>kangaroo-simple-web-framework</artifactId>
+    <artifactId>kangaroo-web-admin</artifactId>
     <version>x.x.x</version>
 </dependency>
 ```
 2. config scann base packages (important)
 ```java
+//@EnableJPush
 @SpringBootApplication
 @ComponentScan(basePackages = {"io.github.pactstart","your.other.scann.packages"})
 @MapperScan(basePackages = {"io.github.pactstart.system.dao","your.other.mapper.locations"})
@@ -67,7 +68,7 @@ public class Application {
 
 }
 ```
-3. add @EnableJPush annotation on your Application.class if you need push notification to user.
+3. execute init.sql
 
 4. config swagger api doc
 ```java
