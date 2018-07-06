@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 import java.util.Map;
@@ -27,6 +28,9 @@ public class SmsSendParamDto extends OperateDto {
 
     @NotNull(message = "短信签名不能不能为空")
     private String signName;
+
+    @Range(min = 4, max = 6, message = "短信验证码长度4-6位")
+    private int codeLength = 6;
 
     private Map<String, String> params = Maps.newHashMap();
 }
