@@ -1,11 +1,12 @@
 package io.github.pactstart.admin.system.controller;
 
-import io.github.pactstart.admin.system.form.UploadPathForm;
+import io.github.pactstart.admin.adpater.KangarooWebAdapter;
+import io.github.pactstart.admin.system.form.UploadSceneForm;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
-import io.github.pactstart.biz.common.utils.MapperUtils;
 import io.github.pactstart.commonutils.Base64Utils;
 import io.github.pactstart.commonutils.JsonUtils;
 import io.github.pactstart.oss.autoconfigure.PostPolicyResponse;
+import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
 import io.github.pactstart.simple.web.framework.utils.ParamValidator;
 import io.github.pactstart.system.dto.UploadPathDto;
 import io.github.pactstart.system.service.UploadService;
@@ -32,14 +33,17 @@ public class UploadController {
     @Autowired
     private UploadService uploadService;
 
+    @Autowired
+    private KangarooWebAdapter kangarooWebAdapter;
+
     @ApiOperation(value = "获取上传policy")
     @ApiImplicitParam(name = "param", value = "上传场景", required = true, dataType = "UploadPathForm")
     @PostMapping(value = "/getOSSPostPolicy.json")
-    public ResponseCode getOssSecurityToken(@Valid @RequestBody UploadPathForm uploadPathForm, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+    public ResponseCode getOssSecurityToken(@Valid @RequestBody UploadSceneForm uploadSceneForm, BindingResult bindingResult, HttpServletRequest request, AuthenticationInfo authenticationInfo) throws Exception {
         ParamValidator.validate(bindingResult);
-        UploadPathDto uploadPathDto = MapperUtils.map(uploadPathForm, UploadPathDto.class);
+        UploadPathDto uploadPathDto = kangarooWebAdapter.beforeGetOssSecurityTokenOrPolicy(authenticationInfo, uploadSceneForm);
         PostPolicyResponse postPolicy = uploadService.getPostPolicy(uploadPathDto);
-        if (uploadPathForm.getCallback() != null && uploadPathForm.getCallback()) {
+        if (uploadSceneForm.getCallback() != null && uploadSceneForm.getCallback()) {
             Map<String, String> callbackData = new HashMap<>(6);
             //获取域名
             int endIndex = request.getRequestURL().length() - request.getRequestURI().length() + 1;
@@ -57,9 +61,9 @@ public class UploadController {
     @ApiOperation(value = "获取上传OSS凭证")
     @ApiImplicitParam(name = "param", value = "App获取上传凭证参数", required = true, dataType = "UploadPathForm")
     @PostMapping(value = "/getOssSecurityToken.json")
-    public ResponseCode getAppOssSecurityToken(@RequestBody @Valid UploadPathForm uploadPathForm, BindingResult bindingResult) {
+    public ResponseCode getAppOssSecurityToken(@RequestBody @Valid UploadSceneForm uploadSceneForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo) {
         ParamValidator.validate(bindingResult);
-        UploadPathDto uploadPathDto = MapperUtils.map(uploadPathForm, UploadPathDto.class);
+        UploadPathDto uploadPathDto = kangarooWebAdapter.beforeGetOssSecurityTokenOrPolicy(authenticationInfo, uploadSceneForm);
         return ResponseCode.buildResponse(uploadService.getOssSecurityToken(uploadPathDto));
     }
 }

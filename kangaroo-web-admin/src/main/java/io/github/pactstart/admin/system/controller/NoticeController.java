@@ -1,12 +1,15 @@
 package io.github.pactstart.admin.system.controller;
 
+import io.github.pactstart.admin.adpater.KangarooWebAdapter;
 import io.github.pactstart.admin.system.form.MemberNoticeQueryForm;
 import io.github.pactstart.admin.system.form.PlatformNoticeAddForm;
 import io.github.pactstart.admin.system.form.PlatformNoticeQueryForm;
 import io.github.pactstart.admin.system.form.PlatformNoticeSendForm;
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
+import io.github.pactstart.biz.common.exception.ApplicationException;
 import io.github.pactstart.biz.common.utils.MapperUtils;
+import io.github.pactstart.commonutils.ValidUtils;
 import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
 import io.github.pactstart.simple.web.framework.utils.IpUtils;
 import io.github.pactstart.simple.web.framework.utils.ParamValidator;
@@ -33,6 +36,9 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
+    @Autowired
+    private KangarooWebAdapter kangarooWebAdapter;
+
     @ApiOperation(value = "添加平台通知")
     @ApiImplicitParam(name = "param", value = "添加条件", required = true, dataType = "PlatformNoticeAddForm")
     @PostMapping("/platform/add.json")
@@ -50,7 +56,12 @@ public class NoticeController {
     @PostMapping("/platform/send.json")
     public ResponseCode sendPlatformNotice(@RequestBody @Valid PlatformNoticeSendForm platformNoticeSendForm, BindingResult br) {
         ParamValidator.validate(br);
-        PlatformNoticeSendDto sendDto = MapperUtils.map(platformNoticeSendForm, PlatformNoticeSendDto.class);
+        PlatformNoticeSendDto sendDto = new PlatformNoticeSendDto();
+        sendDto.setPlatformNoticeId(platformNoticeSendForm.getId());
+        sendDto.setMemberIdList(kangarooWebAdapter.beforeSendPlatformNotice());
+        if (!ValidUtils.isValid(sendDto.getMemberIdList())) {
+            throw new ApplicationException(ResponseCode.NON_SUPPORTED_OPER, "未找到任何目标用户");
+        }
         noticeService.sendPlatformNotice(sendDto);
         return ResponseCode.SUCCESS;
     }

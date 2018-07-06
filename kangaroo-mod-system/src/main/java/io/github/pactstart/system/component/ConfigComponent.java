@@ -37,16 +37,18 @@ public class ConfigComponent implements ApplicationListener<ContextRefreshedEven
             return;
         }
 
-        List<ConfigDto> sysConfigList = configService.getAll();
-        if (ValidUtils.isValid(sysConfigList)) {
-            logger.warn("未加载到任何配置");
-        }
-
         if (mapping == null) {
             mapping = new ConcurrentHashMap<>();
         } else {
             mapping.clear();
         }
+
+        List<ConfigDto> sysConfigList = configService.getAll();
+        if (!ValidUtils.isValid(sysConfigList)) {
+            logger.warn("未加载到任何配置");
+            return;
+        }
+
         for (ConfigDto sysConfig : sysConfigList) {
             if (!mapping.containsKey(sysConfig.getNamespace())) {
                 mapping.put(sysConfig.getNamespace(), new HashMap<>());

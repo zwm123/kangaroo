@@ -88,7 +88,10 @@
      -->
 
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) --><!-- 6 -->
-        <table tableName="sys_%">
+        <!--  <table tableName="sys_%">
+              <generatedKey column="id" sqlStatement="Mysql"/>
+          </table>-->
+        <table tableName="suggestion">
             <generatedKey column="id" sqlStatement="Mysql"/>
         </table>
     </context>

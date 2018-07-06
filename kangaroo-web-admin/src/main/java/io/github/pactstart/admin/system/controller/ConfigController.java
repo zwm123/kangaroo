@@ -1,5 +1,6 @@
 package io.github.pactstart.admin.system.controller;
 
+import io.github.pactstart.admin.adpater.KangarooWebAdapter;
 import io.github.pactstart.admin.system.form.ConfigAddForm;
 import io.github.pactstart.admin.system.form.ConfigLogQueryForm;
 import io.github.pactstart.admin.system.form.ConfigQueryForm;
@@ -10,6 +11,7 @@ import io.github.pactstart.biz.common.utils.MapperUtils;
 import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
 import io.github.pactstart.simple.web.framework.utils.IpUtils;
 import io.github.pactstart.simple.web.framework.utils.ParamValidator;
+import io.github.pactstart.system.component.ConfigComponent;
 import io.github.pactstart.system.dto.*;
 import io.github.pactstart.system.service.ConfigService;
 import io.swagger.annotations.Api;
@@ -32,6 +34,20 @@ public class ConfigController {
 
     @Autowired
     private ConfigService configService;
+
+    @Autowired
+    private KangarooWebAdapter kangarooWebAdapter;
+
+    @Autowired
+    private ConfigComponent configComponent;
+
+    @ApiOperation(value = "刷新配置")
+    @PostMapping("/refresh.json")
+    public ResponseCode refresh() {
+        configComponent.reload();
+        kangarooWebAdapter.afterConfigReload();
+        return ResponseCode.SUCCESS;
+    }
 
     @ApiOperation(value = "分页查询配置")
     @ApiImplicitParam(name = "param", value = "查询条件", required = true, dataType = "ConfigQueryForm")
@@ -62,7 +78,10 @@ public class ConfigController {
         ConfigUpdateDto configUpdateDto = MapperUtils.map(param, ConfigUpdateDto.class);
         configUpdateDto.setOperator(authenticationInfo.getUserName());
         configUpdateDto.setOperateIp(IpUtils.getClientIpAddr(request));
-        configService.update(configUpdateDto);
+
+        ConfigDto configDto = configService.getById(param.getId());
+        kangarooWebAdapter.afterUpdateConfig(configDto);
+
         return ResponseCode.SUCCESS;
     }
 

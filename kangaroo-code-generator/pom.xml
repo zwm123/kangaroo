@@ -28,7 +28,7 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.5</version>
                 <configuration>
-                    <configurationFile>src/main/resources/db2java/sms/generatorConfig.xml</configurationFile>
+                    <configurationFile>src/main/resources/db2java/system/generatorConfig.xml</configurationFile>
                     <!--允许覆盖生成的文件-->
                     <overwrite>true</overwrite>
                     <!--允许移动生成的文件-->
