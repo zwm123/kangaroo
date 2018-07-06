@@ -69,7 +69,12 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
 
     @Override
     public SmsSendResultDto sendValidateSms(SmsSendParamDto smsSendParamDto) {
-        String code = DataUtils.numRandomGenerator(6);
+        String code = null;
+        if (isRealSendSms()) {
+            code = DataUtils.numRandomGenerator(6);
+        } else {
+            code = "8888888";
+        }
         if (smsSendParamDto.getParams() == null) {
             smsSendParamDto.setParams(Maps.newHashMap());
         }
