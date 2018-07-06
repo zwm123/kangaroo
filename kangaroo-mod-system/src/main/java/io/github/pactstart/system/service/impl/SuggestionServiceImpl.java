@@ -6,6 +6,7 @@ import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.exception.ApplicationException;
 import io.github.pactstart.biz.common.utils.PageUtils;
+import io.github.pactstart.commonutils.ValidUtils;
 import io.github.pactstart.system.dao.SuggestionMapper;
 import io.github.pactstart.system.dto.SuggestionDto;
 import io.github.pactstart.system.dto.SuggestionQueryDto;
@@ -27,8 +28,12 @@ public class SuggestionServiceImpl implements SuggestionService {
     public void add(SuggestionDto suggestionDto) {
         Suggestion suggestion = Suggestion.builder().source(suggestionDto.getSource()).memberId(suggestionDto.getMemberId()).contactInfo(suggestionDto.getContactInfo())
                 .problemType(suggestionDto.getProblemType()).content(suggestionDto.getContent()).attachs(suggestionDto.getAttachs()).build();
+        if (!ValidUtils.isValid(suggestion.getAttachs())) {
+            suggestion.setAttachs("");
+        }
         suggestion.setCreateTime(new Date());
         suggestion.setStatus(SuggestionStatusEnum.PENDING_HANDLE.getValue());
+        suggestion.setReply("");
         suggestion.setOperator("");
         suggestion.setOperateTime(new Date());
         suggestionMapper.insertSelective(suggestion);
