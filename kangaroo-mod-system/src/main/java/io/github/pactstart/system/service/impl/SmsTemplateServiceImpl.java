@@ -22,7 +22,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     @Override
     public void add(SmsTemplateDto smsTemplateDto) {
         SmsTemplate smsTemplate = findByTemplateId(smsTemplateDto.getTemplateId());
-        if (smsTemplate == null) {
+        if (smsTemplate != null) {
             throw new ApplicationException(ResponseCode.INVALID_PARAM, "模板Id已存在");
         }
         smsTemplate = MapperUtils.map(smsTemplateDto, SmsTemplate.class);
