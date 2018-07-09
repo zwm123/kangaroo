@@ -1,11 +1,11 @@
 package io.github.pactstart.admin.system.controller;
 
-import io.github.pactstart.admin.auth.AdminAuthorizationInfo;
 import io.github.pactstart.admin.system.form.SuggestionHandleForm;
 import io.github.pactstart.admin.system.form.SuggestionQueryForm;
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.utils.MapperUtils;
+import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
 import io.github.pactstart.simple.web.framework.utils.ParamValidator;
 import io.github.pactstart.system.dto.SuggestionDto;
 import io.github.pactstart.system.dto.SuggestionQueryDto;
@@ -42,10 +42,10 @@ public class SuggestionController {
     @ApiOperation("处理用户建议或反馈")
     @ApiImplicitParam(name = "handleForm", value = "处理参数", required = true, dataType = "SuggestionHandleForm")
     @PostMapping("/handle.json")
-    public ResponseCode query(@Valid @RequestBody SuggestionHandleForm handleForm, BindingResult bindingResult, AdminAuthorizationInfo adminAuthorizationInfo) {
+    public ResponseCode handle(@Valid @RequestBody SuggestionHandleForm handleForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo) {
         ParamValidator.validate(bindingResult);
         SuggestionDto suggestionDto = MapperUtils.map(handleForm, SuggestionDto.class);
-        suggestionDto.setOperator(adminAuthorizationInfo.getUserName());
+        suggestionDto.setOperator(authenticationInfo.getUserName());
         suggestionService.handle(suggestionDto);
         return ResponseCode.SUCCESS;
     }
