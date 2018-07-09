@@ -10,6 +10,8 @@ import java.util.Date;
 @Setter
 public class SmsRecordQueryDto extends PageQueryDto {
 
+    private String templateId;
+
     private Integer scene;
 
     private String phone;
