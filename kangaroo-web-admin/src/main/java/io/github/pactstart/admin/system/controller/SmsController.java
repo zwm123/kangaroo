@@ -57,7 +57,7 @@ public class SmsController {
 
     @ApiOperation(value = "删除短信模板")
     @ApiImplicitParam(name = "param", value = "短信模板id", required = true, dataType = "SmsTemplateIdForm")
-    @PostMapping("/template/add.json")
+    @PostMapping("/template/delete.json")
     public ResponseCode deleteSmsTemplate(@Valid @RequestBody SmsTemplateIdForm smsTemplateIdForm, BindingResult br, AuthenticationInfo authenticationInfo) {
         ParamValidator.validate(br);
         smsTemplateService.deleteByTemplateId(smsTemplateIdForm.getTemplateId());
