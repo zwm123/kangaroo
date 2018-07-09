@@ -56,6 +56,6 @@ public class SuggestionServiceImpl implements SuggestionService {
         }
         Suggestion after = Suggestion.builder().id(suggestion.getId()).status(SuggestionStatusEnum.HANDLED.getValue())
                 .reply(suggestionDto.getReply()).operator(suggestionDto.getReply()).operateTime(new Date()).build();
-        suggestionMapper.updateByPrimaryKey(after);
+        suggestionMapper.updateByPrimaryKeySelective(after);
     }
 }
