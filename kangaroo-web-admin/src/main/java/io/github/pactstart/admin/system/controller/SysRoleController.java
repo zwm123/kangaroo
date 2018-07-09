@@ -107,7 +107,7 @@ public class SysRoleController {
     }
 
     @ApiOperation(value = "分配权限给角色")
-    @ApiImplicitParam(name = "param", value = "角色id和权限点id数组", required = true, dataType = "RoleAclChangeForm")
+    @ApiImplicitParam(name = "changeForm", value = "角色id和权限点id数组", required = true, dataType = "RoleAclChangeForm")
     @PostMapping("/changeAcls.json")
     public ResponseCode changeAcls(@Valid @RequestBody RoleAclChangeForm changeForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
@@ -119,7 +119,7 @@ public class SysRoleController {
     }
 
     @ApiOperation(value = "分配角色给用户")
-    @ApiImplicitParam(name = "param", value = "角色id和用户id数组", required = true, dataType = "RoleUserChangeForm")
+    @ApiImplicitParam(name = "changeForm", value = "角色id和用户id数组", required = true, dataType = "RoleUserChangeForm")
     @PostMapping("/changeUsers.json")
     public ResponseCode changeUsers(@Valid @RequestBody RoleUserChangeForm changeForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
