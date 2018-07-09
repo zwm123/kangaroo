@@ -12,4 +12,6 @@ public interface SmsTemplateService {
     List<SmsTemplateDto> getAll();
 
     SmsTemplate findByTemplateId(String templateId);
+
+    void deleteByTemplateId(String templateId);
 }

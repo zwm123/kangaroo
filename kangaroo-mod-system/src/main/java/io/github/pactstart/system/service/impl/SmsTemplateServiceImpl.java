@@ -39,4 +39,9 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     public SmsTemplate findByTemplateId(String templateId) {
         return smsTemplateMapper.selectByPrimaryKey(templateId);
     }
+
+    @Override
+    public void deleteByTemplateId(String templateId) {
+        smsTemplateMapper.deleteByPrimaryKey(templateId);
+    }
 }

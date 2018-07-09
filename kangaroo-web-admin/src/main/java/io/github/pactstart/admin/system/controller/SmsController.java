@@ -1,11 +1,14 @@
 package io.github.pactstart.admin.system.controller;
 
 import io.github.pactstart.admin.system.form.SmsRecordQueryForm;
+import io.github.pactstart.admin.system.form.SmsTemplateAddForm;
+import io.github.pactstart.admin.system.form.SmsTemplateIdForm;
 import io.github.pactstart.biz.common.dto.DateBetweenDto;
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.exception.ApplicationException;
 import io.github.pactstart.biz.common.utils.MapperUtils;
+import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
 import io.github.pactstart.simple.web.framework.common.form.DateBetweenForm;
 import io.github.pactstart.simple.web.framework.utils.ParamValidator;
 import io.github.pactstart.system.dto.*;
@@ -41,10 +44,30 @@ public class SmsController {
     @Autowired
     private SmsTemplateService smsTemplateService;
 
+    @ApiOperation(value = "添加短信模板")
+    @ApiImplicitParam(name = "param", value = "短信模板添加参数", required = true, dataType = "SmsTemplateAddForm")
+    @PostMapping("/template/add.json")
+    public ResponseCode addSmsTemplate(@Valid @RequestBody SmsTemplateAddForm smsTemplateAddForm, BindingResult br, AuthenticationInfo authenticationInfo) {
+        ParamValidator.validate(br);
+        SmsTemplateDto smsTemplateDto = MapperUtils.map(smsTemplateAddForm, SmsTemplateDto.class);
+        smsTemplateDto.setOperator(authenticationInfo.getUserName());
+        smsTemplateService.add(smsTemplateDto);
+        return ResponseCode.SUCCESS;
+    }
+
+    @ApiOperation(value = "删除短信模板")
+    @ApiImplicitParam(name = "param", value = "短信模板id", required = true, dataType = "SmsTemplateIdForm")
+    @PostMapping("/template/add.json")
+    public ResponseCode deleteSmsTemplate(@Valid @RequestBody SmsTemplateIdForm smsTemplateIdForm, BindingResult br, AuthenticationInfo authenticationInfo) {
+        ParamValidator.validate(br);
+        smsTemplateService.deleteByTemplateId(smsTemplateIdForm.getTemplateId());
+        return ResponseCode.SUCCESS;
+    }
+
     @ApiOperation(value = "获取所有的短信模板")
     @PostMapping("/template/list.json")
-    public List<SmsTemplateDto> getAllSmsTemplate() {
-        return smsTemplateService.getAll();
+    public ResponseCode getAllSmsTemplate() {
+        return ResponseCode.buildResponse(smsTemplateService.getAll());
     }
 
     @ApiOperation(value = "分页查询短信记录")
