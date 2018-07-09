@@ -1,23 +1,20 @@
 package io.github.pactrex.pay.wxpay.autoconfigure;
 
 import io.github.pactrex.pay.wxpay.WxPayService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * https://github.com/wxpay/WXPay-SDK-Java/tree/d7ecb4020780b676953ed7de58ef807bd871023f
+ * https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=11_1
  */
 @Configuration
-@EnableConfigurationProperties(WxPayConfig.class)
+@EnableConfigurationProperties(WxPayProperties.class)
 public class WxPayAutoConfiguration {
 
-    @Autowired
-    private WxPayConfig wxPayConfig;
-
     @Bean
-    public WxPayService wxPayService() throws Exception {
-        return new WxPayService(wxPayConfig);
+    public WxPayService wxPayService(WxPayProperties wxPayProperties) throws Exception {
+        return new WxPayService(new MyWxPayConfig(wxPayProperties));
     }
 }

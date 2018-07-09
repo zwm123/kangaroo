@@ -3,7 +3,7 @@ package io.github.pactrex.pay.wxpay.autoconfigure;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "pay.wxpay")
-public class WxPayConfig {
+public class WxPayProperties {
 
     private String appId;
 
@@ -12,10 +12,6 @@ public class WxPayConfig {
     private String key;
 
     private String certFile;
-
-    private int httpConnectTimeoutMs = 10000;
-
-    private int httpReadTimeoutMs = 10000;
 
     public String getAppId() {
         return appId;
@@ -47,21 +43,5 @@ public class WxPayConfig {
 
     public void setCertFile(String certFile) {
         this.certFile = certFile;
-    }
-
-    public int getHttpConnectTimeoutMs() {
-        return httpConnectTimeoutMs;
-    }
-
-    public void setHttpConnectTimeoutMs(int httpConnectTimeoutMs) {
-        this.httpConnectTimeoutMs = httpConnectTimeoutMs;
-    }
-
-    public int getHttpReadTimeoutMs() {
-        return httpReadTimeoutMs;
-    }
-
-    public void setHttpReadTimeoutMs(int httpReadTimeoutMs) {
-        this.httpReadTimeoutMs = httpReadTimeoutMs;
     }
 }
