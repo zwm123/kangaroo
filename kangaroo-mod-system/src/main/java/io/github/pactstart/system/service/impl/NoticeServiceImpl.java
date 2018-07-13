@@ -161,8 +161,9 @@ public class NoticeServiceImpl implements NoticeService {
     public int countUnReadByMemberId(Integer memberId) {
         int unreadMemberNoticeCount = memberNoticeMapper.countUnreadByMemberId(memberId);
         int readedPlatformNoticeCount = platformNoticeReadedMapper.countByMemberId(memberId);
-        int totalPaltformNoticeCount = platformNoticeMapper.countAll();
-        return unreadMemberNoticeCount + totalPaltformNoticeCount - readedPlatformNoticeCount;
+        int totalPlatformNoticeCount = platformNoticeMapper.countByStatus(PlatformNoticeStatusEnum.PUBLISH.getValue());
+        int unreadPlatformNoticeCount = totalPlatformNoticeCount > readedPlatformNoticeCount ? totalPlatformNoticeCount - readedPlatformNoticeCount : 0;
+        return unreadMemberNoticeCount + unreadPlatformNoticeCount;
     }
 
     @Transactional

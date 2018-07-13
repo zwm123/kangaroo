@@ -17,6 +17,6 @@ public interface PlatformNoticeMapper extends MyMapper<PlatformNotice> {
     @Update("update platform_notice set status=#{status} where id=#{id}")
     int updateStatus(@Param("id") Integer id, @Param("status") int status);
 
-    @Select("select count(1) from platform_notice")
-    int countAll();
+    @Select("select count(1) from platform_notice where status = #{status}")
+    int countByStatus(@Param("status") Integer status);
 }
