@@ -160,8 +160,9 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public int countUnReadByMemberId(Integer memberId) {
         int unreadMemberNoticeCount = memberNoticeMapper.countUnreadByMemberId(memberId);
-        int unreadPlatformNoticeCount = platformNoticeMapper.countUnreadByMemberId(memberId);
-        return unreadMemberNoticeCount + unreadPlatformNoticeCount;
+        int readedPlatformNoticeCount = platformNoticeReadedMapper.countByMemberId(memberId);
+        int totalPaltformNoticeCount = platformNoticeMapper.countAll();
+        return unreadMemberNoticeCount + totalPaltformNoticeCount - readedPlatformNoticeCount;
     }
 
     @Transactional

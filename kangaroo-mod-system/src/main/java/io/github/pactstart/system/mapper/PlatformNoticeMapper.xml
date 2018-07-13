@@ -46,9 +46,4 @@
         order by create_time DESC
     </select>
 
-    <select id="countUnreadByMemberId" parameterType="Map" resultType="Integer">
-         select count(0) as count from platform_notice t1
-        left join platform_notice_readed t2 on t1.id = platform_notice_id and t2.member_id = #{memberId}
-        where t2.member_id IS NULL
-    </select>
 </mapper>
