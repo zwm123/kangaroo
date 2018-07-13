@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Select;
 
 public interface PlatformNoticeReadedMapper extends MyMapper<PlatformNoticeReaded> {
 
-    @Select("select count(1) from platform_notice_readed where member_id = #[memberId]")
+    @Select("select count(1) from platform_notice_readed where member_id = #{memberId}")
     int countByMemberId(@Param("memberId") Integer memberId);
 }
