@@ -51,7 +51,7 @@ public class SuggestionServiceImpl implements SuggestionService {
         if (suggestion == null) {
             throw new ApplicationException(ResponseCode.RESOURCE_NOT_EXISTS, "您要处理的建议不存在");
         }
-        if (SuggestionStatusEnum.valueOf(suggestion.getStatus()) == SuggestionStatusEnum.PENDING_HANDLE) {
+        if (SuggestionStatusEnum.valueOf(suggestion.getStatus()) != SuggestionStatusEnum.PENDING_HANDLE) {
             throw new ApplicationException(ResponseCode.NON_SUPPORTED_OPER, "您要处理的建议非待处理状态");
         }
         Suggestion after = Suggestion.builder().id(suggestion.getId()).status(SuggestionStatusEnum.HANDLED.getValue())
