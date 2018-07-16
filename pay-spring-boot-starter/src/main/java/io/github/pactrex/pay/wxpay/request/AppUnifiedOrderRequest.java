@@ -1,7 +1,6 @@
 package io.github.pactrex.pay.wxpay.request;
 
 import io.github.pactrex.pay.wxpay.enums.WxPayTradeTypeEnum;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -9,7 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@Builder
 @Getter
 @Setter
 public class AppUnifiedOrderRequest {
