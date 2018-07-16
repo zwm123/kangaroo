@@ -1,7 +1,11 @@
 package io.github.pactrex.pay.wxpay.autoconfigure;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "pay.wxpay")
 public class WxPayProperties {
 
@@ -13,35 +17,10 @@ public class WxPayProperties {
 
     private String certFile;
 
-    public String getAppId() {
-        return appId;
-    }
+    private String notifyUrl;
 
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
+    private boolean autoReport;
 
-    public String getMchId() {
-        return mchId;
-    }
+    private boolean useSandbox;
 
-    public void setMchId(String mchId) {
-        this.mchId = mchId;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getCertFile() {
-        return certFile;
-    }
-
-    public void setCertFile(String certFile) {
-        this.certFile = certFile;
-    }
 }

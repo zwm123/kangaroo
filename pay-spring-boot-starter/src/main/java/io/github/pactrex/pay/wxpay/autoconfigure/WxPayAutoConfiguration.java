@@ -15,6 +15,6 @@ public class WxPayAutoConfiguration {
 
     @Bean
     public WxPayService wxPayService(WxPayProperties wxPayProperties) throws Exception {
-        return new WxPayService(new MyWxPayConfig(wxPayProperties));
+        return new WxPayService(wxPayProperties);
     }
 }
