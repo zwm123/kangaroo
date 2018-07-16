@@ -38,7 +38,7 @@ public class NoticeController {
     private KangarooWebAdapter kangarooWebAdapter;
 
     @ApiOperation(value = "添加平台通知")
-    @ApiImplicitParam(name = "param", value = "添加条件", required = true, dataType = "PlatformNoticeAddForm")
+    @ApiImplicitParam(name = "platformNoticeAddForm", value = "添加条件", required = true, dataType = "PlatformNoticeAddForm")
     @PostMapping("/platform/add.json")
     public ResponseCode addPlatformNotice(@RequestBody @Valid PlatformNoticeAddForm platformNoticeAddForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
@@ -50,7 +50,7 @@ public class NoticeController {
     }
 
     @ApiOperation(value = "发送平台通知")
-    @ApiImplicitParam(name = "param", value = "发送条件", required = true, dataType = "PlatformNoticeSendForm")
+    @ApiImplicitParam(name = "platformNoticeSendForm", value = "发送条件", required = true, dataType = "PlatformNoticeSendForm")
     @PostMapping("/platform/send.json")
     public ResponseCode sendPlatformNotice(@RequestBody @Valid PlatformNoticeSendForm platformNoticeSendForm, BindingResult br) {
         ParamValidator.validate(br);
@@ -65,7 +65,7 @@ public class NoticeController {
     }
 
     @ApiOperation(value = "查询平台通知")
-    @ApiImplicitParam(name = "param", value = "查询条件", required = true, dataType = "PlatformNoticeQueryForm")
+    @ApiImplicitParam(name = "queryForm", value = "查询条件", required = true, dataType = "PlatformNoticeQueryForm")
     @PostMapping("/platform/query.json")
     public PageResultDto<PlatformNoticeDto> queryPlatformNotice(@Valid PlatformNoticeQueryForm queryForm, BindingResult br) {
         ParamValidator.validate(br);
@@ -74,7 +74,7 @@ public class NoticeController {
     }
 
     @ApiOperation(value = "查询会员通知")
-    @ApiImplicitParam(name = "param", value = "查询条件", required = true, dataType = "MemberNoticeQueryForm")
+    @ApiImplicitParam(name = "queryForm", value = "查询条件", required = true, dataType = "MemberNoticeQueryForm")
     @PostMapping("/member/query.json")
     public PageResultDto<MemberNoticeDto> queryMemberNotice(@RequestBody @Valid MemberNoticeQueryForm queryForm, BindingResult br) {
         ParamValidator.validate(br);
@@ -87,7 +87,7 @@ public class NoticeController {
     }
 
     @ApiOperation(value = "发送自定义会员通知")
-    @ApiImplicitParam(name = "param", value = "发送条件", required = true, dataType = "CustomMemberNoticeSendForm")
+    @ApiImplicitParam(name = "customMemberNoticeSendForm", value = "发送条件", required = true, dataType = "CustomMemberNoticeSendForm")
     @PostMapping("/member/sendCustom.json")
     public ResponseCode sendCustomMemberNotice(@RequestBody @Valid CustomMemberNoticeSendForm customMemberNoticeSendForm, BindingResult br) {
         ParamValidator.validate(br);
