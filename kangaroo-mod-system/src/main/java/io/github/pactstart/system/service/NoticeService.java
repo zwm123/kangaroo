@@ -6,9 +6,16 @@ import io.github.pactstart.system.dto.*;
 public interface NoticeService {
 
     /**
+     * 发送自定义会员消息
+     *
+     * @param customMemberNoticeSendDto
+     */
+    void sendCustomMemberNotice(CustomMemberNoticeSendDto customMemberNoticeSendDto);
+
+    /**
      * 发送会员消息
      *
-     * @param sendDto
+     * @param memberNoticeSendDto
      */
     void sendMemberNotice(MemberNoticeSendDto memberNoticeSendDto);
 

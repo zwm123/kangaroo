@@ -1,10 +1,8 @@
 package io.github.pactstart.admin.system.controller;
 
+import com.alibaba.fastjson.JSON;
 import io.github.pactstart.admin.adpater.KangarooWebAdapter;
-import io.github.pactstart.admin.system.form.MemberNoticeQueryForm;
-import io.github.pactstart.admin.system.form.PlatformNoticeAddForm;
-import io.github.pactstart.admin.system.form.PlatformNoticeQueryForm;
-import io.github.pactstart.admin.system.form.PlatformNoticeSendForm;
+import io.github.pactstart.admin.system.form.*;
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.exception.ApplicationException;
@@ -82,5 +80,26 @@ public class NoticeController {
         ParamValidator.validate(br);
         MemberNoticeQueryDto queryDto = MapperUtils.map(queryForm, MemberNoticeQueryDto.class);
         return noticeService.queryMemberNotice(queryDto);
+    }
+
+    public static void main(String[] args) {
+        JSON.parseObject("");
+    }
+
+    @ApiOperation(value = "发送自定义会员通知")
+    @ApiImplicitParam(name = "param", value = "发送条件", required = true, dataType = "CustomMemberNoticeSendForm")
+    @PostMapping("/member/sendCustom.json")
+    public ResponseCode sendCustomMemberNotice(@RequestBody @Valid CustomMemberNoticeSendForm customMemberNoticeSendForm, BindingResult br) {
+        ParamValidator.validate(br);
+        if (ValidUtils.isValid(customMemberNoticeSendForm.getContent())) {
+            try {
+                JSON.parseObject(customMemberNoticeSendForm.getContent());
+            } catch (Exception e) {
+                throw new ApplicationException(ResponseCode.INVALID_PARAM, "推送内容不是一个合法的json格式");
+            }
+        }
+        CustomMemberNoticeSendDto customMemberNoticeSendDto = MapperUtils.map(customMemberNoticeSendForm, CustomMemberNoticeSendDto.class);
+        noticeService.sendCustomMemberNotice(customMemberNoticeSendDto);
+        return ResponseCode.SUCCESS;
     }
 }
