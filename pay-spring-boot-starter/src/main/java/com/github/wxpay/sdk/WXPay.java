@@ -40,11 +40,12 @@ public class WXPay {
         this.notifyUrl = notifyUrl;
         this.autoReport = autoReport;
         this.useSandbox = useSandbox;
-        if (useSandbox) {
-            this.signType = SignType.MD5; // 沙箱环境
-        } else {
-            this.signType = SignType.HMACSHA256;
-        }
+//        if (useSandbox) {
+//            this.signType = SignType.MD5; // 沙箱环境
+//        } else {
+//            this.signType = SignType.HMACSHA256;
+//        }
+        this.signType = SignType.MD5;
         this.wxPayRequest = new WXPayRequest(config);
     }
 
@@ -153,8 +154,9 @@ public class WXPay {
                                      int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String msgUUID = reqData.get("nonce_str");
         String reqBody = WXPayUtil.mapToXml(reqData);
-
+        WXPayUtil.getLogger().info("urlSuffix:{},\r\n reqBody:{}", urlSuffix, reqBody);
         String resp = this.wxPayRequest.requestWithoutCert(urlSuffix, msgUUID, reqBody, connectTimeoutMs, readTimeoutMs, autoReport);
+        WXPayUtil.getLogger().info("urlSuffix:{},\r\n resp:{}", urlSuffix, resp);
         return resp;
     }
 
@@ -173,8 +175,9 @@ public class WXPay {
                                   int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String msgUUID = reqData.get("nonce_str");
         String reqBody = WXPayUtil.mapToXml(reqData);
-
+        WXPayUtil.getLogger().info("urlSuffix:{},\r\n reqBody:{}", urlSuffix, reqBody);
         String resp = this.wxPayRequest.requestWithCert(urlSuffix, msgUUID, reqBody, connectTimeoutMs, readTimeoutMs, this.autoReport);
+        WXPayUtil.getLogger().info("urlSuffix:{},\r\n resp:{}", urlSuffix, resp);
         return resp;
     }
 
@@ -388,7 +391,11 @@ public class WXPay {
         } else {
             url = WXPayConstants.ORDERQUERY_URL_SUFFIX;
         }
-        String respXml = this.requestWithoutCert(url, this.fillRequestData(reqData), connectTimeoutMs, readTimeoutMs);
+        reqData.put("appid", config.getAppID());
+        reqData.put("mch_id", config.getMchID());
+        reqData.put("nonce_str", WXPayUtil.generateNonceStr());
+        reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), this.signType));
+        String respXml = this.requestWithoutCert(url, reqData, connectTimeoutMs, readTimeoutMs);
         return this.processResponseXml(respXml);
     }
 

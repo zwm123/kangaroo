@@ -93,6 +93,8 @@ public class WxPayService {
         appPayParamMap.put("timestamp", WXPayUtil.getCurrentTimestamp() + "");
         //签名方式一定要与统一下单接口使用的一致
         appPayParamMap.put("sign", WXPayUtil.generateSignature(appPayParamMap, wxPayProperties.getKey(), wxPay.getSignType()));
+        //SB的微信支付接口文档
+        appPayParamMap.put("packageTag", "Sign=WXPay");
         return appPayParamMap;
     }
 
