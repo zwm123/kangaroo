@@ -10,15 +10,15 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
-public class AppUnifiedOrderRequest {
+public class H5UnifiedOrderRequest {
 
     /**
-     * 终端设备号(门店号或收银设备ID)，默认请传"WEB"
+     * 终端设备号(门店号或收银设备ID)，注意：PC网页或公众号内支付请传"WEB"
      * 示例值：013467007045764fe
      * 非必填,String(32)
      */
     @Length(max = 32, message = "设备号device_info限32个字符")
-    private String device_info;
+    private String device_info = "WEB";
 
     /**
      * 商品描述交易字段格式根据不同的应用场景按照以下格式：
@@ -106,7 +106,7 @@ public class AppUnifiedOrderRequest {
      */
     @Length(max = 16, message = "支付类型trade_type限16个字符")
     @NotNull(message = "支付类型trade_type不能为空")
-    private String trade_type = WxPayTradeTypeEnum.APP.name();
+    private String trade_type = WxPayTradeTypeEnum.MWEB.name();
 
     /**
      * no_credit--指定不能使用信用卡支付
@@ -115,19 +115,37 @@ public class AppUnifiedOrderRequest {
     private String limit_pay;
 
     /**
-     * 该字段用于统一下单时上报场景信息，目前支持上报实际门店信息。
+     * 该字段用于统一下单时上报场景信息，针对H5支付有以下三种场景,请根据对应场景上报,H5支付不建议在APP端使用，针对场景1，2请接入APP支付，不然可能会出现兼容性问题
      * <pre>
-     *      {
-     *            "store_id": "", //门店唯一标识，选填，String(32)
-     *            "store_name":"”//门店名称，选填，String(64)
+     *      1，IOS移动应用
+     *        {"h5_info": //h5支付固定传"h5_info"
+     *       {"type": "",  //场景类型
+     *       "app_name": "",  //应用名
+     *       "bundle_id": ""  //bundle_id
+     *        }
+     *        }
      *
-     *      }
+     *       2，安卓移动应用
+     *        {"h5_info": //h5支付固定传"h5_info"
+     *       {"type": "",  //场景类型
+     *        "app_name": "",  //应用名
+     *        "package_name": ""  //包名
+     *        }
+     *       }
+     *
+     *       3，WAP网站应用
+     *       {"h5_info": //h5支付固定传"h5_info"
+     *       {"type": "",  //场景类型
+     *        "wap_url": "",//WAP网站URL地址
+     *        "wap_name": ""  //WAP 网站名
+     *        }
+     *       }
      * </pre>
      */
     @Length(max = 256, message = "场景信息scene_info限256个字符")
     private String scene_info;
 
-    public AppUnifiedOrderRequest(String body, String attach, String out_trade_no, Integer total_fee, String spbill_create_ip) {
+    public H5UnifiedOrderRequest(String body, String attach, String out_trade_no, Integer total_fee, String spbill_create_ip) {
         this.body = body;
         this.attach = attach;
         this.out_trade_no = out_trade_no;

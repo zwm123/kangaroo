@@ -1,6 +1,5 @@
 package io.github.pactrex.pay.wxpay.request;
 
-import io.github.pactrex.pay.wxpay.enums.WxPayTradeTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -10,7 +9,13 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
-public class AppUnifiedOrderRequest {
+public class MicropayRequest {
+    /**
+     * 微信支付分配的公众账号ID（企业号corpid即为此appId
+     * 示例值：wxd678efh567hg6787
+     * 必填：String(32)
+     */
+    private String appid;
 
     /**
      * 终端设备号(门店号或收银设备ID)，默认请传"WEB"
@@ -66,7 +71,7 @@ public class AppUnifiedOrderRequest {
     private Integer total_fee;
 
     /**
-     * 用户端实际ip
+     * 调用微信支付API的机器IP
      */
     @Length(max = 16, message = "终端IP spbill_create_iph限16个字符")
     @NotNull(message = "终端IP不能为空")
@@ -94,32 +99,27 @@ public class AppUnifiedOrderRequest {
     private String goods_tag;
 
     /**
-     * 接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
-     * 示例：http://www.weixin.qq.com/wxpay/pay.php
-     */
-    @Length(max = 256, message = "通知地址notify_url限256个字符")
-//    @NotNull(message = "通知地址不能为空")
-    private String notify_url;
-
-    /**
-     * 支付类型
-     */
-    @Length(max = 16, message = "支付类型trade_type限16个字符")
-    @NotNull(message = "支付类型trade_type不能为空")
-    private String trade_type = WxPayTradeTypeEnum.APP.name();
-
-    /**
      * no_credit--指定不能使用信用卡支付
      */
     @Length(max = 32, message = "指定支付方式limit_pay限32个字符")
     private String limit_pay;
 
     /**
-     * 该字段用于统一下单时上报场景信息，目前支持上报实际门店信息。
+     * 扫码支付授权码，设备读取用户微信中的条码或者二维码信息
+     * （注：用户刷卡条形码规则：18位纯数字，以10、11、12、13、14、15开头）
+     */
+    @Length(max = 128, message = "授权码auth_code限128个字符")
+    @NotNull(message = "授权码auth_code不能为空")
+    private String auth_code;
+
+    /**
+     * 该字段用于上报场景信息，目前支持上报实际门店信息。该字段为JSON对象数据，对象格式为{"store_info":{"id": "门店ID","name": "名称","area_code": "编码","address": "地址" }}
      * <pre>
      *      {
-     *            "store_id": "", //门店唯一标识，选填，String(32)
-     *            "store_name":"”//门店名称，选填，String(64)
+     *            "id": "SZTX001", //门店唯一标识，选填，String(32)
+     *            "name":"腾大餐厅", //门店名称，选填，String(64)
+     *            "area_code":"440305", //门店行政区划码，选填，String(6)
+     *            "address": "科技园中一路腾讯大厦" //门店详细地址，选填，String(128)
      *
      *      }
      * </pre>
@@ -127,11 +127,11 @@ public class AppUnifiedOrderRequest {
     @Length(max = 256, message = "场景信息scene_info限256个字符")
     private String scene_info;
 
-    public AppUnifiedOrderRequest(String body, String attach, String out_trade_no, Integer total_fee, String spbill_create_ip) {
+    public MicropayRequest(String body, String out_trade_no, Integer total_fee, String spbill_create_ip, String auth_code) {
         this.body = body;
-        this.attach = attach;
         this.out_trade_no = out_trade_no;
         this.total_fee = total_fee;
         this.spbill_create_ip = spbill_create_ip;
+        this.auth_code = auth_code;
     }
 }

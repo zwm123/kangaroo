@@ -3,6 +3,11 @@ package io.github.pactrex.pay.wxpay.enums;
 public enum WxPayTradeTypeEnum {
 
     /**
+     * H5支付
+     */
+    MWEB,
+
+    /**
      * 公众号支付
      */
     JSAPI,

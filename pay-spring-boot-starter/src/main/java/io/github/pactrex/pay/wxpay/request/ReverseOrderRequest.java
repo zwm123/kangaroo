@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderQueryRequest {
+public class ReverseOrderRequest {
 
     /**
      * 微信的订单号，优先使用
@@ -17,7 +17,7 @@ public class OrderQueryRequest {
      */
     private String out_trade_no;
 
-    public OrderQueryRequest(String transaction_id, String out_trade_no) {
+    public ReverseOrderRequest(String transaction_id, String out_trade_no) {
         this.transaction_id = transaction_id;
         this.out_trade_no = out_trade_no;
     }

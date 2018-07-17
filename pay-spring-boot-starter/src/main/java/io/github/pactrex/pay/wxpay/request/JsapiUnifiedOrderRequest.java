@@ -10,7 +10,13 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
-public class AppUnifiedOrderRequest {
+public class JsapiUnifiedOrderRequest {
+    /**
+     * 微信支付分配的公众账号ID（企业号corpid即为此appId
+     * 示例值：wxd678efh567hg6787
+     * 必填：String(32)
+     */
+    private String appid;
 
     /**
      * 终端设备号(门店号或收银设备ID)，默认请传"WEB"
@@ -18,7 +24,7 @@ public class AppUnifiedOrderRequest {
      * 非必填,String(32)
      */
     @Length(max = 32, message = "设备号device_info限32个字符")
-    private String device_info;
+    private String device_info = "WEB";
 
     /**
      * 商品描述交易字段格式根据不同的应用场景按照以下格式：
@@ -106,7 +112,18 @@ public class AppUnifiedOrderRequest {
      */
     @Length(max = 16, message = "支付类型trade_type限16个字符")
     @NotNull(message = "支付类型trade_type不能为空")
-    private String trade_type = WxPayTradeTypeEnum.APP.name();
+    private String trade_type = WxPayTradeTypeEnum.JSAPI.name();
+
+    /**
+     * 用户标识
+     * trade_type=JSAPI时（即公众号支付），此参数必传，此参数为微信用户在商户对应appid下的唯一标识。
+     * openid如何获取，可参考【获取openid】。企业号请使用【企业号OAuth2.0接口】获取企业号内成员userid，再调用【企业号userid转openid接口】进行转换
+     * <p>
+     * 必填，String(128)
+     */
+    @Length(max = 16, message = "用户标识openid限128个字符")
+    @NotNull(message = "用户标识openid不能为空")
+    private String openid;
 
     /**
      * no_credit--指定不能使用信用卡支付
@@ -115,11 +132,13 @@ public class AppUnifiedOrderRequest {
     private String limit_pay;
 
     /**
-     * 该字段用于统一下单时上报场景信息，目前支持上报实际门店信息。
+     * 该字段用于上报场景信息，目前支持上报实际门店信息。该字段为JSON对象数据，对象格式为{"store_info":{"id": "门店ID","name": "名称","area_code": "编码","address": "地址" }}
      * <pre>
      *      {
-     *            "store_id": "", //门店唯一标识，选填，String(32)
-     *            "store_name":"”//门店名称，选填，String(64)
+     *            "id": "SZTX001", //门店唯一标识，选填，String(32)
+     *            "name":"腾大餐厅", //门店名称，选填，String(64)
+     *            "area_code":"440305", //门店行政区划码，选填，String(6)
+     *            "address": "科技园中一路腾讯大厦" //门店详细地址，选填，String(128)
      *
      *      }
      * </pre>
@@ -127,11 +146,11 @@ public class AppUnifiedOrderRequest {
     @Length(max = 256, message = "场景信息scene_info限256个字符")
     private String scene_info;
 
-    public AppUnifiedOrderRequest(String body, String attach, String out_trade_no, Integer total_fee, String spbill_create_ip) {
+    public JsapiUnifiedOrderRequest(String body, String out_trade_no, Integer total_fee, String spbill_create_ip, String openid) {
         this.body = body;
-        this.attach = attach;
         this.out_trade_no = out_trade_no;
         this.total_fee = total_fee;
         this.spbill_create_ip = spbill_create_ip;
+        this.openid = openid;
     }
 }

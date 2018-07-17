@@ -1,14 +1,11 @@
 package io.github.pactrex.pay.wxpay.response;
 
-import io.github.pactrex.pay.wxpay.model.Coupon;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class OrderQueryResponse {
+public class MicropayResponse {
 
     /**
      * 返回状态码
@@ -36,6 +33,12 @@ public class OrderQueryResponse {
      * 必填，String(32)
      */
     private String mch_id;
+
+    /**
+     * 设备号
+     * 非必填，	String(32)
+     */
+    private String device_info;
 
     /**
      * 随机字符串
@@ -68,12 +71,6 @@ public class OrderQueryResponse {
     private String err_code_des;
 
     //------------------以下字段在return_code 和result_code都为SUCCESS的时候有返回-----------------------
-
-    /**
-     * 设备号
-     * 非必填，	String(32)
-     */
-    private String device_info;
 
     /**
      * 用户标识
@@ -118,8 +115,7 @@ public class OrderQueryResponse {
     private String fee_type;
 
     /**
-     * 现金支付金额
-     * 订单现金支付金额，详见支付金额
+     * 现金支付金额订单现金支付金额，详见支付金额
      * 必填，Int
      */
     private Integer cash_fee;
@@ -143,18 +139,6 @@ public class OrderQueryResponse {
      * 非必填，Int
      */
     private Integer coupon_fee;
-
-    /**
-     * 代金券使用数量
-     * 代金券或立减优惠使用数量
-     * 非必填，Int
-     */
-    private Integer coupon_count;
-
-    /**
-     * 优惠券列表
-     */
-    private List<Coupon> couponList;
 
     /**
      * 微信支付订单号
@@ -182,11 +166,10 @@ public class OrderQueryResponse {
     private String time_end;
 
     /**
-     * 交易状态描述
-     * 对当前查询订单状态的描述和下一步操作的指引
-     * 必填，String(256)
+     * 单品优惠功能字段，需要接入请见详细说明https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_101&index=1
+     * 必填，String(6000)
      */
-    private String trade_state_desc;
+    private String promotion_detail;
 
     public boolean isSuccess() {
         return "SUCCESS".equals(return_code) && "SUCCESS".equals(result_code);

@@ -10,7 +10,13 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
-public class AppUnifiedOrderRequest {
+public class WxaUnifiedOrderRequest {
+    /**
+     * 微信分配的小程序ID
+     * 示例值：wxd678efh567hg6787
+     * 必填：String(32)
+     */
+    private String appid;
 
     /**
      * 终端设备号(门店号或收银设备ID)，默认请传"WEB"
@@ -106,7 +112,16 @@ public class AppUnifiedOrderRequest {
      */
     @Length(max = 16, message = "支付类型trade_type限16个字符")
     @NotNull(message = "支付类型trade_type不能为空")
-    private String trade_type = WxPayTradeTypeEnum.APP.name();
+    private String trade_type = WxPayTradeTypeEnum.JSAPI.name();
+
+    /**
+     * 用户标识
+     * trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识。openid如何获取，可参考【获取openid】。
+     * 必填，String(128)
+     */
+    @Length(max = 16, message = "用户标识openid限128个字符")
+    @NotNull(message = "用户标识openid不能为空")
+    private String openid;
 
     /**
      * no_credit--指定不能使用信用卡支付
@@ -115,11 +130,13 @@ public class AppUnifiedOrderRequest {
     private String limit_pay;
 
     /**
-     * 该字段用于统一下单时上报场景信息，目前支持上报实际门店信息。
+     * 该字段用于上报场景信息，目前支持上报实际门店信息。该字段为JSON对象数据，对象格式为{"store_info":{"id": "门店ID","name": "名称","area_code": "编码","address": "地址" }}
      * <pre>
      *      {
-     *            "store_id": "", //门店唯一标识，选填，String(32)
-     *            "store_name":"”//门店名称，选填，String(64)
+     *            "id": "SZTX001", //门店唯一标识，选填，String(32)
+     *            "name":"腾大餐厅", //门店名称，选填，String(64)
+     *            "area_code":"440305", //门店行政区划码，选填，String(6)
+     *            "address": "科技园中一路腾讯大厦" //门店详细地址，选填，String(128)
      *
      *      }
      * </pre>
@@ -127,11 +144,11 @@ public class AppUnifiedOrderRequest {
     @Length(max = 256, message = "场景信息scene_info限256个字符")
     private String scene_info;
 
-    public AppUnifiedOrderRequest(String body, String attach, String out_trade_no, Integer total_fee, String spbill_create_ip) {
+    public WxaUnifiedOrderRequest(String body, String out_trade_no, Integer total_fee, String spbill_create_ip, String openid) {
         this.body = body;
-        this.attach = attach;
         this.out_trade_no = out_trade_no;
         this.total_fee = total_fee;
         this.spbill_create_ip = spbill_create_ip;
+        this.openid = openid;
     }
 }
