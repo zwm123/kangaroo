@@ -56,7 +56,7 @@ public class MyWxPayConfig extends WXPayConfig {
 
     @Override
     public IWXPayDomain getWXPayDomain() {
-        return null;
+        return new MyWxPayDomain();
     }
 
     @Override
