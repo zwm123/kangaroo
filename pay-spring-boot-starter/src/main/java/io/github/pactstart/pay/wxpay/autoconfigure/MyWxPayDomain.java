@@ -11,7 +11,7 @@ public class MyWxPayDomain implements IWXPayDomain {
 
     @Override
     public void report(String domain, long elapsedTimeMillis, Exception ex) {
-        logger.error("wxpay report error! domain : {} , elapsedTimeMillis : {}ms ", ex);
+        logger.error(String.format("wxpay report error! domain: %s , elapsedTimeMillis: %d ms ", domain, elapsedTimeMillis), ex);
     }
 
     @Override
