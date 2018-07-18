@@ -5,10 +5,8 @@ import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.google.common.collect.Maps;
 import io.github.pactstart.biz.common.utils.BeanMapUtils;
-import io.github.pactstart.biz.common.utils.BeanValidator;
 import io.github.pactstart.pay.wxpay.autoconfigure.MyWxPayConfig;
 import io.github.pactstart.pay.wxpay.autoconfigure.WxPayProperties;
-import io.github.pactstart.pay.wxpay.exception.WxPayException;
 import io.github.pactstart.pay.wxpay.model.Coupon;
 import io.github.pactstart.pay.wxpay.model.CouponRefund;
 import io.github.pactstart.pay.wxpay.model.OrderRefund;
@@ -55,11 +53,11 @@ public class WxPayService {
     }
 
     private void validateParam(Object request) {
-        Map<String, String> invalidParamMap = BeanValidator.validate(request);
-        if (invalidParamMap != null && invalidParamMap.size() > 0) {
-            log.error("调用微信支付相关接口参数不合法", JSON.toJSONString(invalidParamMap));
-            throw new WxPayException("参数不合法");
-        }
+//        Map<String, String> invalidParamMap = BeanValidator.validate(request);
+//        if (invalidParamMap != null && invalidParamMap.size() > 0) {
+//            log.error("调用微信支付相关接口参数不合法", JSON.toJSONString(invalidParamMap));
+//            throw new WxPayException("参数不合法");
+//        }
     }
 
     /**
@@ -344,5 +342,22 @@ public class WxPayService {
         }
         PayResultNoticeRequest request = JSON.parseObject(JSON.toJSONString(reqData), PayResultNoticeRequest.class);
         return request;
+    }
+
+    /**
+     * 验证支付结果通知签名
+     *
+     * @param reqData
+     * @return
+     * @throws Exception
+     */
+    public boolean isPayResultNotifySignatureValid(Map<String, Object> reqData) throws Exception {
+        Map<String, String> data = Maps.newHashMap();
+        for (Map.Entry<String, Object> entry : reqData.entrySet()) {
+            if (entry.getValue() != null) {
+                data.put(entry.getKey(), entry.getValue().toString());
+            }
+        }
+        return wxPay.isPayResultNotifySignatureValid(data);
     }
 }

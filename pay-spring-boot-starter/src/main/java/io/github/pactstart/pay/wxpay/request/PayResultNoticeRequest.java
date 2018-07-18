@@ -1,9 +1,13 @@
 package io.github.pactstart.pay.wxpay.request;
 
 import io.github.pactstart.pay.wxpay.model.Coupon;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class PayResultNoticeRequest {
 
     /**

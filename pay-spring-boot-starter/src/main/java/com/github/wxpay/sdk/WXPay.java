@@ -40,11 +40,11 @@ public class WXPay {
         this.notifyUrl = notifyUrl;
         this.autoReport = autoReport;
         this.useSandbox = useSandbox;
-//        if (useSandbox) {
-//            this.signType = SignType.MD5; // 沙箱环境
-//        } else {
-//            this.signType = SignType.HMACSHA256;
-//        }
+        if (useSandbox) {
+            this.signType = SignType.MD5; // 沙箱环境
+        } else {
+            this.signType = SignType.HMACSHA256;
+        }
         this.signType = SignType.MD5;
         this.wxPayRequest = new WXPayRequest(config);
     }
@@ -73,6 +73,10 @@ public class WXPay {
             throw new Exception("http read timeout is too small");
         }
 
+    }
+
+    public WXPayRequest getWxPayRequest() {
+        return wxPayRequest;
     }
 
     public SignType getSignType() {
@@ -175,9 +179,9 @@ public class WXPay {
                                   int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String msgUUID = reqData.get("nonce_str");
         String reqBody = WXPayUtil.mapToXml(reqData);
-        WXPayUtil.getLogger().info("urlSuffix:{},\r\n reqBody:{}", urlSuffix, reqBody);
+        WXPayUtil.getLogger().info("urlSuffix:{},\r\n reqBody:\r\n {}", urlSuffix, reqBody);
         String resp = this.wxPayRequest.requestWithCert(urlSuffix, msgUUID, reqBody, connectTimeoutMs, readTimeoutMs, this.autoReport);
-        WXPayUtil.getLogger().info("urlSuffix:{},\r\n resp:{}", urlSuffix, resp);
+        WXPayUtil.getLogger().info("urlSuffix:{},\r\n reqBody:\r\n{}resp:\r\n {}", urlSuffix, resp);
         return resp;
     }
 
