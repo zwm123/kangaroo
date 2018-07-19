@@ -47,6 +47,10 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
     @Override
     public SmsSendResultDto sendNoticeSms(SmsSendParamDto smsSendParamDto) {
         BeanValidator.validate(smsSendParamDto);
+        return sendSms(smsSendParamDto);
+    }
+
+    private SmsSendResultDto sendSms(SmsSendParamDto smsSendParamDto) {
         SmsTemplate smsTemplate = smsTemplateService.findByTemplateId(smsSendParamDto.getTemplateId());
         if (smsTemplate == null) {
             throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板不存在");
@@ -97,6 +101,7 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
 
     @Override
     public SmsSendResultDto sendValidateSms(SmsSendParamDto smsSendParamDto) {
+        BeanValidator.validate(smsSendParamDto);
         String code = null;
         if (isRealSendSms()) {
             code = DataUtils.numRandomGenerator(smsSendParamDto.getCodeLength());

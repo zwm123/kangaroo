@@ -5,6 +5,9 @@ import java.util.Map;
 public class SmsParamUtils {
 
     public static String convert2Json(Map<String, String> params) {
+        if (params == null) {
+            return "{}";
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         for (Map.Entry<String, String> entry : params.entrySet()) {

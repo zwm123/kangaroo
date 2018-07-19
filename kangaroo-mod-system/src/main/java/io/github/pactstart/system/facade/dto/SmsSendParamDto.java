@@ -1,6 +1,5 @@
 package io.github.pactstart.system.facade.dto;
 
-import com.google.common.collect.Maps;
 import io.github.pactstart.biz.common.dto.OperateDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,5 +31,5 @@ public class SmsSendParamDto extends OperateDto {
     @Range(min = 4, max = 6, message = "短信验证码长度4-6位")
     private int codeLength = 6;
 
-    private Map<String, String> params = Maps.newHashMap();
+    private Map<String, String> params;
 }
