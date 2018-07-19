@@ -57,18 +57,25 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
         while (m.find()) {
             String param = m.group();
             String varName = param.substring(2, param.length() - 1);
+            if (params == null) {
+                log.error("短信模板参数为空", JsonUtils.obj2String(smsSendParamDto));
+                throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数为空");
+            }
             String varValue = params.get(varName);
             if (varValue == null) {
                 log.error("短信模板存在变量未赋值", JsonUtils.obj2String(smsSendParamDto));
                 throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板存在变量未赋值");
             }
+            varNameList.add(varName);
         }
-        for (String varName : varNameList) {
-            params.remove(varName);
-        }
-        if (params.size() > 0) {
-            log.error("短信模板参数中存在多余的参数", JsonUtils.obj2String(params));
-            throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数中存在多余的参数");
+        if (params != null) {
+            for (String varName : varNameList) {
+                params.remove(varName);
+            }
+            if (params.size() > 0) {
+                log.error("短信模板参数中存在多余的参数", JsonUtils.obj2String(params));
+                throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数中存在多余的参数");
+            }
         }
         SmsSendResultDto smsSendResultDto = new SmsSendResultDto();
         if (isRealSendSms()) {
