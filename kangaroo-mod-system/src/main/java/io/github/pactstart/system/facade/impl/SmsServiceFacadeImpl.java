@@ -69,10 +69,7 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
             varNameList.add(varName);
         }
         if (params != null) {
-            for (String varName : varNameList) {
-                params.remove(varName);
-            }
-            if (params.size() > 0) {
+            if (varNameList.size() < params.size()) {
                 log.error("短信模板参数中存在多余的参数", JsonUtils.obj2String(params));
                 throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数中存在多余的参数");
             }
