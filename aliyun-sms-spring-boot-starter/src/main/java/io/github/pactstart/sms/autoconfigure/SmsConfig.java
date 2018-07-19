@@ -2,26 +2,26 @@ package io.github.pactstart.sms.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "aliyun.alidayu")
+@ConfigurationProperties(prefix = "aliyun.sms")
 public class SmsConfig {
 
-    private String appKey;
+    private String accessKeyId;
 
-    private String appSecret;
+    private String accessKeySecret;
 
-    public String getAppKey() {
-        return appKey;
+    public String getAccessKeyId() {
+        return accessKeyId;
     }
 
-    public void setAppKey(String appKey) {
-        this.appKey = appKey;
+    public void setAccessKeyId(String accessKeyId) {
+        this.accessKeyId = accessKeyId;
     }
 
-    public String getAppSecret() {
-        return appSecret;
+    public String getAccessKeySecret() {
+        return accessKeySecret;
     }
 
-    public void setAppSecret(String appSecret) {
-        this.appSecret = appSecret;
+    public void setAccessKeySecret(String accessKeySecret) {
+        this.accessKeySecret = accessKeySecret;
     }
 }
