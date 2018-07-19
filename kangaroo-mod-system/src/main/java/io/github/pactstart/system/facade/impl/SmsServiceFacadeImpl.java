@@ -1,5 +1,6 @@
 package io.github.pactstart.system.facade.impl;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.exception.ApplicationException;
@@ -7,9 +8,9 @@ import io.github.pactstart.biz.common.utils.BeanValidator;
 import io.github.pactstart.cache.autoconfigure.CacheService;
 import io.github.pactstart.commonutils.DataUtils;
 import io.github.pactstart.commonutils.JsonUtils;
-import io.github.pactstart.commonutils.ValidUtils;
 import io.github.pactstart.sms.autoconfigure.SmsClient;
 import io.github.pactstart.sms.autoconfigure.SmsResponse;
+import io.github.pactstart.system.component.ConfigComponent;
 import io.github.pactstart.system.entity.SmsTemplate;
 import io.github.pactstart.system.facade.SmsServiceFacade;
 import io.github.pactstart.system.facade.dto.*;
@@ -18,6 +19,11 @@ import io.github.pactstart.system.service.SmsTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -35,6 +41,9 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
     @Autowired
     private SmsTemplateService smsTemplateService;
 
+    @Autowired
+    private ConfigComponent configComponent;
+
     @Override
     public SmsSendResultDto sendNoticeSms(SmsSendParamDto smsSendParamDto) {
         BeanValidator.validate(smsSendParamDto);
@@ -42,9 +51,24 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
         if (smsTemplate == null) {
             throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板不存在");
         }
-        if (!ValidUtils.isAllWildcardVariableValid(smsTemplate.getTemplate(), smsSendParamDto.getParams())) {
-            log.error("短信模板存在变量未赋值", JsonUtils.obj2String(smsSendParamDto));
-            throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板存在变量未赋值");
+        Map<String, String> params = smsSendParamDto.getParams();
+        Matcher m = Pattern.compile("\\$\\{\\w+\\}").matcher(smsTemplate.getTemplate());
+        List<String> varNameList = Lists.newArrayList();
+        while (m.find()) {
+            String param = m.group();
+            String varName = param.substring(2, param.length() - 1);
+            String varValue = params.get(varName);
+            if (varValue == null) {
+                log.error("短信模板存在变量未赋值", JsonUtils.obj2String(smsSendParamDto));
+                throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板存在变量未赋值");
+            }
+        }
+        for (String varName : varNameList) {
+            params.remove(varName);
+        }
+        if (params.size() > 0) {
+            log.error("短信模板参数中存在多余的参数", JsonUtils.obj2String(params));
+            throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数中存在多余的参数");
         }
         SmsSendResultDto smsSendResultDto = new SmsSendResultDto();
         if (isRealSendSms()) {
@@ -127,6 +151,6 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
     }
 
     private boolean isRealSendSms() {
-        return false;
+        return configComponent.getBooleanProperty("system", "isRealSendSms", true);
     }
 }
