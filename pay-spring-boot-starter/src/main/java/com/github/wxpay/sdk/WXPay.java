@@ -59,9 +59,9 @@ public class WXPay {
         if (this.config.getMchID() == null || this.config.getMchID().trim().length() == 0) {
             throw new Exception("appid in config is empty");
         }
-        if (this.config.getCertStream() == null) {
-            throw new Exception("cert stream in config is empty");
-        }
+//        if (this.config.getCertStream() == null) {
+//            throw new Exception("cert stream in config is empty");
+//        }
         if (this.config.getWXPayDomain() == null) {
             throw new Exception("config.getWXPayDomain() is null");
         }

@@ -2,10 +2,7 @@ package io.github.pactstart.pay.wxpay.autoconfigure;
 
 import com.github.wxpay.sdk.IWXPayDomain;
 import com.github.wxpay.sdk.WXPayConfig;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class MyWxPayConfig extends WXPayConfig {
@@ -36,12 +33,7 @@ public class MyWxPayConfig extends WXPayConfig {
 
     @Override
     public InputStream getCertStream() {
-        try {
-            File file = ResourceUtils.getFile(wxPayProperties.getCertFile());
-            return new FileInputStream(file);
-        } catch (Exception e) {
-            throw new RuntimeException("wxpay certFile read fail");
-        }
+        return this.getClass().getResourceAsStream(wxPayProperties.getCertFile());
     }
 
     @Override
