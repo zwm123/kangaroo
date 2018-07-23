@@ -10,11 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.ResourceUtils;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +43,8 @@ public class AliyunSTSAutoConfiguration implements InitializingBean, Application
                 builder.setLazyInit(false);
 
                 ProductConfig productConfig = entry.getValue();
-                File file = ResourceUtils.getFile(productConfig.getPolicyFile());
-                String policy = readToString(file);
+
+                String policy = readToString(productConfig.getPolicyFile());
 
                 builder.getBeanDefinition().getPropertyValues().addPropertyValue("policy", policy);
                 builder.getBeanDefinition().getPropertyValues().addPropertyValue("productConfig", productConfig);
@@ -56,13 +53,13 @@ public class AliyunSTSAutoConfiguration implements InitializingBean, Application
         }
     }
 
-    private String readToString(File file) throws Exception {
+    private String readToString(String policyFile) throws Exception {
         BufferedReader reader = null;
         //返回值,使用StringBuffer
         StringBuffer data = new StringBuffer();
         //
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(policyFile)));
             //每次读取文件的缓存
             String temp = null;
             while ((temp = reader.readLine()) != null) {
