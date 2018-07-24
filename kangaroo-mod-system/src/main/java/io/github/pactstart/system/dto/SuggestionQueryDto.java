@@ -11,4 +11,6 @@ public class SuggestionQueryDto extends PageQueryDto {
     private Integer problemType;
 
     private String contactInfo;
+
+    private Integer status;
 }

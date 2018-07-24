@@ -34,6 +34,9 @@
             <if test="problemType != null">
                 AND problem_type = #{problemType}
             </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
         </where>
         order by create_time desc
     </select>

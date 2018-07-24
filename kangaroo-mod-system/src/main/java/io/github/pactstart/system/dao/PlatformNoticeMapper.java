@@ -19,4 +19,7 @@ public interface PlatformNoticeMapper extends MyMapper<PlatformNotice> {
 
     @Select("select count(1) from platform_notice where status = #{status}")
     int countByStatus(@Param("status") Integer status);
+
+    @Update("update platform_notice set read_count = read_count + 1 where id=#{id}")
+    void incrementReadCount(@Param("id") Integer id);
 }

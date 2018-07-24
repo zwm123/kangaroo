@@ -67,7 +67,7 @@ public class NoticeController {
     @ApiOperation(value = "查询平台通知")
     @ApiImplicitParam(name = "queryForm", value = "查询条件", required = true, dataType = "PlatformNoticeQueryForm")
     @PostMapping("/platform/query.json")
-    public PageResultDto<PlatformNoticeDto> queryPlatformNotice(@Valid PlatformNoticeQueryForm queryForm, BindingResult br) {
+    public PageResultDto<PlatformNoticeDto> queryPlatformNotice(@RequestBody @Valid PlatformNoticeQueryForm queryForm, BindingResult br) {
         ParamValidator.validate(br);
         PlatformNoticeQueryDto queryDto = MapperUtils.map(queryForm, PlatformNoticeQueryDto.class);
         return noticeService.queryPlatformNotice(queryDto);

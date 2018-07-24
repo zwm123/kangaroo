@@ -12,4 +12,5 @@ public class SuggestionQueryForm extends PageForm {
 
     private Integer problemType;
 
+    private Integer status;
 }

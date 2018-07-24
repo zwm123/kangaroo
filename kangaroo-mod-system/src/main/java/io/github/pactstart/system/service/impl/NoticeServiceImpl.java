@@ -162,6 +162,7 @@ public class NoticeServiceImpl implements NoticeService {
             PlatformNoticeReaded noticeReaded = MapperUtils.map(readDto, PlatformNoticeReaded.class);
             noticeReaded.setCreateTime(new Date());
             platformNoticeReadedMapper.insert(noticeReaded);
+            platformNoticeMapper.incrementReadCount(platformNotice.getId());
         }
 
         return MapperUtils.map(platformNotice, PlatformNoticeDto.class);
