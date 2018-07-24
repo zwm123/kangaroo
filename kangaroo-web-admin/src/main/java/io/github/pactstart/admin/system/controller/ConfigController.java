@@ -95,8 +95,9 @@ public class ConfigController {
         ConfigUpdateDto configUpdateDto = MapperUtils.map(param, ConfigUpdateDto.class);
         configUpdateDto.setOperator(authenticationInfo.getUserName());
         configUpdateDto.setOperateIp(IpUtils.getClientIpAddr(request));
-
+        configService.update(configUpdateDto);
         ConfigDto configDto = configService.getById(param.getId());
+        configComponent.updateConfig(configDto.getNamespace(), configDto.getName(), configDto.getValue());
         kangarooWebAdapter.afterUpdateConfig(configDto);
 
         return ResponseCode.SUCCESS;

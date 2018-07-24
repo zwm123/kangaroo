@@ -10,6 +10,8 @@ import io.github.pactstart.admin.system.form.UserQueryForm;
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.utils.MapperUtils;
+import io.github.pactstart.biz.common.validation.group.Common;
+import io.github.pactstart.biz.common.validation.group.Update;
 import io.github.pactstart.commonutils.DataUtils;
 import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
 import io.github.pactstart.simple.web.framework.auth.SimpleUserInfo;
@@ -28,6 +30,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -89,7 +92,7 @@ public class SysUserController {
     @ApiOperation(value = "添加系统用户")
     @ApiImplicitParam(name = "param", value = "用户参数", required = true, dataType = "UserForm")
     @PostMapping(value = "/save.json")
-    public ResponseCode saveUser(@RequestBody @Valid UserForm userForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
+    public ResponseCode saveUser(@RequestBody @Validated({Common.class}) UserForm userForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
         SysUserDto sysUserDto = MapperUtils.map(userForm, SysUserDto.class);
         sysUserDto.setOperator(authenticationInfo.getUserName());
@@ -101,7 +104,7 @@ public class SysUserController {
     @ApiOperation(value = "修改系统用户")
     @ApiImplicitParam(name = "param", value = "用户参数", required = true, dataType = "UserForm")
     @PostMapping(value = "/update.json")
-    public ResponseCode updateUser(@RequestBody @Valid UserForm userForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
+    public ResponseCode updateUser(@RequestBody @Validated({Common.class, Update.class}) UserForm userForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
         SysUserDto sysUserDto = MapperUtils.map(userForm, SysUserDto.class);
         sysUserDto.setOperator(authenticationInfo.getUserName());
