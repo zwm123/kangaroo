@@ -10,7 +10,7 @@ import io.github.pactstart.commonutils.DataUtils;
 import io.github.pactstart.commonutils.JsonUtils;
 import io.github.pactstart.sms.autoconfigure.SmsClient;
 import io.github.pactstart.sms.autoconfigure.SmsResponse;
-import io.github.pactstart.system.component.ConfigComponent;
+import io.github.pactstart.system.delegate.SystemDelegateService;
 import io.github.pactstart.system.entity.SmsTemplate;
 import io.github.pactstart.system.facade.SmsServiceFacade;
 import io.github.pactstart.system.facade.dto.*;
@@ -25,8 +25,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Slf4j
 @Service
+@Slf4j
 public class SmsServiceFacadeImpl implements SmsServiceFacade {
 
     @Autowired
@@ -42,7 +42,7 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
     private SmsTemplateService smsTemplateService;
 
     @Autowired
-    private ConfigComponent configComponent;
+    private SystemDelegateService systemDelegateService;
 
     @Override
     public SmsSendResultDto sendNoticeSms(SmsSendParamDto smsSendParamDto) {
@@ -55,27 +55,29 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
         if (smsTemplate == null) {
             throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板不存在");
         }
-        Map<String, String> params = smsSendParamDto.getParams();
-        Matcher m = Pattern.compile("\\$\\{\\w+\\}").matcher(smsTemplate.getTemplate());
-        List<String> varNameList = Lists.newArrayList();
-        while (m.find()) {
-            String param = m.group();
-            String varName = param.substring(2, param.length() - 1);
-            if (params == null) {
-                log.error("短信模板参数为空", JsonUtils.obj2String(smsSendParamDto));
-                throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数为空");
+        if (systemDelegateService.isValidateSmsSendParam()) {
+            Map<String, String> params = smsSendParamDto.getParams();
+            Matcher m = Pattern.compile("\\$\\{\\w+\\}").matcher(smsTemplate.getTemplate());
+            List<String> varNameList = Lists.newArrayList();
+            while (m.find()) {
+                String param = m.group();
+                String varName = param.substring(2, param.length() - 1);
+                if (params == null) {
+                    log.error("短信模板参数为空", JsonUtils.obj2String(smsSendParamDto));
+                    throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数为空");
+                }
+                String varValue = params.get(varName);
+                if (varValue == null) {
+                    log.error("短信模板存在变量未赋值", JsonUtils.obj2String(smsSendParamDto));
+                    throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板存在变量未赋值");
+                }
+                varNameList.add(varName);
             }
-            String varValue = params.get(varName);
-            if (varValue == null) {
-                log.error("短信模板存在变量未赋值", JsonUtils.obj2String(smsSendParamDto));
-                throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板存在变量未赋值");
-            }
-            varNameList.add(varName);
-        }
-        if (params != null) {
-            if (varNameList.size() < params.size()) {
-                log.error("短信模板参数中存在多余的参数", JsonUtils.obj2String(params));
-                throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数中存在多余的参数");
+            if (params != null) {
+                if (varNameList.size() < params.size()) {
+                    log.error("短信模板参数中存在多余的参数", JsonUtils.obj2String(params));
+                    throw new ApplicationException(ResponseCode.INVALID_PARAM, "短信模板参数中存在多余的参数");
+                }
             }
         }
         SmsSendResultDto smsSendResultDto = new SmsSendResultDto();
@@ -155,11 +157,12 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
         cacheService.delete(key);
     }
 
+    private boolean isRealSendSms() {
+        return systemDelegateService.isRealSendSms();
+    }
+
     private String getKey(String phone, String templateId) {
         return phone.concat("_").concat(templateId);
     }
 
-    private boolean isRealSendSms() {
-        return configComponent.getBooleanProperty("system", "isRealSendSms", true);
-    }
 }

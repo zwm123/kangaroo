@@ -1,5 +1,6 @@
 package io.github.pactstart.admin.system.controller;
 
+import com.google.common.collect.Maps;
 import io.github.pactstart.admin.adpater.KangarooWebAdapter;
 import io.github.pactstart.admin.system.form.ConfigAddForm;
 import io.github.pactstart.admin.system.form.ConfigLogQueryForm;
@@ -8,11 +9,13 @@ import io.github.pactstart.admin.system.form.ConfigUpdateForm;
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.utils.MapperUtils;
+import io.github.pactstart.biz.common.vo.NameValuePair;
 import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
 import io.github.pactstart.simple.web.framework.utils.IpUtils;
 import io.github.pactstart.simple.web.framework.utils.ParamValidator;
 import io.github.pactstart.system.component.ConfigComponent;
 import io.github.pactstart.system.dto.*;
+import io.github.pactstart.system.enums.ConfigValueTypeEnum;
 import io.github.pactstart.system.service.ConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
 
 @Api(tags = "系统配置")
 @RequestMapping("/config")
@@ -40,6 +45,17 @@ public class ConfigController {
 
     @Autowired
     private ConfigComponent configComponent;
+
+    @ApiOperation(value = "获取所有的命名空间和配置类型")
+    @PostMapping("/selectAllNamespaceAndType.json")
+    public ResponseCode selectAllNamespace() {
+        List<NameValuePair> namespaceList = kangarooWebAdapter.getAllNamespace();
+        List<NameValuePair> configValueTypeList = ConfigValueTypeEnum.selectAll();
+        HashMap<String, List<NameValuePair>> data = Maps.newHashMap();
+        data.put("namespaceList", namespaceList);
+        data.put("configValueTypeList", configValueTypeList);
+        return ResponseCode.buildResponse(data);
+    }
 
     @ApiOperation(value = "刷新配置")
     @PostMapping("/refresh.json")
@@ -63,6 +79,7 @@ public class ConfigController {
     @PostMapping("/add.json")
     public ResponseCode add(@RequestBody @Valid ConfigAddForm param, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
+        kangarooWebAdapter.validateNamespace(param.getNamespace());
         ConfigDto configDto = MapperUtils.map(param, ConfigDto.class);
         configDto.setOperator(authenticationInfo.getUserName());
         configDto.setOperateIp(IpUtils.getClientIpAddr(request));
