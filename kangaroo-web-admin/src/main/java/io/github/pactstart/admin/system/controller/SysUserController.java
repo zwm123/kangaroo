@@ -63,9 +63,9 @@ public class SysUserController {
     @ApiOperation(value = "发送短信")
     @ApiImplicitParam(name = "param", value = "手机号+短信场景", required = true, dataType = "SmsSendForm")
     @PostMapping(value = "/sendSms.json")
-    public ResponseCode sendSms(HttpServletRequest request, @RequestBody @Valid SmsSendForm param, BindingResult bindingResult) {
+    public ResponseCode sendSms(HttpServletRequest request, @RequestBody @Valid SmsSendForm param, BindingResult bindingResult, AuthenticationInfo authenticationInfo) {
         ParamValidator.validate(bindingResult);
-        SmsTemplateAndParams smsTemplateAndParams = kangarooWebAdapter.getSmsParam(param);
+        SmsTemplateAndParams smsTemplateAndParams = kangarooWebAdapter.getSmsParam(param, authenticationInfo);
         SmsSendParamDto smsSendParamDto = SmsSendParamDto.builder().phone(param.getPhone()).templateId(smsTemplateAndParams.getTemplateId())
                 .signName(smsTemplateAndParams.getSignName()).codeLength(smsTemplateAndParams.getCodeLength()).params(smsTemplateAndParams.getTemplateParams()).build();
         SmsSendResultDto smsSendResultDto = smsServiceFacade.sendValidateSms(smsSendParamDto);
