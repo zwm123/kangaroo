@@ -93,10 +93,6 @@ public class NoticeController {
         return noticeService.queryMemberNotice(queryDto);
     }
 
-    public static void main(String[] args) {
-        JSON.parseObject("");
-    }
-
     @ApiOperation(value = "发送自定义会员通知")
     @ApiImplicitParam(name = "customMemberNoticeSendForm", value = "发送条件", required = true, dataType = "CustomMemberNoticeSendForm")
     @PostMapping("/member/sendCustom.json")
