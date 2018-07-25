@@ -46,4 +46,12 @@ public interface SysUserService {
      * @return
      */
     List<SysUser> getAll();
+
+    /**
+     * 根据id获取用户
+     *
+     * @param userId
+     * @return
+     */
+    SysUser getById(Integer userId);
 }

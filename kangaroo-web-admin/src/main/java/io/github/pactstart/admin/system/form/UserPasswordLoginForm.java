@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class LoginForm {
+public class UserPasswordLoginForm {
 
     @NotNull(message = "手机号或邮箱不可以为空")
     private String loginId;

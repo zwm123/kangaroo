@@ -67,6 +67,10 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser after = SysUser.builder().id(before.getId()).username(sysUserDto.getUsername()).telephone(sysUserDto.getTelephone()).mail(sysUserDto.getMail())
                 .deptId(sysUserDto.getDeptId()).status(sysUserDto.getStatus()).remark(sysUserDto.getRemark())
                 .operator(sysUserDto.getOperator()).operateIp(sysUserDto.getOperateIp()).operateTime(new Date()).build();
+
+        if (ValidUtils.isValid(sysUserDto.getPassword())) {
+            after.setPassword(DataUtils.md5(sysUserDto.getPassword()));
+        }
         sysUserMapper.updateByPrimaryKeySelective(after);
 
         sysLogService.saveUserLog(before, after);
@@ -87,6 +91,11 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<SysUser> getAll() {
         return sysUserMapper.selectAll();
+    }
+
+    @Override
+    public SysUser getById(Integer userId) {
+        return sysUserMapper.selectByPrimaryKey(userId);
     }
 
     private boolean checkTelephoneExist(String telephone, Integer userId) {

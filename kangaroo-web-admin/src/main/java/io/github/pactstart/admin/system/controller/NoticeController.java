@@ -56,7 +56,7 @@ public class NoticeController {
         ParamValidator.validate(br);
         PlatformNoticeSendDto sendDto = new PlatformNoticeSendDto();
         sendDto.setPlatformNoticeId(platformNoticeSendForm.getId());
-        sendDto.setMemberIdList(kangarooWebAdapter.beforeSendPlatformNotice());
+        sendDto.setMemberIdList(kangarooWebAdapter.getAllMemberIdList());
         if (!ValidUtils.isValid(sendDto.getMemberIdList())) {
             throw new ApplicationException(ResponseCode.NON_SUPPORTED_OPER, "未找到任何目标用户");
         }
