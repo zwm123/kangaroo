@@ -16,5 +16,5 @@ public class MemberNoticeQueryForm extends PageForm {
 
     private Integer showType;
 
-    private boolean readed;
+    private Boolean readed;
 }
