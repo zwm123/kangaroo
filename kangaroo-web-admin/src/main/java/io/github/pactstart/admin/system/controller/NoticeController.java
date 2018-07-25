@@ -49,13 +49,24 @@ public class NoticeController {
         return ResponseCode.SUCCESS;
     }
 
+    @ApiOperation(value = "删除平台通知")
+    @ApiImplicitParam(name = "PlatformNoticeIdForm", value = "添加条件", required = true, dataType = "PlatformNoticeIdForm")
+    @PostMapping("/platform/delete.json")
+    public ResponseCode deletePlatformNotice(@RequestBody @Valid PlatformNoticeIdForm platformNoticeIdForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
+        ParamValidator.validate(br);
+        PlatformNoticeIdDto platformNoticeIdDto = new PlatformNoticeIdDto();
+        platformNoticeIdDto.setPlatformNoticeId(platformNoticeIdForm.getId());
+        noticeService.deletePlatformNotice(platformNoticeIdDto);
+        return ResponseCode.SUCCESS;
+    }
+
     @ApiOperation(value = "发送平台通知")
-    @ApiImplicitParam(name = "platformNoticeSendForm", value = "发送条件", required = true, dataType = "PlatformNoticeSendForm")
+    @ApiImplicitParam(name = "PlatformNoticeIdForm", value = "发送条件", required = true, dataType = "PlatformNoticeIdForm")
     @PostMapping("/platform/send.json")
-    public ResponseCode sendPlatformNotice(@RequestBody @Valid PlatformNoticeSendForm platformNoticeSendForm, BindingResult br) {
+    public ResponseCode sendPlatformNotice(@RequestBody @Valid PlatformNoticeIdForm platformNoticeIdForm, BindingResult br) {
         ParamValidator.validate(br);
         PlatformNoticeSendDto sendDto = new PlatformNoticeSendDto();
-        sendDto.setPlatformNoticeId(platformNoticeSendForm.getId());
+        sendDto.setPlatformNoticeId(platformNoticeIdForm.getId());
         sendDto.setMemberIdList(kangarooWebAdapter.getAllMemberIdList());
         if (!ValidUtils.isValid(sendDto.getMemberIdList())) {
             throw new ApplicationException(ResponseCode.NON_SUPPORTED_OPER, "未找到任何目标用户");

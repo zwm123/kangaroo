@@ -25,4 +25,15 @@ public enum PlatformNoticeStatusEnum {
     public int getValue() {
         return value;
     }
+
+    public static PlatformNoticeStatusEnum valueOf(int value) {
+        PlatformNoticeStatusEnum result = null;
+        for (PlatformNoticeStatusEnum item : values()) {
+            if (item.getValue() == value) {
+                result = item;
+                break;
+            }
+        }
+        return result;
+    }
 }

@@ -100,4 +100,11 @@ public interface NoticeService {
      * @param memberId
      */
     void readPlatformNoticeAll(Integer memberId);
+
+    /**
+     * 删除平台通知
+     *
+     * @param platformNoticeIdDto
+     */
+    void deletePlatformNotice(PlatformNoticeIdDto platformNoticeIdDto);
 }

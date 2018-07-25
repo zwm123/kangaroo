@@ -27,6 +27,9 @@
             <if test="@Ognl@isNotEmpty(name)">
                 AND name like concat('%',#{name},'%')
             </if>
+            <if test="@Ognl@isNotEmpty(description)">
+                AND description like concat('%',#{description},'%')
+            </if>
             <if test="configType != null">
                 AND config_type = #{configType}
             </if>

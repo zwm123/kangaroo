@@ -207,6 +207,23 @@ public class NoticeServiceImpl implements NoticeService {
         }
     }
 
+    @Override
+    public void deletePlatformNotice(PlatformNoticeIdDto platformNoticeIdDto) {
+        PlatformNotice platformNotice = platformNoticeMapper.selectByPrimaryKey(platformNoticeIdDto.getPlatformNoticeId());
+        if (platformNotice == null) {
+            throw new ApplicationException(ResponseCode.INVALID_PARAM, "您要删除平台通知不存在");
+        }
+        PlatformNoticeStatusEnum platformNoticeStatusEnum = PlatformNoticeStatusEnum.valueOf(platformNotice.getStatus());
+        if (platformNoticeStatusEnum == PlatformNoticeStatusEnum.DELETE) {
+
+        }
+        if (platformNoticeStatusEnum == PlatformNoticeStatusEnum.PUBLISH) {
+            throw new ApplicationException(ResponseCode.NON_SUPPORTED_OPER, "已发布的平台通知不能删除");
+        } else {
+            platformNoticeMapper.updateStatus(platformNotice.getId(), PlatformNoticeStatusEnum.DELETE.getValue());
+        }
+    }
+
     private String getAlias(Integer id) {
         //项目名称_环境_id
         return jPushService.getName() + "_" + SpringContextHolder.getCurrentEnv().name() + "_" + id;

@@ -2,9 +2,9 @@ package io.github.pactstart.admin.system.form;
 
 import javax.validation.constraints.NotNull;
 
-public class PlatformNoticeSendForm {
+public class PlatformNoticeIdForm {
 
-    @NotNull(message = "未选择需要发送的平台通知")
+    @NotNull(message = "平台通知id不能为空")
     private Integer id;
 
     public Integer getId() {

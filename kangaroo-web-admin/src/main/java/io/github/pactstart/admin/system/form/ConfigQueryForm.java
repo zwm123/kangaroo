@@ -23,4 +23,9 @@ public class ConfigQueryForm extends PageForm {
      * 配置类型，1、bool，2、int，3、string、4、json
      */
     private Integer configType;
+
+    /**
+     * 配置描述
+     */
+    private String description;
 }
