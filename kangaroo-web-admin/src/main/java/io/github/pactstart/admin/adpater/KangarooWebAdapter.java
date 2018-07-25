@@ -90,24 +90,12 @@ public class KangarooWebAdapter {
     }
 
     /**
-     * 发送短信前置操作，比如验证手机号是否在系统中存在，短信场景是否合法等，验证不通过请抛出异常
-     *
-     * @param smsSendForm
-     * @return
-     */
-    public void beforeSendSms(SmsSendForm smsSendForm) {
-
-    }
-
-    /**
      * 这里控制短信场景与短信签名、模板、参数的映射
      *
      * @param smsSendForm
      * @return
      */
-    public SmsTemplateAndParams getSmsParam(SmsSendForm smsSendForm) {
-        beforeSendSms(smsSendForm);
-
+    public SmsTemplateAndParams getSmsParam(SmsSendForm smsSendForm, AuthenticationInfo authenticationInfo) {
         throw new ApplicationException(ResponseCode.SYSTEM_ERROR, "未配置短信场景与短信签名、模板、参数的映射");
     }
 }

@@ -148,7 +148,7 @@ public class WxPayService {
      * @return
      * @throws Exception
      */
-    public NativeUnifiedOrderResponse wxaUnifiedOrder(NativeUnifiedOrderRequest request) throws Exception {
+    public NativeUnifiedOrderResponse nativeUnifiedOrder(NativeUnifiedOrderRequest request) throws Exception {
         validateParam(request);
         Map<String, String> paramMap = getParamMap(request);
         Map<String, String> responseParamMap = wxPay.unifiedOrder(paramMap);
@@ -163,7 +163,7 @@ public class WxPayService {
      * @return
      * @throws Exception
      */
-    public MicropayResponse wxaUnifiedOrder(MicropayRequest request) throws Exception {
+    public MicropayResponse microUnifiedOrder(MicropayRequest request) throws Exception {
         validateParam(request);
         Map<String, String> paramMap = getParamMap(request);
         Map<String, String> responseParamMap = wxPay.microPay(paramMap);
