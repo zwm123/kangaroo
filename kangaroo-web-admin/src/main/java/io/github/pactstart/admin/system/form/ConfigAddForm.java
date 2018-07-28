@@ -29,7 +29,7 @@ public class ConfigAddForm {
      * 配置值
      */
     @NotNull(message = "配置值不能为空")
-    @Length(max = 50, message = "默认值长度不能超过255个字符")
+    @Length(max = 255, message = "默认值长度不能超过255个字符")
     private String value;
 
     /**
@@ -42,7 +42,7 @@ public class ConfigAddForm {
      * 默认值
      */
     @NotNull(message = "默认值不能为空")
-    @Length(max = 50, message = "默认值长度不能超过255个字符")
+    @Length(max = 255, message = "默认值长度不能超过255个字符")
     private String defaultValue;
 
     /**
