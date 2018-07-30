@@ -54,6 +54,7 @@ public class DefaultRequestCompleteCallbackServiceImpl implements RequestComplet
         data.put("url", url);
         data.put("ip", IpUtils.getClientIpAddr(request));
         data.put("device", request.getHeader("device"));
+        data.put("token", request.getHeader("token"));
         AuthenticationInfo authenticationInfo = RequestHolder.getAuthenticationInfo();
         if (authenticationInfo != null) {
             data.put("userId", authenticationInfo.getUserId());
@@ -69,7 +70,6 @@ public class DefaultRequestCompleteCallbackServiceImpl implements RequestComplet
             data.put("exceptionMessage", exception.getMessage());
             request.removeAttribute("ex");
         }
-        log.info(JsonUtils.obj2String(data));
         call(request, response, handler, ex, servletRequestWrapperEnabled, data);
     }
 
@@ -84,6 +84,6 @@ public class DefaultRequestCompleteCallbackServiceImpl implements RequestComplet
      * @param data
      */
     public void call(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex, boolean servletRequestWrapperEnabled, Map<String, Object> data) {
-
+        log.info(JsonUtils.obj2String(data));
     }
 }

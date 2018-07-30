@@ -149,7 +149,7 @@ public class SysUserController {
         }
         SysUserDto sysUserDto = new SysUserDto();
         sysUserDto.setId(userId);
-        sysUserDto.setPassword(userPasswordModifyForm.getPassword());
+        sysUserDto.setPassword(userPasswordModifyForm.getNewPassword());
         sysUserDto.setOperator(authenticationInfo.getUserName());
         sysUserDto.setOperateIp(IpUtils.getClientIpAddr(request));
         sysUserService.update(sysUserDto);
