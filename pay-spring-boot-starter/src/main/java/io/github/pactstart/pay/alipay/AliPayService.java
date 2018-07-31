@@ -94,6 +94,18 @@ public class AliPayService {
     }
 
     /**
+     * JAVA服务端SDK生成APP支付订单信息示例
+     * https://docs.open.alipay.com/54/106370/ AlipayTradeAppPayModel
+     *
+     * @param request
+     * @return
+     * @throws AlipayApiException
+     */
+    public AlipayTradeAppPayResponse appPay(AlipayTradeAppPayRequest request) throws AlipayApiException {
+        return alipayClient.sdkExecute(request);
+    }
+
+    /**
      * 获取支付宝PC网页支付Form表单字符串
      *
      * @param pagePayRequest
