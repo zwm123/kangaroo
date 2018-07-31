@@ -153,4 +153,13 @@ public class JsapiUnifiedOrderRequest {
         this.spbill_create_ip = spbill_create_ip;
         this.openid = openid;
     }
+
+    public JsapiUnifiedOrderRequest(String body, String out_trade_no, Integer total_fee, String spbill_create_ip, String openid, String notify_url) {
+        this.body = body;
+        this.out_trade_no = out_trade_no;
+        this.total_fee = total_fee;
+        this.spbill_create_ip = spbill_create_ip;
+        this.openid = openid;
+        this.notify_url = notify_url;
+    }
 }

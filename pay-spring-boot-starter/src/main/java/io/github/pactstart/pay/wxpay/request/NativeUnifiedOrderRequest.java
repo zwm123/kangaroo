@@ -149,4 +149,13 @@ public class NativeUnifiedOrderRequest {
         this.spbill_create_ip = spbill_create_ip;
         this.product_id = product_id;
     }
+
+    public NativeUnifiedOrderRequest(String body, String out_trade_no, Integer total_fee, String spbill_create_ip, String product_id, String notify_url) {
+        this.body = body;
+        this.out_trade_no = out_trade_no;
+        this.total_fee = total_fee;
+        this.spbill_create_ip = spbill_create_ip;
+        this.product_id = product_id;
+        this.notify_url = notify_url;
+    }
 }

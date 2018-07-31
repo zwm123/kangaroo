@@ -134,4 +134,13 @@ public class AppUnifiedOrderRequest {
         this.total_fee = total_fee;
         this.spbill_create_ip = spbill_create_ip;
     }
+
+    public AppUnifiedOrderRequest(String body, String attach, String out_trade_no, Integer total_fee, String spbill_create_ip, String notify_url) {
+        this.body = body;
+        this.attach = attach;
+        this.out_trade_no = out_trade_no;
+        this.total_fee = total_fee;
+        this.spbill_create_ip = spbill_create_ip;
+        this.notify_url = notify_url;
+    }
 }

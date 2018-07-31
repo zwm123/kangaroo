@@ -357,7 +357,7 @@ public class WXPay {
         } else {
             url = WXPayConstants.UNIFIEDORDER_URL_SUFFIX;
         }
-        if (this.notifyUrl != null) {
+        if (this.notifyUrl != null && !reqData.containsKey("notify_url")) {
             reqData.put("notify_url", this.notifyUrl);
         }
         String respXml = this.requestWithoutCert(url, this.fillRequestData(reqData), connectTimeoutMs, readTimeoutMs);
