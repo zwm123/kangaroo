@@ -127,7 +127,7 @@ public class ConfigServiceImpl implements ConfigService {
         validateConfig(configUpdateDto.getConfigType(), configUpdateDto.getValue(), configUpdateDto.getDefaultValue(), configUpdateDto.getJsonSchema());
 
         Config after = Config.builder().id(before.getId()).configType(configUpdateDto.getConfigType()).description(configUpdateDto.getDescription())
-                .value(configUpdateDto.getValue()).defaultValue(configUpdateDto.getDefaultValue()).operateIp(configUpdateDto.getOperateIp()).operateTime(new Date()).build();
+                .value(configUpdateDto.getValue()).defaultValue(configUpdateDto.getDefaultValue()).jsonSchema(configUpdateDto.getJsonSchema()).operateIp(configUpdateDto.getOperateIp()).operateTime(new Date()).build();
         configMapper.updateByPrimaryKeySelective(after);
 
         ConfigLog configLog = ConfigLog.builder().namespace(before.getNamespace()).name(before.getName())
