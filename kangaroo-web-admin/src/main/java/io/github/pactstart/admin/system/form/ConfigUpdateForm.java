@@ -42,6 +42,5 @@ public class ConfigUpdateForm {
     /**
      * 配置值约束
      */
-    @Length(max = 2048, message = "json schema长度不能超过2048个字符")
     private String jsonSchema;
 }

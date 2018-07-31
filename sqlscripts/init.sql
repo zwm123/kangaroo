@@ -20,27 +20,27 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `config`;
 CREATE TABLE `config` (
-  `id`            INT(11)       NOT NULL AUTO_INCREMENT
+  `id`            INT(11)      NOT NULL AUTO_INCREMENT
   COMMENT '自增长主键',
-  `namespace`     VARCHAR(20)   NOT NULL
+  `namespace`     VARCHAR(20)  NOT NULL
   COMMENT '命名空间',
-  `name`          VARCHAR(50)   NOT NULL DEFAULT ''
+  `name`          VARCHAR(50)  NOT NULL DEFAULT ''
   COMMENT '配置名称',
-  `value`         VARCHAR(255)  NOT NULL DEFAULT ''
+  `value`         VARCHAR(255) NOT NULL DEFAULT ''
   COMMENT '配置值',
-  `config_type`   INT(11)       NOT NULL
+  `config_type`   INT(11)      NOT NULL
   COMMENT '配置类型，1、bool，2、int，3、string、4、json',
-  `default_value` VARCHAR(255)  NOT NULL DEFAULT ''
+  `default_value` VARCHAR(255) NOT NULL DEFAULT ''
   COMMENT '默认值',
-  `description`   VARCHAR(50)   NOT NULL DEFAULT ''
+  `description`   VARCHAR(50)  NOT NULL DEFAULT ''
   COMMENT '配置描述',
-  `json_schema`   VARCHAR(2048) NOT NULL
+  `json_schema`   TEXT         NOT NULL
   COMMENT '配置值约束',
-  `operator`      VARCHAR(20)   NOT NULL DEFAULT ''
+  `operator`      VARCHAR(20)  NOT NULL DEFAULT ''
   COMMENT '操作者',
-  `operate_time`  DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `operate_time`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '最后一次更新时间',
-  `operate_ip`    VARCHAR(20)   NOT NULL DEFAULT ''
+  `operate_ip`    VARCHAR(20)  NOT NULL DEFAULT ''
   COMMENT '最后一个更新者的ip地址',
   PRIMARY KEY (`id`)
 )
