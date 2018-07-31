@@ -14,7 +14,8 @@ import javax.validation.constraints.Pattern;
 public class UserAddForm {
 
     @NotBlank(message = "用户名不可以为空")
-    @Length(min = 6, max = 20, message = "用户名长度为6-20个字符")
+    @Length(min = 3, max = 20, message = "用户名长度为3-20个字符")
+
     private String username;
 
     @NotBlank(message = "密码不能为空")
