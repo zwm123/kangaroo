@@ -55,7 +55,7 @@ public class SuggestionServiceImpl implements SuggestionService {
             throw new ApplicationException(ResponseCode.NON_SUPPORTED_OPER, "您要处理的建议非待处理状态");
         }
         Suggestion after = Suggestion.builder().id(suggestion.getId()).status(SuggestionStatusEnum.HANDLED.getValue())
-                .reply(suggestionDto.getReply()).operator(suggestionDto.getReply()).operateTime(new Date()).build();
+                .reply(suggestionDto.getReply()).operator(suggestionDto.getOperator()).operateTime(new Date()).build();
         suggestionMapper.updateByPrimaryKeySelective(after);
     }
 }
