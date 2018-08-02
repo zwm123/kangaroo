@@ -46,7 +46,7 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
     @Autowired
     private SystemDelegateService systemDelegateService;
 
-    @Value("${sms.testPhone:15013414211")
+    @Value("${sms.testPhone:15013414211}")
     private String testPhone;
 
     @Value("${sms.testSmsCode:888888}")
