@@ -8,6 +8,7 @@ import io.github.pactstart.biz.common.utils.BeanValidator;
 import io.github.pactstart.cache.autoconfigure.CacheService;
 import io.github.pactstart.commonutils.DataUtils;
 import io.github.pactstart.commonutils.JsonUtils;
+import io.github.pactstart.commonutils.ValidUtils;
 import io.github.pactstart.sms.autoconfigure.SmsClient;
 import io.github.pactstart.sms.autoconfigure.SmsResponse;
 import io.github.pactstart.system.delegate.SystemDelegateService;
@@ -18,6 +19,7 @@ import io.github.pactstart.system.service.SmsRecordService;
 import io.github.pactstart.system.service.SmsTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +45,12 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
 
     @Autowired
     private SystemDelegateService systemDelegateService;
+
+    @Value("${sms.testPhone:15013414211")
+    private String testPhone;
+
+    @Value("${sms.testSmsCode:888888}")
+    private String testSmsCode;
 
     @Override
     public SmsSendResultDto sendNoticeSms(SmsSendParamDto smsSendParamDto) {
@@ -104,14 +112,28 @@ public class SmsServiceFacadeImpl implements SmsServiceFacade {
     @Override
     public SmsSendResultDto sendValidateSms(SmsSendParamDto smsSendParamDto) {
         BeanValidator.validate(smsSendParamDto);
+        boolean isTestPhone = false;
+        if (ValidUtils.isValid(testPhone)) {
+            String[] arr = testPhone.split(",");
+            for (String item : arr) {
+                if (item.equals(smsSendParamDto.getPhone())) {
+                    isTestPhone = true;
+                    break;
+                }
+            }
+        }
         String code = null;
-        if (isRealSendSms()) {
-            code = DataUtils.numRandomGenerator(smsSendParamDto.getCodeLength());
+        if (isTestPhone) {
+            code = testSmsCode;
         } else {
-            if (smsSendParamDto.getCodeLength() == 4) {
-                code = "8888";
+            if (isRealSendSms()) {
+                code = DataUtils.numRandomGenerator(smsSendParamDto.getCodeLength());
             } else {
-                code = "888888";
+                if (smsSendParamDto.getCodeLength() == 4) {
+                    code = "8888";
+                } else {
+                    code = "888888";
+                }
             }
         }
         if (smsSendParamDto.getParams() == null) {
