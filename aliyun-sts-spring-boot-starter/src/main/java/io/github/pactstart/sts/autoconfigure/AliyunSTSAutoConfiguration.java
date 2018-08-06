@@ -80,12 +80,7 @@ public class AliyunSTSAutoConfiguration implements InitializingBean, Application
 
                 ProductConfig productConfig = entry.getValue();
 
-                String policy = null;
-                if (productConfig.getPolicyFile().contains("classpath")) {
-                    policy = readFileFromClasspath(productConfig.getPolicyFile());
-                } else {
-                    policy = readToString(productConfig.getPolicyFile());
-                }
+                String policy = readToString(productConfig.getPolicyFile());
                 logger.info("policy file path:{}", productConfig.getPolicyFile());
                 logger.info("policy file content:{}", policy);
 

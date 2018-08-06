@@ -7,15 +7,13 @@ import io.github.pactstart.pay.wxpay.request.OrderQueryRequest;
 import io.github.pactstart.pay.wxpay.request.PayResultNoticeRequest;
 import io.github.pactstart.pay.wxpay.response.OrderQueryResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
 
 @Slf4j
 public class WxPayServiceTest {
 
     private WxPayService wxPayService;
 
-    @Before
+    //    @Before
     public void init() throws Exception {
         WxPayProperties wxPayProperties = new WxPayProperties();
         wxPayProperties.setAppId("");
@@ -26,7 +24,7 @@ public class WxPayServiceTest {
         wxPayService = new WxPayService(wxPayProperties);
     }
 
-    @Test
+    //    @Test
     public void testParsePayNoticeData() throws Exception {
         String xml = "<xml><appid><![CDATA[" + wxPayService.getWxPayProperties().getAppId() + "]]></appid>\n" +
                 "<attach><![CDATA[支付0.03元]]></attach>\n" +
@@ -50,7 +48,7 @@ public class WxPayServiceTest {
         log.info(JSON.toJSONString(payResultNoticeRequest));
     }
 
-    @Test
+    //    @Test
     public void testOrderQuery() throws Exception {
         OrderQueryRequest orderQueryRequest = new OrderQueryRequest(null, "101019263574247346176");
         OrderQueryResponse orderQueryResponse = wxPayService.orderQuery(orderQueryRequest);
