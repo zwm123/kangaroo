@@ -123,6 +123,21 @@
                 <version>1.0</version>
             </dependency>
             <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>pay-spring-boot-starter</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>kangaroo-simple-web-framework</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>kangaroo-web-admin</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
