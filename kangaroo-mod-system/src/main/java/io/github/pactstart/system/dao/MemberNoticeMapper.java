@@ -27,4 +27,6 @@ public interface MemberNoticeMapper extends MyMapper<MemberNotice> {
 
     @Select("select count(1) from member_notice where readed=false and member_id=#{memberId}")
     int countUnreadByMemberId(@Param("memberId") Integer memberId);
+
+    void batchUpdateStatus(@Param("noticeIdList") List<Long> noticeIdList, @Param("status") Integer status);
 }

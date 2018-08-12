@@ -40,4 +40,14 @@
         </where>
         order by create_time DESC
     </select>
+
+    <update id="batchUpdateStatus" parameterType="Map">
+        update member_notice set status = #{status}
+        <where>
+            id in
+            <foreach collection="noticeIdList" item="noticeId" open="(" close=")" separator=",">
+                #{noticeId}
+            </foreach>
+        </where>
+    </update>
 </mapper>

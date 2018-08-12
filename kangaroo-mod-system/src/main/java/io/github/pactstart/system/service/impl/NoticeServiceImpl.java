@@ -2,6 +2,7 @@ package io.github.pactstart.system.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
@@ -10,6 +11,7 @@ import io.github.pactstart.biz.common.utils.MapperUtils;
 import io.github.pactstart.biz.common.utils.PageUtils;
 import io.github.pactstart.biz.common.utils.SpringContextHolder;
 import io.github.pactstart.commonutils.JsonUtils;
+import io.github.pactstart.commonutils.ValidUtils;
 import io.github.pactstart.jpush.autoconfigure.JPushService;
 import io.github.pactstart.jpush.autoconfigure.PushObject;
 import io.github.pactstart.system.dao.MemberNoticeMapper;
@@ -51,6 +53,11 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public void sendCustomMemberNotice(CustomMemberNoticeSendDto customMemberNoticeSendDto) {
+        if (!ValidUtils.isValid(customMemberNoticeSendDto.getMemberList())) {
+            return;
+        }
+        List<MemberNotice> memberNoticeList = Lists.newArrayList();
+        List<String> alias = new ArrayList<>();
         for (MemberIdNicknamePair pair : customMemberNoticeSendDto.getMemberList()) {
             MemberNotice memberNotice = new MemberNotice();
             memberNotice.setMemberId(pair.getMemberId());
@@ -63,16 +70,20 @@ public class NoticeServiceImpl implements NoticeService {
             memberNotice.setDel(false);
             memberNotice.setStatus(MemberNoticeStatusEnum.SENDING.getValue());
             memberNotice.setCreateTime(new Date());
-            memberNoticeMapper.insert(memberNotice);
+            memberNoticeList.add(memberNotice);
 
-            //发送
-            Map<String, Object> extras = customMemberNoticeSendDto.getExtras();
-            extras.put("noticeType", NoticeTypeEnum.MEMBER_NOTICE.getValue());
-            boolean result = sendJpush(getAlias(pair.getMemberId()), customMemberNoticeSendDto.getTitle(), customMemberNoticeSendDto.getContent(), extras);
-
-            memberNoticeMapper.updateStatus(memberNotice.getId(), result ? MemberNoticeStatusEnum.SEND_SUCCESS.getValue() : MemberNoticeStatusEnum.SEND_FAIL.getValue());
+            alias.add(getAlias(pair.getMemberId()));
         }
+        memberNoticeMapper.insertList(memberNoticeList);
+        //发送
+        Map<String, Object> extras = customMemberNoticeSendDto.getExtras();
+        extras.put("noticeType", NoticeTypeEnum.MEMBER_NOTICE.getValue());
+        boolean result = sendJpush(alias, customMemberNoticeSendDto.getTitle(), customMemberNoticeSendDto.getContent(), extras);
 
+        List<Long> noticeIdList = Lists.newArrayList();
+        memberNoticeList.forEach(item -> noticeIdList.add(item.getId()));
+
+        memberNoticeMapper.batchUpdateStatus(noticeIdList, result ? MemberNoticeStatusEnum.SEND_SUCCESS.getValue() : MemberNoticeStatusEnum.SEND_FAIL.getValue());
     }
 
     @Override
