@@ -51,7 +51,31 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private JPushService jPushService;
 
-    @Override
+    public void sendCustomMemberNotice2(CustomMemberNoticeSendDto customMemberNoticeSendDto) {
+        for (MemberIdNicknamePair pair : customMemberNoticeSendDto.getMemberList()) {
+            MemberNotice memberNotice = new MemberNotice();
+            memberNotice.setMemberId(pair.getMemberId());
+            memberNotice.setNickname(pair.getMemberNickname());
+            memberNotice.setTitle(customMemberNoticeSendDto.getTitle());
+            memberNotice.setContent(customMemberNoticeSendDto.getContent());
+            memberNotice.setBizType(customMemberNoticeSendDto.getBizType());
+            memberNotice.setShowType(customMemberNoticeSendDto.getShowType());
+            memberNotice.setReaded(false);
+            memberNotice.setDel(false);
+            memberNotice.setStatus(MemberNoticeStatusEnum.SENDING.getValue());
+            memberNotice.setCreateTime(new Date());
+            memberNoticeMapper.insert(memberNotice);
+
+            //发送
+            Map<String, Object> extras = customMemberNoticeSendDto.getExtras();
+            extras.put("noticeType", NoticeTypeEnum.MEMBER_NOTICE.getValue());
+            boolean result = sendJpush(getAlias(pair.getMemberId()), customMemberNoticeSendDto.getTitle(), customMemberNoticeSendDto.getContent(), extras);
+
+            memberNoticeMapper.updateStatus(memberNotice.getId(), result ? MemberNoticeStatusEnum.SEND_SUCCESS.getValue() : MemberNoticeStatusEnum.SEND_FAIL.getValue());
+        }
+
+    }
+
     public void sendCustomMemberNotice(CustomMemberNoticeSendDto customMemberNoticeSendDto) {
         if (!ValidUtils.isValid(customMemberNoticeSendDto.getMemberList())) {
             return;
