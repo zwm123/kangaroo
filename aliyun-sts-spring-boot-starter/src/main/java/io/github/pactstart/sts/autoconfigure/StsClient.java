@@ -41,6 +41,7 @@ public class StsClient {
             request.setVersion(STS_API_VERSION);
             request.setMethod(MethodType.POST);
             request.setProtocol(protocolType);
+            request.setEndpoint("sts.aliyuncs.com");
 
             request.setRoleArn(productConfig.getRoleArn());
             request.setRoleSessionName(productConfig.getRoleSessionName());
