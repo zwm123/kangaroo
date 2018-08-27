@@ -14,4 +14,8 @@ public class UserQueryDto extends PageQueryDto {
 
     private Integer status;
 
+    private String telephone;
+
+    private String username;
+
 }

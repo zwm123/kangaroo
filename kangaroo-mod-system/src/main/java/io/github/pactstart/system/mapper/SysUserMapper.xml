@@ -81,6 +81,15 @@
             <if test="status != null">
                 AND status = #{status}
             </if>
+            <if test="excludeStatus != null">
+                AND status != #{excludeStatus}
+            </if>
+            <if test="@Ognl@isNotEmpty(telephone)">
+                AND telephone like concat('%', #{telephone}, '%')
+            </if>
+            <if test="@Ognl@isNotEmpty(username)">
+                AND username like concat('%', #{username}, '%')
+            </if>
         </where>
     </select>
 </mapper>

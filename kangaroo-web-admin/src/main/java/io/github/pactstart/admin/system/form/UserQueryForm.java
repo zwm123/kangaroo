@@ -12,4 +12,8 @@ public class UserQueryForm extends PageForm {
 
     private Integer deptId;
 
+    private String telephone;
+
+    private String username;
+
 }

@@ -48,7 +48,7 @@ public class SysAclController {
     private SysRoleUserService sysRoleUserService;
 
     @ApiOperation(value = "添加权限点")
-    @ApiImplicitParam(name = "param", value = "权限点参数", required = true, dataType = "AclForm")
+    @ApiImplicitParam(name = "aclForm", value = "权限点参数", required = true, dataType = "AclForm")
     @PostMapping(value = "/save.json")
     public ResponseCode saveAclModule(@RequestBody @Valid AclForm aclForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
@@ -60,7 +60,7 @@ public class SysAclController {
     }
 
     @ApiOperation(value = "修改权限点")
-    @ApiImplicitParam(name = "param", value = "权限点参数", required = true, dataType = "AclForm")
+    @ApiImplicitParam(name = "aclForm", value = "权限点参数", required = true, dataType = "AclForm")
     @PostMapping(value = "/update.json")
     public ResponseCode updateAclModule(@RequestBody @Valid AclForm aclForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
@@ -72,16 +72,16 @@ public class SysAclController {
     }
 
     @ApiOperation(value = "分页查询权限点")
-    @ApiImplicitParam(name = "param", value = "查询条件", required = true, dataType = "AclQueryForm")
+    @ApiImplicitParam(name = "aclQueryForm", value = "查询条件", required = true, dataType = "AclQueryForm")
     @PostMapping(value = "/page.json")
-    public PageResultDto<SysAclDto> page(@Valid AclQueryForm aclQueryForm, BindingResult bindingResult) {
+    public PageResultDto<SysAclDto> page(@RequestBody @Valid AclQueryForm aclQueryForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);
         AclQueryDto aclQueryDto = MapperUtils.map(aclQueryForm, AclQueryDto.class);
         return sysAclService.query(aclQueryDto);
     }
 
     @ApiOperation(value = "删除权限点")
-    @ApiImplicitParam(name = "param", value = "权限点id", required = true, dataType = "IdForm")
+    @ApiImplicitParam(name = "idForm", value = "权限点id", required = true, dataType = "IdForm")
     @PostMapping(value = "/delete.json")
     public ResponseCode delete(@RequestBody @Valid IdForm idForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);
@@ -91,7 +91,7 @@ public class SysAclController {
     }
 
     @ApiOperation(value = "获取拥有某个权限点的所有角色和用户")
-    @ApiImplicitParam(name = "param", value = "权限点id", required = true, dataType = "AclIdForm")
+    @ApiImplicitParam(name = "aclIdForm", value = "权限点id", required = true, dataType = "AclIdForm")
     @PostMapping(value = "/acls.json")
     public ResponseCode acls(@Valid AclIdForm aclIdForm, BindingResult br) {
         ParamValidator.validate(br);

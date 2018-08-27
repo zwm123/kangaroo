@@ -14,6 +14,7 @@ import io.github.pactstart.system.dao.SysUserMapper;
 import io.github.pactstart.system.dto.SysUserDto;
 import io.github.pactstart.system.dto.UserQueryDto;
 import io.github.pactstart.system.entity.SysUser;
+import io.github.pactstart.system.enums.SysUserStatus;
 import io.github.pactstart.system.service.SysLogService;
 import io.github.pactstart.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public PageResultDto<SysUserDto> query(UserQueryDto pageQueryDto) {
         Map<String, Object> condition = BeanMapUtils.beanToMap(pageQueryDto);
+        condition.put("excludeStatus", SysUserStatus.DELETED.getValue());
         Page<Object> page = PageHelper.startPage(pageQueryDto.getPageNum(), pageQueryDto.getPageSize()).doSelectPage(() -> sysUserMapper.query(condition));
         return PageUtils.convert(page, SysUserDto.class);
     }

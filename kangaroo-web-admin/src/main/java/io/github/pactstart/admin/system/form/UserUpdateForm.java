@@ -17,7 +17,7 @@ public class UserUpdateForm {
     private Integer id;
 
     @NotBlank(message = "用户名不可以为空")
-    @Length(min = 6, max = 20, message = "用户名长度为6-20个字符")
+    @Length(max = 20, message = "用户名需在20个字符以内")
     private String username;
 
     @Pattern(regexp = "[A-Za-z0-9]{6,20}", message = "密码由6-20位字母或数字组成")

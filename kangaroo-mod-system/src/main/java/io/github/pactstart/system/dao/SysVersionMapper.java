@@ -9,5 +9,4 @@ public interface SysVersionMapper extends MyMapper<SysVersion> {
 
     List<SysVersion> query(Object object);
 
-    SysVersion getNewestVersion(Object object);
 }

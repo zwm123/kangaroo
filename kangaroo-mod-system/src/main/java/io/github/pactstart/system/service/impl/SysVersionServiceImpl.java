@@ -7,6 +7,7 @@ import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.exception.ApplicationException;
 import io.github.pactstart.biz.common.utils.MapperUtils;
 import io.github.pactstart.biz.common.utils.PageUtils;
+import io.github.pactstart.commonutils.ValidUtils;
 import io.github.pactstart.system.dao.SysVersionMapper;
 import io.github.pactstart.system.dto.SysVersionDto;
 import io.github.pactstart.system.dto.SysVersionQueryDto;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SysVersionServiceImpl implements SysVersionService {
@@ -54,6 +56,10 @@ public class SysVersionServiceImpl implements SysVersionService {
 
     @Override
     public SysVersionDto getNewestVersion(SysVersionQueryDto sysVersionQueryDto) {
-        return MapperUtils.map(sysVersionMapper.getNewestVersion(sysVersionQueryDto), SysVersionDto.class);
+        List<SysVersion> sysVersionList = sysVersionMapper.query(sysVersionQueryDto);
+        if (ValidUtils.isValid(sysVersionList)) {
+            return MapperUtils.map(sysVersionList.get(0), SysVersionDto.class);
+        }
+        return null;
     }
 }

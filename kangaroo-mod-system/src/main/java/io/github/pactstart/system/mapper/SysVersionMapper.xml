@@ -32,13 +32,7 @@
                 AND status = #{status}
             </if>
         </where>
-        order by version_time desc
+        order by version_seq desc
     </select>
 
-    <select id="getNewestVersion" parameterType="Map" resultMap="BaseResultMap">
-        select * from sys_version
-        where version_owner = #{versionOwner} and status = #{status}
-        order by version_seq
-        limit 0,1
-    </select>
 </mapper>

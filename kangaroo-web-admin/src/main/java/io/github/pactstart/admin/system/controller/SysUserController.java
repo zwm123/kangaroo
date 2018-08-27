@@ -61,12 +61,12 @@ public class SysUserController {
     private KangarooWebAdapter kangarooWebAdapter;
 
     @ApiOperation(value = "发送短信")
-    @ApiImplicitParam(name = "param", value = "手机号+短信场景", required = true, dataType = "SmsSendForm")
+    @ApiImplicitParam(name = "smsSendForm", value = "手机号+短信场景", required = true, dataType = "SmsSendForm")
     @PostMapping(value = "/sendSms.json")
-    public ResponseCode sendSms(HttpServletRequest request, @RequestBody @Valid SmsSendForm param, BindingResult bindingResult, AuthenticationInfo authenticationInfo) {
+    public ResponseCode sendSms(HttpServletRequest request, @RequestBody @Valid SmsSendForm smsSendForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo) {
         ParamValidator.validate(bindingResult);
-        SmsTemplateAndParams smsTemplateAndParams = kangarooWebAdapter.getSmsParam(param, authenticationInfo);
-        SmsSendParamDto smsSendParamDto = SmsSendParamDto.builder().phone(param.getPhone()).templateId(smsTemplateAndParams.getTemplateId())
+        SmsTemplateAndParams smsTemplateAndParams = kangarooWebAdapter.getSmsParam(smsSendForm, authenticationInfo);
+        SmsSendParamDto smsSendParamDto = SmsSendParamDto.builder().phone(smsSendForm.getPhone()).templateId(smsTemplateAndParams.getTemplateId())
                 .signName(smsTemplateAndParams.getSignName()).codeLength(smsTemplateAndParams.getCodeLength()).params(smsTemplateAndParams.getTemplateParams()).build();
         SmsSendResultDto smsSendResultDto = smsServiceFacade.sendValidateSms(smsSendParamDto);
         if (!smsSendResultDto.isSuccess()) {
@@ -76,7 +76,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "用户名或邮箱密码登录")
-    @ApiImplicitParam(name = "param", value = "用户参数", required = true, dataType = "UserPasswordLoginForm")
+    @ApiImplicitParam(name = "userPasswordLoginForm", value = "用户参数", required = true, dataType = "UserPasswordLoginForm")
     @PostMapping(value = "/login.json")
     public ResponseCode loginByPassword(@RequestBody @Valid UserPasswordLoginForm userPasswordLoginForm, BindingResult bindingResult, HttpSession session) {
         ParamValidator.validate(bindingResult);
@@ -107,7 +107,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "手机验证码登录")
-    @ApiImplicitParam(name = "param", value = "手机号与验证码", required = true, dataType = "UserPhoneSmsLoginForm")
+    @ApiImplicitParam(name = "userPhoneSmsLoginForm", value = "手机号与验证码", required = true, dataType = "UserPhoneSmsLoginForm")
     @PostMapping(value = "/loginByPhoneSms.json")
     public ResponseCode modifyPassword(@RequestBody @Valid UserPhoneSmsLoginForm userPhoneSmsLoginForm, BindingResult bindingResult, HttpSession session) {
         ParamValidator.validate(bindingResult);
@@ -132,7 +132,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "修改密码")
-    @ApiImplicitParam(name = "param", value = "旧密码与新密码", required = true, dataType = "UserPasswordModifyForm")
+    @ApiImplicitParam(name = "userPasswordModifyForm", value = "旧密码与新密码", required = true, dataType = "UserPasswordModifyForm")
     @PostMapping(value = "/modifyPassword.json")
     public ResponseCode modifyPassword(@RequestBody @Valid UserPasswordModifyForm userPasswordModifyForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
@@ -158,7 +158,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "找回密码")
-    @ApiImplicitParam(name = "param", value = "手机号找回：手机号+短信验证码", required = true, dataType = "UserPasswordGetBackForm")
+    @ApiImplicitParam(name = "userPasswordGetBackForm", value = "手机号找回：手机号+短信验证码", required = true, dataType = "UserPasswordGetBackForm")
     @PostMapping(value = "/getBackPassword.json")
     public ResponseCode getBackPassword(@RequestBody @Valid UserPasswordGetBackForm userPasswordGetBackForm, BindingResult bindingResult, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
@@ -188,7 +188,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "修改手机")
-    @ApiImplicitParam(name = "param", value = "手机号+短信验证码+当前密码", required = true, dataType = "UserTelPhoneModifyForm")
+    @ApiImplicitParam(name = "userTelPhoneModifyForm", value = "手机号+短信验证码+当前密码", required = true, dataType = "UserTelPhoneModifyForm")
     @PostMapping(value = "/modifyTelephone.json")
     public ResponseCode getBackPassword(@RequestBody @Valid UserTelPhoneModifyForm userTelPhoneModifyForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
@@ -214,7 +214,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "修改自己的个人信息")
-    @ApiImplicitParam(name = "param", value = "个人信息", required = true, dataType = "UserInfoModifyForm")
+    @ApiImplicitParam(name = "userInfoModifyForm", value = "个人信息", required = true, dataType = "UserInfoModifyForm")
     @PostMapping(value = "/modifyUsrInfo.json")
     public ResponseCode getBackPassword(@RequestBody @Valid UserInfoModifyForm userInfoModifyForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
@@ -236,7 +236,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "添加系统用户")
-    @ApiImplicitParam(name = "param", value = "用户参数", required = true, dataType = "UserAddForm")
+    @ApiImplicitParam(name = "userAddForm", value = "用户参数", required = true, dataType = "UserAddForm")
     @PostMapping(value = "/save.json")
     public ResponseCode saveUser(@RequestBody @Valid UserAddForm userAddForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
@@ -248,7 +248,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "修改系统用户")
-    @ApiImplicitParam(name = "param", value = "用户参数", required = true, dataType = "UserUpdateForm")
+    @ApiImplicitParam(name = "userUpdateForm", value = "用户参数", required = true, dataType = "UserUpdateForm")
     @PostMapping(value = "/update.json")
     public ResponseCode updateUser(@RequestBody @Valid UserUpdateForm userUpdateForm, BindingResult bindingResult, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(bindingResult);
@@ -260,7 +260,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "分页查询系统用户")
-    @ApiImplicitParam(name = "param", value = "查询条件", required = true, dataType = "UserQueryForm")
+    @ApiImplicitParam(name = "userQueryForm", value = "查询条件", required = true, dataType = "UserQueryForm")
     @PostMapping(value = "/page.json")
     public PageResultDto<SysUserDto> page(@Valid @RequestBody UserQueryForm userQueryForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);
@@ -269,7 +269,7 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "获某个用户具备的角色和权限（树形结构)")
-    @ApiImplicitParam(name = "param", value = "用户id", required = true, dataType = "UserIdForm")
+    @ApiImplicitParam(name = "userIdForm", value = "用户id", required = true, dataType = "UserIdForm")
     @PostMapping(value = "/acl.json")
     public ResponseCode acls(@Valid @RequestBody UserIdForm userIdForm, BindingResult bindingResult) {
         ParamValidator.validate(bindingResult);

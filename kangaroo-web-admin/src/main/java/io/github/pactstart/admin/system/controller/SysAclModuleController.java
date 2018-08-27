@@ -38,7 +38,7 @@ public class SysAclModuleController {
     private SysTreeService sysTreeService;
 
     @ApiOperation(value = "添加权限模块")
-    @ApiImplicitParam(name = "param", value = "权限模块参数", required = true, dataType = "AclModuleForm")
+    @ApiImplicitParam(name = "aclModuleForm", value = "权限模块参数", required = true, dataType = "AclModuleForm")
     @PostMapping("/save.json")
     public ResponseCode saveAclModule(@Valid @RequestBody AclModuleForm aclModuleForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
@@ -50,7 +50,7 @@ public class SysAclModuleController {
     }
 
     @ApiOperation(value = "修改权限模块")
-    @ApiImplicitParam(name = "param", value = "权限模块参数", required = true, dataType = "AclModuleForm")
+    @ApiImplicitParam(name = "aclModuleForm", value = "权限模块参数", required = true, dataType = "AclModuleForm")
     @PostMapping("/update.json")
     public ResponseCode updateAclModule(@Valid @RequestBody AclModuleForm aclModuleForm, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
         ParamValidator.validate(br);
@@ -63,12 +63,13 @@ public class SysAclModuleController {
 
     @ApiOperation(value = "获取权限模块树")
     @PostMapping("/tree.json")
-    public List<SysAclModuleAdaptDto> tree() {
-        return sysTreeService.aclModuleTree();
+    public ResponseCode tree() {
+        List<SysAclModuleAdaptDto> sysAclModuleAdaptDtoList = sysTreeService.aclModuleTree();
+        return ResponseCode.buildResponse(sysAclModuleAdaptDtoList);
     }
 
     @ApiOperation(value = "删除权限模块")
-    @ApiImplicitParam(name = "param", value = "权限模块id", required = true, dataType = "IdForm")
+    @ApiImplicitParam(name = "idForm", value = "权限模块id", required = true, dataType = "IdForm")
     @PostMapping("/delete.json")
     public ResponseCode delete(@Valid @RequestBody IdForm idForm, BindingResult br) {
         ParamValidator.validate(br);

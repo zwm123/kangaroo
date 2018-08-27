@@ -4,6 +4,7 @@ import io.github.pactstart.biz.common.dto.IdDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.exception.ApplicationException;
 import io.github.pactstart.biz.common.utils.LevelUtil;
+import io.github.pactstart.biz.common.utils.MapperUtils;
 import io.github.pactstart.system.dao.SysAclMapper;
 import io.github.pactstart.system.dao.SysAclModuleMapper;
 import io.github.pactstart.system.dto.SysAclModuleDto;
@@ -74,6 +75,12 @@ public class SysAclModuleServiceImpl implements SysAclModuleService {
             throw new ApplicationException(ResponseCode.NON_SUPPORTED_OPER, "当前模块下面有用户，无法删除");
         }
         sysAclModuleMapper.deleteByPrimaryKey(idDto.getId());
+    }
+
+    @Override
+    public List<SysAclModuleDto> selectAll() {
+        List<SysAclModule> sysAclModuleList = sysAclModuleMapper.selectAll();
+        return MapperUtils.mapList(sysAclModuleList, SysAclModuleDto.class);
     }
 
     private String getLevel(Integer aclModuleId) {
