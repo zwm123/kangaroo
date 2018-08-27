@@ -25,6 +25,11 @@ public class SysVersionDto extends BaseDto {
     private String versionOwner;
 
     /**
+     * 平台：enterprise，appstore
+     */
+    private String platform;
+
+    /**
      * 版本名称
      */
     private String versionName;

@@ -29,6 +29,11 @@ public class SysVersionForm {
     private String versionOwner;
 
     /**
+     * 平台
+     */
+    private String platform = "";
+
+    /**
      * 版本名称
      */
     @NotBlank(message = "版本名称不能为空")

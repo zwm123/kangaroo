@@ -492,6 +492,8 @@ CREATE TABLE `sys_version` (
   COMMENT '版本状态，1草稿，2已发布，3已回滚，4已删除',
   `version_owner`   VARCHAR(10)  NOT NULL
   COMMENT '版本归属，Android,iOS,Backend,Frontend',
+  `platform`        VARCHAR(20)  NOT NULL
+  COMMENT '平台',
   `version_name`    VARCHAR(20)  NOT NULL
   COMMENT '版本名称',
   `version_seq`     INT(11)      NOT NULL

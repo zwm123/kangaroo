@@ -12,4 +12,6 @@ public class SysVersionQueryDto extends PageQueryDto {
 
     private Integer status;
 
+    private String platform;
+
 }

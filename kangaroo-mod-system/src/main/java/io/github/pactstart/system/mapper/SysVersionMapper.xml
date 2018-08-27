@@ -8,6 +8,7 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="version_owner" jdbcType="VARCHAR" property="versionOwner"/>
+        <result column="platform" jdbcType="VARCHAR" property="platform"/>
         <result column="version_name" jdbcType="VARCHAR" property="versionName"/>
         <result column="version_seq" jdbcType="INTEGER" property="versionSeq"/>
         <result column="git_tag" jdbcType="VARCHAR" property="gitTag"/>
@@ -27,6 +28,9 @@
         <where>
             <if test="@Ognl@isNotEmpty(versionOwner)">
                 AND version_owner = #{versionOwner}
+            </if>
+            <if test="@Ognl@isNotEmpty(platform)">
+                AND platform = #{platform}
             </if>
             <if test="status != null">
                 AND status = #{status}

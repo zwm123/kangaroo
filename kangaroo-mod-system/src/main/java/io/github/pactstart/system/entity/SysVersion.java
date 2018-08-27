@@ -28,6 +28,12 @@ public class SysVersion {
     private String versionOwner;
 
     /**
+     * 平台：enterprise，appstore
+     */
+    @Column(name = "platform")
+    private String platform;
+
+    /**
      * 版本名称
      */
     @Column(name = "version_name")
