@@ -134,6 +134,21 @@
             </dependency>
             <dependency>
                 <groupId>io.github.pactstart</groupId>
+                <artifactId>kangaroo-weixin-toolkit</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>weixin-spring-boot-starter</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>kangaroo-mod-system</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
                 <artifactId>kangaroo-simple-web-framework</artifactId>
                 <version>1.0</version>
             </dependency>
