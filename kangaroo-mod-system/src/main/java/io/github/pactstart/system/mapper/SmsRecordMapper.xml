@@ -47,12 +47,12 @@
 
     <select id="statByDate" parameterType="Map" resultType="io.github.pactstart.system.model.SmsStat">
         SELECT
-        operate_time as stat_date,
-        SUM(IF(success,true,1)) as success,
-        SUM(IF(success,false,1)) as fail
+            DATE(operate_time)       as stat_date,
+            SUM(IF(success,true,1))  as success,
+            SUM(IF(success,false,1)) as fail
         FROM sms_record
         WHERE
         operate_time &gt;= #{fromDate} AND operate_time &lt; #{toDate}
-        GROUP BY TO_DAYS(operate_time)
+        GROUP BY DATE(operate_time)
     </select>
 </mapper>
