@@ -32,7 +32,7 @@
             <if test="success != null">
                 AND success = #{success}
             </if>
-            <if test="phone != null">
+            <if test="@Ognl@isNotEmtpy(phone)">
                 AND phone = #{phone}
             </if>
             <if test="fromDate != null">

@@ -41,7 +41,7 @@
                 AND type = #{type}
             </if>
             <if test="@Ognl@isNotEmpty(operator)">
-                AND operator like #{operator}
+                AND operator like concat('%',#{operator},'%')
             </if>
             <if test="fromTime != null">
                 AND operate_time &gt;= #{fromTime}

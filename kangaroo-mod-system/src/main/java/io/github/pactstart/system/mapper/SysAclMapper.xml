@@ -70,8 +70,14 @@
             <if test="aclModuleId != null">
                 acl_module_id = #{aclModuleId}
             </if>
+            <if test="@Ognl@isNotEmpty(name)">
+                name like concat('%',name,'%')
+            </if>
+            <if test="@Ognl@isNotEmpty(url)">
+                url like concat('%',url,'%')
+            </if>
         </where>
-        ORDER BY seq ASC, name ASC
+        ORDER BY seq ASC
     </select>
 
 </mapper>

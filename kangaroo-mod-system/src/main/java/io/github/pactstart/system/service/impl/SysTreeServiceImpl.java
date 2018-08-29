@@ -95,6 +95,24 @@ public class SysTreeServiceImpl implements SysTreeService {
     }
 
     @Override
+    public List<SysAclModuleAdaptDto> roleAclTree(Integer roleId) {
+        // 1、当前角色分配的权限点
+        List<SysAcl> roleAclList = sysCoreService.getRoleAclList(roleId);
+        Set<Integer> roleAclIdSet = roleAclList.stream().map(sysAcl -> sysAcl.getId()).collect(Collectors.toSet());
+        // 2、当前系统所有权限点
+        List<SysAcl> allAclList = sysAclMapper.selectAll();
+        List<SysAclAdaptDto> aclAdaptDtoList = MapperUtils.mapList(allAclList, SysAclAdaptDto.class);
+        //3、设置选中
+        for (SysAclAdaptDto acl : aclAdaptDtoList) {
+            if (roleAclIdSet.contains(acl.getId())) {
+                acl.setChecked(true);
+            }
+        }
+        //4、转换为树
+        return aclListToTree(aclAdaptDtoList);
+    }
+
+    @Override
     public List<SysAclModuleAdaptDto> aclModuleTree() {
         List<SysAclModule> aclModuleList = sysAclModuleMapper.getAllAclModule();
         List<SysAclModuleAdaptDto> dtoList = MapperUtils.mapList(aclModuleList, SysAclModuleAdaptDto.class);

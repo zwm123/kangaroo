@@ -83,6 +83,8 @@ public class SysLogServiceImpl implements SysLogService {
             default:
                 ;
         }
+        sysLog.setStatus(SysLogStatus.RESTORE.getValue());
+        sysLogMapper.updateByPrimaryKeySelective(sysLog);
     }
 
     @Override

@@ -10,4 +10,8 @@ public class AclQueryDto extends PageQueryDto {
 
     private Integer aclModuleId;
 
+    private String name;
+
+    private String path;
+
 }
