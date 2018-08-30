@@ -12,6 +12,6 @@ public class AclQueryDto extends PageQueryDto {
 
     private String name;
 
-    private String path;
+    private String url;
 
 }

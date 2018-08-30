@@ -2,10 +2,7 @@ package io.github.pactstart.admin.system.controller;
 
 import com.google.common.collect.Maps;
 import io.github.pactstart.admin.adpater.KangarooWebAdapter;
-import io.github.pactstart.admin.system.form.ConfigAddForm;
-import io.github.pactstart.admin.system.form.ConfigLogQueryForm;
-import io.github.pactstart.admin.system.form.ConfigQueryForm;
-import io.github.pactstart.admin.system.form.ConfigUpdateForm;
+import io.github.pactstart.admin.system.form.*;
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.utils.MapperUtils;
@@ -99,6 +96,21 @@ public class ConfigController {
         ConfigDto configDto = configService.getById(param.getId());
         configComponent.updateConfig(configDto.getNamespace(), configDto.getName(), configDto.getValue());
         kangarooWebAdapter.afterUpdateConfig(configDto);
+
+        return ResponseCode.SUCCESS;
+    }
+
+    @ApiOperation(value = "删除配置")
+    @ApiImplicitParam(name = "param", value = "命名空间与名称", required = true, dataType = "ConfigDeleteForm")
+    @PostMapping("/delete.json")
+    public ResponseCode delete(@RequestBody @Valid ConfigDeleteForm param, BindingResult br, AuthenticationInfo authenticationInfo, HttpServletRequest request) {
+        ParamValidator.validate(br);
+        ConfigDeleteDto configDeleteDto = MapperUtils.map(param, ConfigDeleteDto.class);
+        configDeleteDto.setOperator(authenticationInfo.getUserName());
+        configDeleteDto.setOperateIp(IpUtils.getClientIpAddr(request));
+        configService.delete(configDeleteDto);
+        configComponent.removeConfig(param.getNamespace(), param.getName());
+        kangarooWebAdapter.afterRemoveConfig(param.getNamespace(), param.getName());
 
         return ResponseCode.SUCCESS;
     }

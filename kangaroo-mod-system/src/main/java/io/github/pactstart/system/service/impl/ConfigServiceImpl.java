@@ -137,6 +137,23 @@ public class ConfigServiceImpl implements ConfigService {
         configLogMapper.insert(configLog);
     }
 
+    @Transactional
+    @Override
+    public void delete(ConfigDeleteDto configDeleteDto) {
+        Config config = new Config();
+        config.setNamespace(configDeleteDto.getNamespace());
+        config.setName(configDeleteDto.getName());
+        config = configMapper.selectOne(config);
+        if (config != null) {
+            configLogMapper.deleteByPrimaryKey(config.getId());
+            ConfigLog configLog = ConfigLog.builder().namespace(config.getNamespace()).name(config.getName())
+                    .oldType(config.getConfigType()).newType(config.getConfigType())
+                    .oldValue(config.getValue()).newValue("删除该配置")
+                    .operator(configDeleteDto.getOperator()).operateIp(configDeleteDto.getOperateIp()).operateTime(new Date()).build();
+            configLogMapper.insert(configLog);
+        }
+    }
+
     @Override
     public PageResultDto<ConfigLogDto> queryLog(ConfigLogQueryDto queryDto) {
         Page<ConfigLog> result = PageHelper.startPage(queryDto.getPageNum(), queryDto.getPageSize()).doSelectPage(() -> configLogMapper.query(queryDto));

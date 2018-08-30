@@ -32,7 +32,7 @@
             <if test="success != null">
                 AND success = #{success}
             </if>
-            <if test="@Ognl@isNotEmtpy(phone)">
+            <if test="@Ognl@isNotEmpty(phone)">
                 AND phone = #{phone}
             </if>
             <if test="fromDate != null">

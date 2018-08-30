@@ -25,6 +25,16 @@ public class KangarooWebAdapter {
     }
 
     /**
+     * 移除配置后置操作
+     *
+     * @param namespace
+     * @param name
+     */
+    public void afterRemoveConfig(String namespace, String name) {
+
+    }
+
+    /**
      * 重新加载配置后置操作，例如发送mq消息通知订阅者更新缓存的配置
      */
     public void afterConfigReload() {

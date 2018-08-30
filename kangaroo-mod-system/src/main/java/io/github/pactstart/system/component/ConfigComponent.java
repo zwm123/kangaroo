@@ -132,4 +132,13 @@ public class ConfigComponent implements ApplicationListener<ContextRefreshedEven
         return null;
     }
 
+    public void removeConfig(String namespace, String name) {
+        logger.debug("移除系统配置:namespace:{},key:{}", namespace, name);
+        if (mapping.containsKey(namespace)) {
+            Map<String, String> map = mapping.get(namespace);
+            if (map != null && map.containsKey(name)) {
+                map.remove(name);
+            }
+        }
+    }
 }

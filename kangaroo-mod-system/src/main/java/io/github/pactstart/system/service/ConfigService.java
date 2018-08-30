@@ -37,6 +37,13 @@ public interface ConfigService {
     void update(ConfigUpdateDto configUpdateDto);
 
     /**
+     * 删除配置
+     *
+     * @param configDeleteDto
+     */
+    void delete(ConfigDeleteDto configDeleteDto);
+
+    /**
      * 查询配置修改日志
      *
      * @param queryDto
