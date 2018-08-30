@@ -8,6 +8,7 @@ import io.github.pactstart.system.dto.SysLogDto;
 import io.github.pactstart.system.entity.*;
 
 import java.util.List;
+import java.util.Set;
 
 public interface SysLogService {
 
@@ -23,7 +24,7 @@ public interface SysLogService {
 
     void saveAclLog(SysAcl before, SysAcl after);
 
-    void saveRoleAclLog(Integer roleId, List<Integer> before, List<Integer> after, OperateDto operateDto);
+    void saveRoleAclLog(Integer roleId, List<Integer> before, Set<Integer> after, OperateDto operateDto);
 
     void saveRoleLog(SysRole before, SysRole after);
 

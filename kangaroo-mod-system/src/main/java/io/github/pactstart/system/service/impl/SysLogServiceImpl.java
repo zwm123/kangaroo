@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SysLogServiceImpl implements SysLogService {
@@ -148,7 +149,7 @@ public class SysLogServiceImpl implements SysLogService {
     }
 
     @Override
-    public void saveRoleAclLog(Integer roleId, List<Integer> before, List<Integer> after, OperateDto operateDto) {
+    public void saveRoleAclLog(Integer roleId, List<Integer> before, Set<Integer> after, OperateDto operateDto) {
         SysLog sysLog = new SysLog();
         sysLog.setType(LogTypeConstants.TYPE_ROLE_ACL);
         sysLog.setTargetId(roleId);
