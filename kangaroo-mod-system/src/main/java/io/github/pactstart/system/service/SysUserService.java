@@ -3,6 +3,7 @@ package io.github.pactstart.system.service;
 
 import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.system.dto.SysUserDto;
+import io.github.pactstart.system.dto.UserIdDto;
 import io.github.pactstart.system.dto.UserQueryDto;
 import io.github.pactstart.system.entity.SysUser;
 
@@ -54,4 +55,12 @@ public interface SysUserService {
      * @return
      */
     SysUser getById(Integer userId);
+
+    /**
+     * 根据id获取用户
+     *
+     * @param userIdDto
+     * @return
+     */
+    SysUserDto getById(UserIdDto userIdDto);
 }

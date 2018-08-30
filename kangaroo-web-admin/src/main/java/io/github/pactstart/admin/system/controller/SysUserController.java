@@ -15,13 +15,16 @@ import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
 import io.github.pactstart.simple.web.framework.auth.SimpleUserInfo;
 import io.github.pactstart.simple.web.framework.utils.IpUtils;
 import io.github.pactstart.simple.web.framework.utils.ParamValidator;
+import io.github.pactstart.system.dto.SysAclDto;
 import io.github.pactstart.system.dto.SysUserDto;
+import io.github.pactstart.system.dto.UserIdDto;
 import io.github.pactstart.system.dto.UserQueryDto;
 import io.github.pactstart.system.entity.SysUser;
 import io.github.pactstart.system.enums.SysUserStatus;
 import io.github.pactstart.system.errorcode.SysResponseCode;
 import io.github.pactstart.system.facade.SmsServiceFacade;
 import io.github.pactstart.system.facade.dto.*;
+import io.github.pactstart.system.service.SysCoreService;
 import io.github.pactstart.system.service.SysRoleService;
 import io.github.pactstart.system.service.SysTreeService;
 import io.github.pactstart.system.service.SysUserService;
@@ -38,6 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Api(tags = "系统用户")
@@ -47,6 +51,9 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private SysCoreService sysCoreService;
 
     @Autowired
     private SysTreeService sysTreeService;
@@ -266,6 +273,19 @@ public class SysUserController {
         ParamValidator.validate(bindingResult);
         UserQueryDto userQueryDto = MapperUtils.map(userQueryForm, UserQueryDto.class);
         return sysUserService.query(userQueryDto);
+    }
+
+    @ApiOperation(value = "获取当前用户信息和拥有的权限")
+    @PostMapping(value = "/getUserInfo.json")
+    public ResponseCode getUserInfo(AuthenticationInfo authenticationInfo) {
+        UserIdDto userIdDto = new UserIdDto();
+        userIdDto.setUserId(authenticationInfo.getUserId());
+        List<SysAclDto> sysAclList = sysCoreService.getUserAclList(userIdDto);
+        SysUserDto sysUser = sysUserService.getById(userIdDto);
+        Map<String, Object> data = Maps.newHashMap();
+        data.put("acls", sysAclList);
+        data.put("userInfo", sysUser);
+        return ResponseCode.buildResponse(data);
     }
 
     @ApiOperation(value = "获某个用户具备的角色和权限（树形结构)")

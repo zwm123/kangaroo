@@ -6,12 +6,14 @@ import io.github.pactstart.biz.common.dto.PageResultDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.exception.ApplicationException;
 import io.github.pactstart.biz.common.utils.BeanMapUtils;
+import io.github.pactstart.biz.common.utils.MapperUtils;
 import io.github.pactstart.biz.common.utils.PageUtils;
 import io.github.pactstart.commonutils.DataUtils;
 import io.github.pactstart.commonutils.ValidUtils;
 import io.github.pactstart.system.dao.SysDeptMapper;
 import io.github.pactstart.system.dao.SysUserMapper;
 import io.github.pactstart.system.dto.SysUserDto;
+import io.github.pactstart.system.dto.UserIdDto;
 import io.github.pactstart.system.dto.UserQueryDto;
 import io.github.pactstart.system.entity.SysUser;
 import io.github.pactstart.system.enums.SysUserStatus;
@@ -98,6 +100,11 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public SysUser getById(Integer userId) {
         return sysUserMapper.selectByPrimaryKey(userId);
+    }
+
+    @Override
+    public SysUserDto getById(UserIdDto userIdDto) {
+        return MapperUtils.map(getById(userIdDto.getUserId()), SysUserDto.class);
     }
 
     private boolean checkTelephoneExist(String telephone, Integer userId) {

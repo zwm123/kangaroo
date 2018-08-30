@@ -1,9 +1,12 @@
 package io.github.pactstart.system.service.impl;
 
 import com.google.common.collect.Lists;
+import io.github.pactstart.biz.common.utils.MapperUtils;
 import io.github.pactstart.system.dao.SysAclMapper;
 import io.github.pactstart.system.dao.SysRoleAclMapper;
 import io.github.pactstart.system.dao.SysRoleUserMapper;
+import io.github.pactstart.system.dto.SysAclDto;
+import io.github.pactstart.system.dto.UserIdDto;
 import io.github.pactstart.system.entity.SysAcl;
 import io.github.pactstart.system.service.SysCoreService;
 import org.apache.commons.collections.CollectionUtils;
@@ -41,6 +44,11 @@ public class SysCoreServiceImpl implements SysCoreService {
             return Lists.newArrayList();
         }
         return sysAclMapper.getByIdList(userAclIdList);
+    }
+
+    @Override
+    public List<SysAclDto> getUserAclList(UserIdDto userIdDto) {
+        return MapperUtils.mapList(getUserAclList(userIdDto.getUserId()), SysAclDto.class);
     }
 
     @Override
