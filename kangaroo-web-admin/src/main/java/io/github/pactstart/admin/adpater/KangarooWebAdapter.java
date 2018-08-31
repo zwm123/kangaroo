@@ -108,4 +108,8 @@ public class KangarooWebAdapter {
     public SmsTemplateAndParams getSmsParam(SmsSendForm smsSendForm, AuthenticationInfo authenticationInfo) {
         throw new ApplicationException(ResponseCode.SYSTEM_ERROR, "未配置短信场景与短信签名、模板、参数的映射");
     }
+
+    public Boolean isSuperAdmin(AuthenticationInfo authenticationInfo) {
+        return true;
+    }
 }

@@ -22,6 +22,7 @@ import io.github.pactstart.system.dto.UserQueryDto;
 import io.github.pactstart.system.entity.SysUser;
 import io.github.pactstart.system.enums.SysUserStatus;
 import io.github.pactstart.system.errorcode.SysResponseCode;
+import io.github.pactstart.system.facade.SmsServiceFacade;
 import io.github.pactstart.system.facade.dto.*;
 import io.github.pactstart.system.service.SysCoreService;
 import io.github.pactstart.system.service.SysRoleService;
@@ -59,6 +60,9 @@ public class SysUserController {
 
     @Autowired
     private SysRoleService sysRoleService;
+
+    @Autowired
+    private SmsServiceFacade smsServiceFacade;
 
     @Autowired
     private KangarooWebAdapter kangarooWebAdapter;
@@ -279,6 +283,7 @@ public class SysUserController {
         List<SysAclDto> sysAclList = sysCoreService.getUserAclList(userIdDto);
         SysUserDto sysUser = sysUserService.getById(userIdDto);
         Map<String, Object> data = Maps.newHashMap();
+        data.put("superAdmin", kangarooWebAdapter.isSuperAdmin(authenticationInfo));
         data.put("acls", sysAclList);
         data.put("userInfo", sysUser);
         return ResponseCode.buildResponse(data);
