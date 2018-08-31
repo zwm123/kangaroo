@@ -27,6 +27,7 @@ public class SysRoleAclServiceImpl implements SysRoleAclService {
     private SysLogService sysLogService;
 
     @Transactional
+
     @Override
     public void changeRoleAcls(RoleAclListDto roleAclListDto) {
         Integer roleId = roleAclListDto.getRoleId();
