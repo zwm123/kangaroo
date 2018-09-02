@@ -119,7 +119,7 @@ public class OrderRefund {
                         CouponRefund couponRefund = new CouponRefund();
                         couponRefund.setCoupon_refund_id(responseParamMap.get("coupon_refund_id_" + i + "_" + j));
                         couponRefund.setCoupon_type(responseParamMap.get("coupon_type_" + i + "_" + j));
-                        couponRefund.setCoupon_refund_fee(Integer.valueOf("coupon_refund_fee_" + i + "_" + j));
+                        couponRefund.setCoupon_refund_fee(Integer.valueOf(responseParamMap.get("coupon_refund_fee_" + i + "_" + j)));
                         couponRefundList.add(couponRefund);
                     }
                     orderRefund.setCoupon_refund_fee(Integer.valueOf(responseParamMap.get("coupon_refund_fee_" + i)));

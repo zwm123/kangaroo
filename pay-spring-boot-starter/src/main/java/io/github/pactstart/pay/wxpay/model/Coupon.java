@@ -37,7 +37,7 @@ public class Coupon {
                 Coupon coupon = new Coupon();
                 coupon.setCoupon_id(responseParamMap.get("coupon_id_" + i));
                 coupon.setCoupon_type(responseParamMap.get("coupon_type_" + i));
-                coupon.setCoupon_fee(Integer.valueOf("coupon_fee_" + i));
+                coupon.setCoupon_fee(Integer.valueOf(responseParamMap.get("coupon_fee_" + i)));
                 couponList.add(coupon);
             }
         }

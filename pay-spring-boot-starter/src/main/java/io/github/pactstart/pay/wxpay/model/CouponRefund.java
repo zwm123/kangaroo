@@ -38,7 +38,7 @@ public class CouponRefund {
                 CouponRefund couponRefund = new CouponRefund();
                 couponRefund.setCoupon_refund_id(responseParamMap.get("coupon_refund_id_" + i));
                 couponRefund.setCoupon_type(responseParamMap.get("coupon_type_" + i));
-                couponRefund.setCoupon_refund_fee(Integer.valueOf("coupon_refund_fee_" + i));
+                couponRefund.setCoupon_refund_fee(Integer.valueOf(responseParamMap.get("coupon_refund_fee_" + i)));
                 couponRefundList.add(couponRefund);
             }
         }
