@@ -45,7 +45,7 @@ CREATE TABLE `config` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for config_log
@@ -75,7 +75,7 @@ CREATE TABLE `config_log` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for member_notice
@@ -106,7 +106,7 @@ CREATE TABLE `member_notice` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='业务通知';
 
 -- ----------------------------
@@ -134,7 +134,7 @@ CREATE TABLE `platform_notice` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='平台通知';
 
 -- ----------------------------
@@ -152,7 +152,7 @@ CREATE TABLE `platform_notice_readed` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='平台通知已读记录';
 
 -- ----------------------------
@@ -177,7 +177,7 @@ CREATE TABLE `sms_day_count` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='短信发送每日统计';
 
 -- ----------------------------
@@ -208,7 +208,7 @@ CREATE TABLE `sms_record` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='短信发送记录';
 
 -- ----------------------------
@@ -229,7 +229,7 @@ CREATE TABLE `sms_template` (
   PRIMARY KEY (`template_id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='短信模板';
 
 -- ----------------------------
@@ -263,7 +263,7 @@ CREATE TABLE `suggestion` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_acl
@@ -297,7 +297,7 @@ CREATE TABLE `sys_acl` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_acl_module
@@ -327,7 +327,7 @@ CREATE TABLE `sys_acl_module` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -355,32 +355,32 @@ CREATE TABLE `sys_dept` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
-  `id`           INT(11)                           NOT NULL AUTO_INCREMENT,
-  `type`         INT(11)                           NOT NULL DEFAULT '0'
+  `id`           INT(11)     NOT NULL AUTO_INCREMENT,
+  `type`         INT(11)     NOT NULL DEFAULT '0'
   COMMENT '权限更新的类型，1：部门，2：用户，3：权限模块，4：权限，5：角色，6：角色用户关系，7：角色权限关系',
-  `target_id`    INT(11)                           NOT NULL
+  `target_id`    INT(11)     NOT NULL
   COMMENT '基于type后指定的对象id，比如用户、权限、角色等表的主键',
   `old_value`    TEXT COMMENT '旧值',
   `new_value`    TEXT COMMENT '新值',
-  `operator`     VARCHAR(20)                       NOT NULL DEFAULT ''
+  `operator`     VARCHAR(20) NOT NULL DEFAULT ''
   COMMENT '操作者',
-  `operate_time` DATETIME                          NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `operate_time` DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '最后一次更新的时间',
-  `operate_ip`   VARCHAR(20) CHARACTER SET utf8mb4 NOT NULL DEFAULT ''
+  `operate_ip`   VARCHAR(20) NOT NULL DEFAULT ''
   COMMENT '最后一次更新者的ip地址',
-  `status`       INT(11)                           NOT NULL DEFAULT '0'
+  `status`       INT(11)     NOT NULL DEFAULT '0'
   COMMENT '当前是否复原过，0：没有，1：复原过',
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -406,7 +406,7 @@ CREATE TABLE `sys_role` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role_acl
@@ -427,7 +427,7 @@ CREATE TABLE `sys_role_acl` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_role_user
@@ -448,7 +448,7 @@ CREATE TABLE `sys_role_user` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -480,7 +480,7 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_version
@@ -521,7 +521,7 @@ CREATE TABLE `sys_version` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='系统版本管理';
 
 -- ----------------------------
@@ -553,4 +553,5 @@ CREATE TABLE `upload_file` (
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
+
