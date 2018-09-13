@@ -17,4 +17,6 @@ public class PageQueryDto extends BaseDto{
 
     private String keyword;
 
+    private Integer orderBy;
+
 }
