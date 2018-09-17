@@ -109,7 +109,7 @@ public class RocketMQAutoConfiguration {
     @Configuration
     @ConditionalOnClass(DefaultMQPushConsumer.class)
     @EnableConfigurationProperties(RocketMQProperties.class)
-    @ConditionalOnProperty(prefix = "spring.rocketmq", value = "nameServer")
+//    @ConditionalOnProperty(prefix = "spring.rocketmq",value = "nameServer")
     @Order
     public static class ListenerContainerConfiguration implements ApplicationContextAware, InitializingBean {
         private ConfigurableApplicationContext applicationContext;
