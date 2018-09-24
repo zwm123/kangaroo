@@ -12,6 +12,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.Validator;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -28,6 +29,9 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
     private MVCConfig mvcConfig;
+
+    @Autowired(required = false)
+    private Validator validator;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
@@ -125,4 +129,8 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
         super.addInterceptors(registry);
     }
 
+    @Override
+    public Validator getValidator() {
+        return validator;
+    }
 }
