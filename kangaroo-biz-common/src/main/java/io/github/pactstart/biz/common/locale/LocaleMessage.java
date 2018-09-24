@@ -1,4 +1,4 @@
-package io.github.pactstart.simple.web.framework.locale;
+package io.github.pactstart.biz.common.locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
