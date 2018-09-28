@@ -259,6 +259,12 @@ public class NoticeServiceImpl implements NoticeService {
         }
     }
 
+    @Override
+    public PlatformNoticeDto get(PlatformNoticeIdDto platformNoticeIdDto) {
+        PlatformNotice platformNotice = platformNoticeMapper.selectByPrimaryKey(platformNoticeIdDto.getPlatformNoticeId());
+        return MapperUtils.map(platformNotice, PlatformNoticeDto.class);
+    }
+
     private String getAlias(Integer id) {
         //项目名称_环境_id
         return jPushService.getName() + "_" + SpringContextHolder.getCurrentEnv().name() + "_" + id;

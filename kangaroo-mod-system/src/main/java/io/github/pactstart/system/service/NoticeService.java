@@ -107,4 +107,12 @@ public interface NoticeService {
      * @param platformNoticeIdDto
      */
     void deletePlatformNotice(PlatformNoticeIdDto platformNoticeIdDto);
+
+    /**
+     * 根据id获取平台通知
+     *
+     * @param platformNoticeIdDto
+     * @return
+     */
+    PlatformNoticeDto get(PlatformNoticeIdDto platformNoticeIdDto);
 }
