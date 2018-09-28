@@ -17,4 +17,6 @@ public class PageForm {
     @Max(value = 100, message = "每页最多展示100条")
     private int pageSize = 10;
 
+    private Integer orderBy;
+
 }
