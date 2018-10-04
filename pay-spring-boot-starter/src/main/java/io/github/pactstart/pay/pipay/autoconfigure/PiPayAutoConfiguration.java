@@ -2,11 +2,13 @@ package io.github.pactstart.pay.pipay.autoconfigure;
 
 import io.github.pactstart.pay.pipay.PiPayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnBean(EnablePiPay.class)
 @EnableConfigurationProperties(PiPayConfig.class)
 public class PiPayAutoConfiguration {
 
