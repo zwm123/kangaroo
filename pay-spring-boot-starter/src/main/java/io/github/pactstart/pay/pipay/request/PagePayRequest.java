@@ -1,10 +1,14 @@
 package io.github.pactstart.pay.pipay.request;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Getter
 @Setter
+@Builder
 public class PagePayRequest {
 
     private String orderid;
@@ -13,6 +17,6 @@ public class PagePayRequest {
 
     private String orderAmount;
 
-    private String extParams;
+    private Map<String, String> extParams;
 
 }

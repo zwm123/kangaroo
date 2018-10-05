@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=11_1
  */
 @Configuration
-@ConditionalOnBean(EnableWxPay.class)
+@ConditionalOnBean(annotation = EnableWxPay.class)
 @EnableConfigurationProperties(WxPayProperties.class)
 public class WxPayAutoConfiguration {
 

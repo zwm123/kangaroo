@@ -39,17 +39,20 @@ public class PiPayService {
                 "            <input type=\"hidden\" name=\"trType\" value=\"2\"/>\n" +
                 "            <input type=\"hidden\" name=\"cancelTimer\" value=\"0\" />\n" +
                 "            <input type=\"hidden\" name=\"confirmURL\" value=\"" + piPayConfig.getConfirmUrl() + "\"/>\n" +
-                "            <input type=\"hidden\" name=\"cancelURL\" value=\"" + piPayConfig.getCancelUrl() + "\"/>\n" +
-                "            <input type=\"hidden\" name=\"var1\" value=\"" + request.getExtParams() + "\"/>\n" +
-                "            <input type=\"hidden\" name=\"digest\" value=\"" + digest + "\"/>\n" +
+                "            <input type=\"hidden\" name=\"cancelURL\" value=\"" + piPayConfig.getCancelUrl() + "\"/>\n";
+        if (request.getExtParams() != null && request.getExtParams().size() > 0) {
+            for (Map.Entry<String, String> entry : request.getExtParams().entrySet()) {
+                formStr = formStr + "            <input type=\"hidden\" name=\"" + entry.getKey() + "\" value=\"" + entry.getValue() + "\"/>\n";
+            }
+        }
+        formStr = formStr + "            <input type=\"hidden\" name=\"digest\" value=\"" + digest + "\"/>\n" +
                 "            <input type=\"image\" name=\"submit\"  src=\"https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif\"  alt=\"PiPay - The safer, easier way to pay online\" />\n" +
                 "        </form>";
-
         return formStr;
     }
 
     public OrderQueryResponse orderQuery(String orderId, String processId) {
-        Map<String, String> params = new HashMap<>(2);
+        Map<String, String> params = new HashMap<>(4);
         params.put("orderID", orderId);
         params.put("processID", processId);
         Map<String, Object> data = new HashMap<>(2);
@@ -80,7 +83,7 @@ public class PiPayService {
     }
 
     public OrderQueryResponse orderQuery(String orderId) {
-        Map<String, String> params = new HashMap<>(2);
+        Map<String, String> params = new HashMap<>();
         params.put("orderID", orderId);
         params.put("mid", piPayConfig.getMid());
         params.put("sid", piPayConfig.getSid());

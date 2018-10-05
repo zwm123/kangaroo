@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnBean(EnableAliPay.class)
+@ConditionalOnBean(annotation = EnableAliPay.class)
 @EnableConfigurationProperties(AliPayConfig.class)
 public class AliPayAutoConfiguration {
 

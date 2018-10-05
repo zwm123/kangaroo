@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnBean(EnablePiPay.class)
+@ConditionalOnBean(annotation = EnablePiPay.class)
 @EnableConfigurationProperties(PiPayConfig.class)
 public class PiPayAutoConfiguration {
 
