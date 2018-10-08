@@ -17,6 +17,8 @@ public class PagePayRequest {
 
     private String orderAmount;
 
+    private Integer cancelSeconds;
+
     private Map<String, String> extParams;
 
 }

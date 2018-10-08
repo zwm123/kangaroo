@@ -25,7 +25,7 @@ public class PiPayService {
 
     public String getFormStr(PagePayRequest request) {
         String digest = DataUtils.md5(piPayConfig.getMid().concat(request.getOrderid()).concat(request.getOrderAmount())).toLowerCase();
-        String formStr = "<form id=\"pipayform\" action=\"https://onlinepayment-test.pipay.com/starttransaction\" method=\"post\">\n" +
+        String formStr = "<form id=\"pipayform\" name=\"pipayform\" action=\"https://onlinepayment-test.pipay.com/starttransaction\" method=\"post\">\n" +
                 "            <input type=\"hidden\" name=\"mid\" value=\"" + piPayConfig.getMid() + "\"/>\n" +
                 "            <input type=\"hidden\" name=\"lang\" value=\"en\"/>\n" +
                 "            <input type=\"hidden\" name=\"orderid\" value=\"" + request.getOrderid() + "\"/>\n" +
@@ -47,7 +47,11 @@ public class PiPayService {
         }
         formStr = formStr + "            <input type=\"hidden\" name=\"digest\" value=\"" + digest + "\"/>\n" +
                 "            <input type=\"image\" name=\"submit\"  src=\"https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif\"  alt=\"PiPay - The safer, easier way to pay online\" />\n" +
-                "        </form>";
+                "            <input type=\"hidden\" name=\"cancelTimer\" value=\"" + request.getCancelSeconds() + "\" />" +
+                "        </form>" +
+                " <script>\n" +
+                "\tdocument.pipayform.submit();\n" +
+                " </script>";
         return formStr;
     }
 
@@ -57,7 +61,7 @@ public class PiPayService {
         params.put("processID", processId);
         Map<String, Object> data = new HashMap<>(2);
         data.put("data", params);
-        String json = HttpUtils.post(piPayConfig.getVerifyUrl()).setParameterJson(data).execute().getString();
+        String json = HttpUtils.post(piPayConfig.getVerifyUrl()).setParameterJson(data).addHeader("Cache-Control", "no-cache").execute().getString();
         log.info(json);
         OrderQueryResponse orderQueryResponse = parseQueryResult(json);
         return orderQueryResponse;
