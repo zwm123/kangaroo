@@ -8,7 +8,6 @@ import io.github.pactstart.pay.wxpay.request.PayResultNoticeRequest;
 import io.github.pactstart.pay.wxpay.response.OrderQueryResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
-import org.junit.Test;
 
 @Slf4j
 public class WxPayServiceTest {
@@ -50,7 +49,7 @@ public class WxPayServiceTest {
         log.info(JSON.toJSONString(payResultNoticeRequest));
     }
 
-    @Test
+    //    @Test
     public void testOrderQuery() throws Exception {
         OrderQueryRequest orderQueryRequest = new OrderQueryRequest(null, "201036150583742042112");
         OrderQueryResponse orderQueryResponse = wxPayService.orderQuery(orderQueryRequest);

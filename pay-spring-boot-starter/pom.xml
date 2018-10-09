@@ -27,10 +27,6 @@
             <artifactId>kangaroo-commonutils</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.pactstart</groupId>
-            <artifactId>kangaroo-httputils</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.alipay</groupId>
             <artifactId>alipay-sdk-java</artifactId>
         </dependency>
