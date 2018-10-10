@@ -24,6 +24,7 @@ import org.apache.http.config.ConnectionConfig;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.config.SocketConfig;
+import org.apache.http.conn.routing.HttpRoutePlanner;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.LayeredConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
@@ -96,6 +97,8 @@ public class HttpUtils {
     private PoolingHttpClientConnectionManager connManager;
     private CloseableHttpClient httpClient;
     private volatile CookieStore cookieStore;
+    private HttpHost httpProxy;
+    private HttpRoutePlanner routePlanner;
 
     private HttpUtils(HttpRequestBase request) {
         this.request = request;
@@ -132,7 +135,6 @@ public class HttpUtils {
         this.connManager.setDefaultConnectionConfig(this.connConfig);
         this.connManager.setDefaultSocketConfig(this.socketConfig);
         this.cookieStore = new BasicCookieStore();
-        this.httpClient = HttpClientBuilder.create().setDefaultCookieStore(this.cookieStore).setConnectionManager(this.connManager).build();
         if (request instanceof HttpPost) {
             this.type = 1;
             this.builder = EntityBuilder.create().setParameters(new ArrayList());
@@ -559,12 +561,21 @@ public class HttpUtils {
         return this;
     }
 
+    public HttpUtils setProxy(HttpHost proxy) {
+        this.httpProxy = proxy;
+        return this;
+    }
+
+    public HttpUtils setHttpRoutePlanner(HttpRoutePlanner routePlanner) {
+        this.routePlanner = routePlanner;
+        return this;
+    }
+
     public ResponseWrap execute() {
         this.settingRequest();
         if (this.httpClient == null) {
-            this.httpClient = this.clientBuilder.build();
+            this.httpClient = this.clientBuilder.setProxy(this.httpProxy).setRoutePlanner(this.routePlanner).setDefaultCookieStore(this.cookieStore).setConnectionManager(this.connManager).build();
         }
-
         try {
             HttpClientContext context = HttpClientContext.create();
             CloseableHttpResponse response = this.httpClient.execute(this.request, context);
