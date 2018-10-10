@@ -14,7 +14,7 @@ public class ResponseUtils {
     }
 
     public static void clientRedirect(String url, HttpServletResponse response) throws IOException {
-        response.setHeader("Content-Type", "text/html");
+        response.setHeader("Content-Type", "text/html;charset=UTF-8");
         response.getWriter().print("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
                 + "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "<head>\n" + "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"/>\n"
                 + "<title>跳转中...</title>\n" + "</head>\n" + "<body>\n" + "跳转中，请稍候...\n" + "<script type=\"text/javascript\">//<![CDATA[\n"
