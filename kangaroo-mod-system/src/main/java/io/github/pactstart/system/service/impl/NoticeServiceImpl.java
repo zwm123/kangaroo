@@ -115,17 +115,22 @@ public class NoticeServiceImpl implements NoticeService {
         MemberNotice memberNotice = MapperUtils.map(memberNoticeSendDto, MemberNotice.class);
         memberNotice.setReaded(false);
         memberNotice.setDel(false);
-        memberNotice.setStatus(MemberNoticeStatusEnum.SENDING.getValue());
+        if (memberNoticeSendDto.isOnlyStore()) {
+            memberNotice.setStatus(MemberNoticeStatusEnum.SENDING.getValue());
+        } else {
+            memberNotice.setStatus(MemberNoticeStatusEnum.ONLY_STORE.getValue());
+        }
         memberNotice.setCreateTime(new Date());
         memberNoticeMapper.insert(memberNotice);
 
-        Map<String, Object> extras = Maps.newHashMap();
-        extras.put("bizType", memberNotice.getBizType());
-        extras.put("showType", memberNotice.getShowType());
-        extras.put("noticeType", memberNoticeSendDto.getNoticeType());
-        boolean result = sendJpush(getAlias(memberNoticeSendDto.getMemberId()), memberNoticeSendDto.getTitle(), JsonUtils.obj2String(memberNoticeSendDto.getContent()), extras);
-
-        memberNoticeMapper.updateStatus(memberNotice.getId(), result ? MemberNoticeStatusEnum.SEND_SUCCESS.getValue() : MemberNoticeStatusEnum.SEND_FAIL.getValue());
+        if (memberNoticeSendDto.isOnlyStore()) {
+            Map<String, Object> extras = Maps.newHashMap();
+            extras.put("bizType", memberNotice.getBizType());
+            extras.put("showType", memberNotice.getShowType());
+            extras.put("noticeType", memberNoticeSendDto.getNoticeType());
+            boolean result = sendJpush(getAlias(memberNoticeSendDto.getMemberId()), memberNoticeSendDto.getTitle(), JsonUtils.obj2String(memberNoticeSendDto.getContent()), extras);
+            memberNoticeMapper.updateStatus(memberNotice.getId(), result ? MemberNoticeStatusEnum.SEND_SUCCESS.getValue() : MemberNoticeStatusEnum.SEND_FAIL.getValue());
+        }
     }
 
     @Override

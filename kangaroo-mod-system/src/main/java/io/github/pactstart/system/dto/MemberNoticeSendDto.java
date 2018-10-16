@@ -44,4 +44,9 @@ public class MemberNoticeSendDto extends BaseDto {
      * 通知内容
      */
     private String content;
+
+    /**
+     * 是否只存储不发送，默认为false
+     */
+    private boolean onlyStore;
 }
