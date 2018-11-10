@@ -66,6 +66,7 @@ public class NoticeServiceImpl implements NoticeService {
             memberNotice.setCreateTime(new Date());
             memberNoticeMapper.insert(memberNotice);
 
+
             //发送
             Map<String, Object> extras = customMemberNoticeSendDto.getExtras();
             extras.put("noticeType", NoticeTypeEnum.MEMBER_NOTICE.getValue());
