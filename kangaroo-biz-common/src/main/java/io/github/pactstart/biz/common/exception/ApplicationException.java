@@ -6,7 +6,7 @@ public class ApplicationException extends RuntimeException {
 
     private ResponseCode responseCode;
 
-    private Throwable sourceExcpetion;
+    private Throwable sourceException;
 
     public ApplicationException() {
         //默认系统错误
@@ -35,11 +35,11 @@ public class ApplicationException extends RuntimeException {
         this.responseCode = responseCode;
     }
 
-    public Throwable getSourceExcpetion() {
-        return sourceExcpetion;
+    public Throwable getSourceException() {
+        return sourceException;
     }
 
-    public void setSourceExcpetion(Throwable sourceExcpetion) {
-        this.sourceExcpetion = sourceExcpetion;
+    public void setSourceException(Throwable sourceException) {
+        this.sourceException = sourceException;
     }
 }

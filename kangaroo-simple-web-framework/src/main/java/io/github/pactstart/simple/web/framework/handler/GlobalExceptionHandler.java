@@ -44,8 +44,8 @@ class GlobalExceptionHandler {
     @ExceptionHandler(value = ApplicationException.class)
     @ResponseBody
     public Object jsonErrorHandler(HttpServletRequest req, ApplicationException e) {
-        if (e.getSourceExcpetion() != null) {
-            logger.error("", e.getSourceExcpetion());
+        if (e.getSourceException() != null) {
+            logger.error("", e.getSourceException());
         }
         return e.getResponseCode();
     }
