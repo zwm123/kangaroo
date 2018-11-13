@@ -6,6 +6,8 @@ public class ApplicationException extends RuntimeException {
 
     private ResponseCode responseCode;
 
+    private Throwable sourceExcpetion;
+
     public ApplicationException() {
         //默认系统错误
         responseCode = ResponseCode.SYSTEM_ERROR;
@@ -33,4 +35,11 @@ public class ApplicationException extends RuntimeException {
         this.responseCode = responseCode;
     }
 
+    public Throwable getSourceExcpetion() {
+        return sourceExcpetion;
+    }
+
+    public void setSourceExcpetion(Throwable sourceExcpetion) {
+        this.sourceExcpetion = sourceExcpetion;
+    }
 }

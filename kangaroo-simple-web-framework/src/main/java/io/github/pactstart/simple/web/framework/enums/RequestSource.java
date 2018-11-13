@@ -4,7 +4,9 @@ public enum RequestSource {
 
     Android(1),
 
-    iOS(2);
+    iOS(2),
+
+    PC(3);
 
     private int value;
 
