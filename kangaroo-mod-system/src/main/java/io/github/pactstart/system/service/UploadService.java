@@ -3,6 +3,7 @@ package io.github.pactstart.system.service;
 import io.github.pactstart.oss.autoconfigure.PostPolicyResponse;
 import io.github.pactstart.system.dto.UploadPathDto;
 
+import java.io.InputStream;
 import java.util.Map;
 
 
@@ -22,4 +23,13 @@ public interface UploadService {
      * @return
      */
     PostPolicyResponse getPostPolicy(UploadPathDto uploadPathDto) throws Exception;
+
+    /**
+     * 上传文件
+     *
+     * @param key
+     * @param inputStream
+     * @return
+     */
+    String uploadFile(String key, InputStream inputStream);
 }

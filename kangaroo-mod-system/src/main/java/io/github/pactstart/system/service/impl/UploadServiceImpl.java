@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.Map;
 
 @Slf4j
@@ -47,5 +48,10 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public PostPolicyResponse getPostPolicy(UploadPathDto uploadPathDto) throws Exception {
         return ossClient.getPostPolicy(uploadPathDto.getPath());
+    }
+
+    @Override
+    public String uploadFile(String key, InputStream inputStream) {
+        return ossClient.uploadFile(key, inputStream);
     }
 }
