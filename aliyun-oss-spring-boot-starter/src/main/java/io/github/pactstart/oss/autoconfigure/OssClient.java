@@ -19,8 +19,8 @@ public class OssClient {
 
     public OssClient(OssConfig ossConfig) {
         this.ossConfig = ossConfig;
-        this.host = "http://" + ossConfig.getBucket() + "." + ossConfig.getEndPoint();
-        this.internalClient = new OSSClient(ossConfig.getEndPoint(), ossConfig.getAccessKeyId(), ossConfig.getAccessKeySecret());
+        this.host = "https://" + ossConfig.getBucket() + "." + ossConfig.getEndPoint();
+        this.internalClient = new OSSClient("https://" + ossConfig.getEndPoint(), ossConfig.getAccessKeyId(), ossConfig.getAccessKeySecret());
     }
 
     /**
