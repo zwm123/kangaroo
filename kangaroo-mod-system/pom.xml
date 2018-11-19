@@ -53,10 +53,10 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.everit-org.json-schema</groupId>
-            <artifactId>org.everit.json.schema</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.github.everit-org.json-schema</groupId>-->
+        <!--<artifactId>org.everit.json.schema</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>

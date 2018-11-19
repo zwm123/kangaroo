@@ -9,6 +9,7 @@ import io.github.pactstart.biz.common.dto.IdDto;
 import io.github.pactstart.biz.common.errorcode.ResponseCode;
 import io.github.pactstart.biz.common.utils.MapperUtils;
 import io.github.pactstart.simple.web.framework.auth.AuthenticationInfo;
+import io.github.pactstart.simple.web.framework.common.RequestHolder;
 import io.github.pactstart.simple.web.framework.common.form.IdForm;
 import io.github.pactstart.simple.web.framework.utils.IpUtils;
 import io.github.pactstart.simple.web.framework.utils.ParamValidator;
@@ -97,13 +98,13 @@ public class SysRoleController {
         return sysRoleService.getAll();
     }
 
-//    @ApiOperation(value = "获取当前用户的角色权限树")
-//    @ApiImplicitParam(name = "param", value = "角色id", required = true, dataType = "RoleIdParam")
-//    @PostMapping("/roleTree.json")
-//    public List<SysAclModuleAdaptDto> roleTree(@Valid @RequestBody RoleIdForm roleIdForm, BindingResult br) {
-//        ParamValidator.validate(br);
-//        return sysTreeService.roleTree(roleIdForm.getRoleId(), RequestHolder.getAuthenticationInfo().getUserId());
-//    }
+    @ApiOperation(value = "获取当前用户的角色权限树")
+    @ApiImplicitParam(name = "param", value = "角色id", required = true, dataType = "RoleIdParam")
+    @PostMapping("/roleTree.json")
+    public List<SysAclModuleAdaptDto> roleTree(@Valid @RequestBody RoleIdForm roleIdForm, BindingResult br) {
+        ParamValidator.validate(br);
+        return sysTreeService.roleTree(roleIdForm.getRoleId(), RequestHolder.getAuthenticationInfo().getUserId());
+    }
 
     @ApiOperation(value = "获取指定角色的权限树")
     @ApiImplicitParam(name = "param", value = "角色id", required = true, dataType = "RoleIdParam")

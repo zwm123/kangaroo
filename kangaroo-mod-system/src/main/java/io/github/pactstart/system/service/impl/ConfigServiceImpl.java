@@ -16,12 +16,6 @@ import io.github.pactstart.system.entity.ConfigLog;
 import io.github.pactstart.system.enums.ConfigValueTypeEnum;
 import io.github.pactstart.system.service.ConfigService;
 import lombok.extern.slf4j.Slf4j;
-import org.everit.json.schema.Schema;
-import org.everit.json.schema.ValidationException;
-import org.everit.json.schema.loader.SchemaLoader;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,37 +89,37 @@ public class ConfigServiceImpl implements ConfigService {
                 throw new ApplicationException(ResponseCode.INVALID_PARAM, "默认配置值有误,不能转化为数值类型");
             }
         } else if (configValueTypeEnum == ConfigValueTypeEnum.JSON_TYPE) {
-            if (!ValidUtils.isValid(jsonSchema)) {
-                throw new ApplicationException(ResponseCode.INVALID_PARAM, "配置类型为json格式时，需填写Json shcema");
-            }
-            SchemaLoader loader = SchemaLoader.builder().schemaJson(new JSONObject(jsonSchema)).draftV7Support().build();
-            Schema schema = loader.load().build();
-            try {
-                value = value.trim();
-                if (value.startsWith("[")) {
-                    schema.validate(new JSONArray(value));
-                } else {
-                    schema.validate(new JSONObject(value));
-                }
-            } catch (JSONException e) {
-                log.error("配置值不是一个有效的Json格式的字符串", e);
-                throw new ApplicationException(ResponseCode.INVALID_JSON_STRING, "配置值不是一个有效的Json格式的字符串");
-            } catch (ValidationException e) {
-                log.error("配置值有误,不符合定义的schema", e);
-                ResponseCode responseCode = new ResponseCode(ResponseCode.INVALID_PARAM, "配置值有误,不符合定义的schema");
-                throw new ApplicationException(responseCode);
-            }
-            try {
-                schema.validate(new JSONObject(defaultValue));
-            } catch (JSONException e) {
-                log.error("默认配置值不是一个有效的Json格式的字符串", e);
-                throw new ApplicationException(ResponseCode.INVALID_JSON_STRING, "默认配置值不是一个有效的Json格式的字符串");
-            } catch (ValidationException e) {
-                log.error("默认配置值有误,不符合定义的schema", e);
-                ResponseCode responseCode = new ResponseCode(ResponseCode.INVALID_PARAM, "默认配置值有误,不符合定义的schema");
-                responseCode.setData(e.getCausingExceptions());
-                throw new ApplicationException(responseCode);
-            }
+//            if (!ValidUtils.isValid(jsonSchema)) {
+//                throw new ApplicationException(ResponseCode.INVALID_PARAM, "配置类型为json格式时，需填写Json shcema");
+//            }
+//            SchemaLoader loader = SchemaLoader.builder().schemaJson(new JSONObject(jsonSchema)).draftV7Support().build();
+//            Schema schema = loader.load().build();
+//            try {
+//                value = value.trim();
+//                if (value.startsWith("[")) {
+//                    schema.validate(new JSONArray(value));
+//                } else {
+//                    schema.validate(new JSONObject(value));
+//                }
+//            } catch (JSONException e) {
+//                log.error("配置值不是一个有效的Json格式的字符串", e);
+//                throw new ApplicationException(ResponseCode.INVALID_JSON_STRING, "配置值不是一个有效的Json格式的字符串");
+//            } catch (ValidationException e) {
+//                log.error("配置值有误,不符合定义的schema", e);
+//                ResponseCode responseCode = new ResponseCode(ResponseCode.INVALID_PARAM, "配置值有误,不符合定义的schema");
+//                throw new ApplicationException(responseCode);
+//            }
+//            try {
+//                schema.validate(new JSONObject(defaultValue));
+//            } catch (JSONException e) {
+//                log.error("默认配置值不是一个有效的Json格式的字符串", e);
+//                throw new ApplicationException(ResponseCode.INVALID_JSON_STRING, "默认配置值不是一个有效的Json格式的字符串");
+//            } catch (ValidationException e) {
+//                log.error("默认配置值有误,不符合定义的schema", e);
+//                ResponseCode responseCode = new ResponseCode(ResponseCode.INVALID_PARAM, "默认配置值有误,不符合定义的schema");
+//                responseCode.setData(e.getCausingExceptions());
+//                throw new ApplicationException(responseCode);
+//            }
         }
     }
 
