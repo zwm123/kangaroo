@@ -124,7 +124,7 @@ public class NoticeServiceImpl implements NoticeService {
         memberNotice.setCreateTime(new Date());
         memberNoticeMapper.insert(memberNotice);
 
-        if (memberNoticeSendDto.isOnlyStore()) {
+        if (!memberNoticeSendDto.isOnlyStore()) {
             Map<String, Object> extras = Maps.newHashMap();
             extras.put("bizType", memberNotice.getBizType());
             extras.put("showType", memberNotice.getShowType());
