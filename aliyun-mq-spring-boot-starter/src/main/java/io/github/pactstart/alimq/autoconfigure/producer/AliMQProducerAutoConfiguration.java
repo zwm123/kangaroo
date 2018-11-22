@@ -49,6 +49,7 @@ public class AliMQProducerAutoConfiguration {
         return new JsonSerializer();
     }
 
+    @Bean
     public AliMessageProducer messageProducer(Producer producer, @Qualifier("producerMessageSerializer") MessageSerializer messageSerializer) {
         return new AliMessageProducer(producer, messageSerializer, properties.getTopic());
     }
