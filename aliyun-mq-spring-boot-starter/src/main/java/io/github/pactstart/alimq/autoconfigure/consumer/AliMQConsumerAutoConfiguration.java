@@ -6,14 +6,16 @@ import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
 @Configuration
-@ConditionalOnBean(EnableAliMQConsumer.class)
-@AutoConfigureAfter(AliMQConsumerScanner.class)
+@ConditionalOnBean(annotation = {EnableAliMQConsumer.class})
+@EnableConfigurationProperties({AliMQConsumerProperties.class})
+@AutoConfigureAfter({AliMQConsumerScanner.class})
 public class AliMQConsumerAutoConfiguration {
 
     @Autowired
@@ -32,8 +34,7 @@ public class AliMQConsumerAutoConfiguration {
         // SecretKey 阿里云身份验证，在阿里云服务器管理控制台创建
         properties.put(PropertyKeyConst.SecretKey, mqConsumerProperties.getAccessKeySecret());
         // 设置 TCP 接入域名（此处以公共云生产环境为例）
-        properties.put(PropertyKeyConst.ONSAddr,
-                "http://onsaddr-internal.aliyun.com:8080/rocketmq/nsaddr4client-internal");
+        properties.put("ConsumeThreadNums", this.mqConsumerProperties.getConsumeThreads());
         // 集群订阅方式 (默认)
         // properties.put(PropertyKeyConst.MessageModel, PropertyValueConst.CLUSTERING);
         // 广播订阅方式
