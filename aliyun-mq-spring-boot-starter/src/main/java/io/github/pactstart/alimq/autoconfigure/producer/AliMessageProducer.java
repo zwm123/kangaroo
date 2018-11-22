@@ -1,8 +1,10 @@
 package io.github.pactstart.alimq.autoconfigure.producer;
 
 import com.aliyun.openservices.ons.api.*;
-
-import io.github.pactstart.mq.*;
+import io.github.pactstart.mq.MessageProducer;
+import io.github.pactstart.mq.MessageSendCallback;
+import io.github.pactstart.mq.MessageSendException;
+import io.github.pactstart.mq.MessageSendResult;
 import io.github.pactstart.mq.anotation.MessageChannel;
 import io.github.pactstart.mq.message.MQMessage;
 import io.github.pactstart.mq.serializer.MessageSerializer;
