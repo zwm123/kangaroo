@@ -6,6 +6,7 @@ import com.aliyun.openservices.ons.api.PropertyKeyConst;
 import io.github.pactstart.mq.serializer.JsonSerializer;
 import io.github.pactstart.mq.serializer.MessageSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -48,8 +49,7 @@ public class AliMQProducerAutoConfiguration {
         return new JsonSerializer();
     }
 
-    @ConditionalOnBean(Producer.class)
-    public AliMessageProducer messageProducer(Producer producer, MessageSerializer messageSerializer) {
+    public AliMessageProducer messageProducer(Producer producer, @Qualifier("producerMessageSerializer") MessageSerializer messageSerializer) {
         return new AliMessageProducer(producer, messageSerializer, properties.getTopic());
     }
 }
