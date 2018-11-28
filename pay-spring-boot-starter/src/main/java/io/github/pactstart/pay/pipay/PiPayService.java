@@ -37,7 +37,6 @@ public class PiPayService {
                 "   <input type=\"hidden\" name=\"orderDate\" value=\"" + DateUtils.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss") + "\"/>\n" +
                 "   <input type=\"hidden\" name=\"payMethod\" value=\"wallet\"/>\n" +
                 "   <input type=\"hidden\" name=\"trType\" value=\"2\"/>\n" +
-                "   <input type=\"hidden\" name=\"cancelTimer\" value=\"0\" />\n" +
                 "   <input type=\"hidden\" name=\"confirmURL\" value=\"" + piPayConfig.getConfirmUrl() + "\"/>\n" +
                 "   <input type=\"hidden\" name=\"cancelURL\" value=\"" + piPayConfig.getCancelUrl() + "\"/>\n";
         if (request.getExtParams() != null && request.getExtParams().size() > 0) {
