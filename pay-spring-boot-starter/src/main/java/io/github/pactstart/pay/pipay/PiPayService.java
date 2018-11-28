@@ -25,7 +25,7 @@ public class PiPayService {
 
     public String getFormStr(PagePayRequest request) {
         String digest = DataUtils.md5(piPayConfig.getMid().concat(request.getOrderid()).concat(request.getOrderAmount())).toLowerCase();
-        String formStr = "<form id=\"pipayform\" name=\"pipayform\" action=\"https://onlinepayment-test.pipay.com/starttransaction\" method=\"post\">\n" +
+        String formStr = "<form id=\"pipayform\" name=\"pipayform\" action=\"" + piPayConfig.getTransactionUrl() + "\" method=\"post\">\n" +
                 "   <input type=\"hidden\" name=\"mid\" value=\"" + piPayConfig.getMid() + "\"/>\n" +
                 "   <input type=\"hidden\" name=\"lang\" value=\"en\"/>\n" +
                 "   <input type=\"hidden\" name=\"orderid\" value=\"" + request.getOrderid() + "\"/>\n" +
