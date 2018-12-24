@@ -1,12 +1,13 @@
 package io.github.pactstart.weixin.mp.message.inbound.event;
 
+import io.github.pactstart.weixin.mp.message.inbound.AbstractReceivedMessage;
 import org.dom4j.Element;
 
 /**
  * 上报地理位置事件
  * Created by Di.Lei on 2017/8/1.
  */
-public class LocationReportEvent extends AbstractReceivedEvent {
+public class LocationReportEvent extends AbstractReceivedMessage {
 
     /**
      * 纬度

@@ -1,4 +1,4 @@
-package io.github.pactrex.chuanglan.autoconfiguration;
+package io.github.pactstart.chuanglan.autoconfiguration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

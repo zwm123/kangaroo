@@ -1,11 +1,12 @@
 package io.github.pactstart.weixin.mp.message.inbound.event;
 
+import io.github.pactstart.weixin.mp.message.inbound.AbstractReceivedMessage;
 import org.dom4j.Element;
 
 /**
  * Created by Di.Lei on 2017/8/12.
  */
-public class NamingVerifyEvent extends AbstractReceivedEvent {
+public class NamingVerifyEvent extends AbstractReceivedMessage {
     private Long expiredTime;
 
     private Long failTime;
@@ -13,7 +14,7 @@ public class NamingVerifyEvent extends AbstractReceivedEvent {
     private String failReason;
 
     private boolean isVerifySuccess() {
-        return "naming_verify_success" .equals(getEvent());
+        return "naming_verify_success".equals(this.getEvent());
     }
 
     @Override

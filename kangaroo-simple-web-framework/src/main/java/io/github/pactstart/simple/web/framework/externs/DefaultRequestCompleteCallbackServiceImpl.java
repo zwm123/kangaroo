@@ -8,7 +8,6 @@ import io.github.pactstart.simple.web.framework.interceptor.HttpInterceptor;
 import io.github.pactstart.simple.web.framework.utils.IpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,31 +25,23 @@ public class DefaultRequestCompleteCallbackServiceImpl implements RequestComplet
         long start = (Long) request.getAttribute(HttpInterceptor.START_TIME);
         long end = System.currentTimeMillis();
 
-        String params = "";
-
-        MediaType mediaType = null;
-        if (request.getContentType() != null) {
-            mediaType = MediaType.valueOf(request.getContentType());
+        String body = "";
+        InputStream in = request.getInputStream();
+        // 框架已使用流，指针已指向到末尾，servlet流不支持复位，读取之后再读取会抛出异常，HttpMessageNotReadableException Required request body is missing
+        // 开启了wrapper才能对流进行复位，否则抛异常java.io.IOException: mark/reset not supported
+        if (servletRequestWrapperEnabled && in.markSupported()) {
+            in.reset();
+            StringWriter sw = new StringWriter();
+            IOUtils.copy(in, sw);
+            body = sw.toString();
         }
-        if (mediaType != null && (MediaType.APPLICATION_JSON.equals(mediaType) || MediaType.APPLICATION_JSON_UTF8.equals(mediaType))) {
-            InputStream in = request.getInputStream();
-            // 框架已使用流，指针已指向到末尾，servlet流不支持复位，读取之后再读取会抛出异常，HttpMessageNotReadableException Required request body is missing
-            // 开启了wrapper才能对流进行复位，否则抛异常java.io.IOException: mark/reset not supported
-            if (servletRequestWrapperEnabled && in.markSupported()) {
-                in.reset();
-                StringWriter sw = new StringWriter();
-                IOUtils.copy(in, sw);
-                params = sw.toString();
-            }
-        } else {
-            params = JsonUtils.obj2String(request.getParameterMap());
-        }
+        data.put("body", body);
+        data.put("query", JsonUtils.obj2String(request.getParameterMap()));
         data.put("requestMethod", request.getMethod());
         data.put("contentType", request.getContentType());
         data.put("startTime", start);
         data.put("endTime", end);
         data.put("cost", end - start);
-        data.put("params", params);
         data.put("url", url);
         data.put("ip", IpUtils.getClientIpAddr(request));
         data.put("device", request.getHeader("device"));

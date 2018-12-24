@@ -19,6 +19,7 @@ public abstract class OutboundXmlMessage implements OutboundMessage {
         Element root = document.addElement("xml");
         this.write(root);
         writer.println(root.asXML());
+        writer.flush();
     }
 
     protected abstract void write(Element root);

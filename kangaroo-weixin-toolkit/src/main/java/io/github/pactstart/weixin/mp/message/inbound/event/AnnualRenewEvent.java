@@ -1,12 +1,13 @@
 package io.github.pactstart.weixin.mp.message.inbound.event;
 
+import io.github.pactstart.weixin.mp.message.inbound.AbstractReceivedMessage;
 import org.dom4j.Element;
 
 /**
  * 年审通知
  * Created by Di.Lei on 2017/8/12.
  */
-public class AnnualRenewEvent extends AbstractReceivedEvent {
+public class AnnualRenewEvent extends AbstractReceivedMessage {
 
     private Long expiredTime;
 

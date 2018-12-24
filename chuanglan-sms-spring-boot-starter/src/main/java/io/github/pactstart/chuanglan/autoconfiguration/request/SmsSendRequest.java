@@ -1,10 +1,10 @@
-package io.github.pactrex.chuanglan.autoconfiguration.request;
+package io.github.pactstart.chuanglan.autoconfiguration.request;
 
 /**
  * @author tianyh
- * @Description:变量短信发送实体类
+ * @Description:普通短信发送实体类
  */
-public class SmsVariableRequest {
+public class SmsSendRequest {
     /**
      * 创蓝API账号，必填
      */
@@ -18,9 +18,10 @@ public class SmsVariableRequest {
      */
     private String msg;
     /**
-     * 手机号码和变量参数，多组参数使用英文分号;区分，必填
+     * 机号码。多个手机号码使用英文逗号分隔，必填
      */
-    private String params;
+    private String phone;
+
 
     /**
      * 定时发送短信时间。格式为yyyyMMddHHmm，值小于或等于当前时间则立即发送，默认立即发送，选填
@@ -39,35 +40,48 @@ public class SmsVariableRequest {
      */
     private String uid;
 
-    public SmsVariableRequest() {
+    public SmsSendRequest() {
 
     }
 
-    public SmsVariableRequest(String account, String password, String msg, String params) {
+    public SmsSendRequest(String account, String password, String msg, String phone) {
         super();
         this.account = account;
         this.password = password;
         this.msg = msg;
-        this.params = params;
+        this.phone = phone;
     }
 
-    public SmsVariableRequest(String account, String password, String msg, String params, String report) {
+    public SmsSendRequest(String account, String password, String msg, String phone, String report) {
         super();
         this.account = account;
         this.password = password;
         this.msg = msg;
-        this.params = params;
+        this.phone = phone;
         this.report = report;
     }
 
-    //	public SmsVarableRequest(String account, String password, String msg, String params, String sendtime) {
-//		super();
-//		this.account = account;
-//		this.password = password;
-//		this.msg = msg;
-//		this.params = params;
-//		this.sendtime = sendtime;
-//	}
+    public SmsSendRequest(String account, String password, String msg, String phone, String report, String sendtime) {
+        super();
+        this.account = account;
+        this.password = password;
+        this.msg = msg;
+        this.phone = phone;
+        this.sendtime = sendtime;
+        this.report = report;
+    }
+
+    public SmsSendRequest(String account, String password, String msg, String phone, String sendtime, String report, String uid) {
+        super();
+        this.account = account;
+        this.password = password;
+        this.msg = msg;
+        this.phone = phone;
+        this.sendtime = sendtime;
+        this.report = report;
+        this.uid = uid;
+    }
+
     public String getAccount() {
         return account;
     }
@@ -90,6 +104,14 @@ public class SmsVariableRequest {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getSendtime() {
@@ -122,13 +144,5 @@ public class SmsVariableRequest {
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    public String getParams() {
-        return params;
-    }
-
-    public void setParams(String params) {
-        this.params = params;
     }
 }

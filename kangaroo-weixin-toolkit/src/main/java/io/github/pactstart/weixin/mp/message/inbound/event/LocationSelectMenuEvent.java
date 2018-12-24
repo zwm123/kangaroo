@@ -1,11 +1,12 @@
 package io.github.pactstart.weixin.mp.message.inbound.event;
 
+import io.github.pactstart.weixin.mp.message.inbound.AbstractReceivedMessage;
 import org.dom4j.Element;
 
 /**
  * Created by Di.Lei on 2017/8/1.
  */
-public class locationSelectMenuEvent extends AbstractReceivedEvent {
+public class LocationSelectMenuEvent extends AbstractReceivedMessage {
 
     /**
      * 事件KEY值，由开发者在创建菜单时设定事件KEY值，由开发者在创建菜单时设定

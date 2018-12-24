@@ -1,12 +1,13 @@
 package io.github.pactstart.weixin.mp.message.inbound.event;
 
+import io.github.pactstart.weixin.mp.message.inbound.AbstractReceivedMessage;
 import org.dom4j.Element;
 
 /**
  * 扫描带参数二维码事件
  * Created by Di.Lei on 2017/8/1.
  */
-public class ScanSceneQrCodeEvent extends AbstractReceivedEvent {
+public class ScanSceneQrCodeEvent extends AbstractReceivedMessage {
 
     /**
      * 事件KEY值：

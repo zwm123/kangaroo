@@ -9,7 +9,7 @@ public class AesException extends Exception {
     public final static int ComputeSignatureError = -40003;
     public final static int IllegalAesKey = -40004;
     public final static int ValidateAppidError = -40005;
-    public final static int EncryptAESError = -40006;
+    public final static int EncryptAESError = -40006;/**/
     public final static int DecryptAESError = -40007;
     public final static int IllegalBuffer = -40008;
     //public final static int EncodeBase64Error = -40009;
@@ -18,7 +18,7 @@ public class AesException extends Exception {
 
     private int code;
 
-    AesException(int code) {
+    public AesException(int code) {
         super(getMessage(code));
         this.code = code;
     }

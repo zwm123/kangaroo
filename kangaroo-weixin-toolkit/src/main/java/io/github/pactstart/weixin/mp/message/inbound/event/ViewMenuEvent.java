@@ -1,12 +1,13 @@
 package io.github.pactstart.weixin.mp.message.inbound.event;
 
+import io.github.pactstart.weixin.mp.message.inbound.AbstractReceivedMessage;
 import org.dom4j.Element;
 
 /**
  * 点击菜单跳转链接时的事件推送
  * Created by Di.Lei on 2017/8/1.
  */
-public class ViewMenuEvent extends AbstractReceivedEvent {
+public class ViewMenuEvent extends AbstractReceivedMessage {
 
     /**
      * 设置的跳转URL

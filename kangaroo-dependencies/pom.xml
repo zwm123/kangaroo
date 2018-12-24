@@ -109,6 +109,11 @@
             </dependency>
             <dependency>
                 <groupId>io.github.pactstart</groupId>
+                <artifactId>chuanglan-sms-spring-boot-starter</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
                 <artifactId>aliyun-sts-spring-boot-starter</artifactId>
                 <version>1.0</version>
             </dependency>

@@ -1,5 +1,6 @@
 package io.github.pactstart.weixin.mp.message.inbound.event;
 
+import io.github.pactstart.weixin.mp.message.inbound.AbstractReceivedMessage;
 import org.dom4j.Element;
 
 /**
@@ -7,7 +8,7 @@ import org.dom4j.Element;
  * 扫码推事件且弹出“消息接收中”提示框的事件推送
  * Created by Di.Lei on 2017/8/1.
  */
-public class ScancodeMenuEvent extends AbstractReceivedEvent {
+public class ScancodeMenuEvent extends AbstractReceivedMessage {
 
     private String eventKey;
 

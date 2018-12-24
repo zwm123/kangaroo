@@ -1,4 +1,4 @@
-package io.github.pactrex.chuanglan.autoconfiguration.response;
+package io.github.pactstart.chuanglan.autoconfiguration.response;
 
 /**
  * @author tianyh

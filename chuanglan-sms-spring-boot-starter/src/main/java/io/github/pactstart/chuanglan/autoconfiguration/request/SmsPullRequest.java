@@ -1,10 +1,10 @@
-package io.github.pactrex.chuanglan.autoconfiguration.request;
+package io.github.pactstart.chuanglan.autoconfiguration.request;
 
 /**
  * @author tianyh
- * @Description:查询状态报告实体类
+ * @Description:查询上行短信实体类
  */
-public class SmsReportRequest {
+public class SmsPullRequest {
     /**
      * 创蓝API账号，必填
      */
@@ -18,11 +18,11 @@ public class SmsReportRequest {
      */
     private String count;
 
-    public SmsReportRequest() {
+    public SmsPullRequest() {
 
     }
 
-    public SmsReportRequest(String account, String password, String count) {
+    public SmsPullRequest(String account, String password, String count) {
         super();
         this.account = account;
         this.password = password;

@@ -1,10 +1,10 @@
-package io.github.pactrex.chuanglan.autoconfiguration.response;
+package io.github.pactstart.chuanglan.autoconfiguration.response;
 
 /**
  * @author tianyh
- * @Description:普通短信发送响应实体类
+ * @Description:变量短信发送响应实体类
  */
-public class SmsSendResponse {
+public class SmsVariableResponse {
     /**
      * 响应时间
      */
@@ -17,6 +17,14 @@ public class SmsSendResponse {
      * 状态码说明（成功返回空）
      */
     private String errorMsg;
+    /**
+     * 失败的个数
+     */
+    private String failNum;
+    /**
+     * 成功的个数
+     */
+    private String successNum;
     /**
      * 状态码（详细参考提交响应状态码）
      */
@@ -54,9 +62,25 @@ public class SmsSendResponse {
         this.code = code;
     }
 
+    public String getFailNum() {
+        return failNum;
+    }
+
+    public void setFailNum(String failNum) {
+        this.failNum = failNum;
+    }
+
+    public String getSuccessNum() {
+        return successNum;
+    }
+
+    public void setSuccessNum(String successNum) {
+        this.successNum = successNum;
+    }
+
     @Override
     public String toString() {
-        return "SmsSingleResponse [time=" + time + ", msgId=" + msgId + ", errorMsg=" + errorMsg + ", code=" + code
-                + "]";
+        return "SmsVarableResponse [time=" + time + ", msgId=" + msgId + ", errorMsg=" + errorMsg + ", failNum="
+                + failNum + ", successNum=" + successNum + ", code=" + code + "]";
     }
 }
