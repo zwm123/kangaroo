@@ -32,6 +32,13 @@ public class WXPayConstants {
     public static final String REPORT_URL_SUFFIX = "/payitil/report";
     public static final String SHORTURL_URL_SUFFIX = "/tools/shorturl";
     public static final String AUTHCODETOOPENID_URL_SUFFIX = "/tools/authcodetoopenid";
+    public static final String HB_NORMAL_URL = "/mmpaymkttransfers/sendredpack";
+    public static final String HB_GROUP_URL = "/mmpaymkttransfers/sendgroupredpack";
+    public static final String HB_QUERY_URL = "/mmpaymkttransfers/gethbinfo";
+    public static final String TRANSFER_URL = "/mmpaymkttransfers/promotion/transfers";
+    public static final String TRANSFER_QUERY_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo";
+
+
     // sandbox
     public static final String SANDBOX_MICROPAY_URL_SUFFIX = "/sandboxnew/pay/micropay";
     public static final String SANDBOX_UNIFIEDORDER_URL_SUFFIX = "/sandboxnew/pay/unifiedorder";

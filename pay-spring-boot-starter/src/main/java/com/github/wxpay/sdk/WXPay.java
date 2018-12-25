@@ -326,6 +326,66 @@ public class WXPay {
         }
     }
 
+    /**
+     * 作用：企业付款到零钱
+     *
+     * @param reqData 向wxpay post的请求数据
+     * @return API返回数据
+     * @throws Exception
+     */
+    public Map<String, String> transfer(Map<String, String> reqData) throws Exception {
+        return this.transfer(reqData, config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
+    }
+
+    /**
+     * 企业付款到零钱
+     *
+     * @param reqData              向wxpay post的请求数据
+     * @param httpConnectTimeoutMs
+     * @param httpReadTimeoutMs
+     * @return
+     * @throws Exception
+     */
+    private Map<String, String> transfer(Map<String, String> reqData, int httpConnectTimeoutMs, int httpReadTimeoutMs) throws Exception {
+        String url = WXPayConstants.TRANSFER_URL;
+        reqData.put("mch_appid", config.getAppID());
+        reqData.put("mchid", config.getMchID());
+        reqData.put("nonce_str", WXPayUtil.generateNonceStr());
+        reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), SignType.MD5));
+        String respXml = this.requestWithCert(url, reqData, httpConnectTimeoutMs, httpReadTimeoutMs);
+        return this.processResponseXml(respXml);
+    }
+
+    /**
+     * 作用：查询企业付款
+     *
+     * @param reqData 向wxpay post的请求数据
+     * @return API返回数据
+     * @throws Exception
+     */
+    public Map<String, String> transferQuery(Map<String, String> reqData) throws Exception {
+        return this.transferQuery(reqData, config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
+    }
+
+    /**
+     * 查询企业付款
+     *
+     * @param reqData              向wxpay post的请求数据
+     * @param httpConnectTimeoutMs
+     * @param httpReadTimeoutMs
+     * @return
+     * @throws Exception
+     */
+    private Map<String, String> transferQuery(Map<String, String> reqData, int httpConnectTimeoutMs, int httpReadTimeoutMs) throws Exception {
+        String url = WXPayConstants.TRANSFER_QUERY_URL;
+        reqData.put("appid", config.getAppID());
+        reqData.put("mch_id", config.getMchID());
+        reqData.put("nonce_str", WXPayUtil.generateNonceStr());
+        reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), SignType.MD5));
+        String respXml = this.requestWithCert(url, reqData, httpConnectTimeoutMs, httpReadTimeoutMs);
+        return this.processResponseXml(respXml);
+    }
+
 
     /**
      * 作用：统一下单<br>

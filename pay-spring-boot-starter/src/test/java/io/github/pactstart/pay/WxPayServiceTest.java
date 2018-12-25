@@ -1,13 +1,17 @@
 package io.github.pactstart.pay;
 
 import com.alibaba.fastjson.JSON;
+import io.github.pactstart.commonutils.JsonUtils;
 import io.github.pactstart.pay.wxpay.WxPayService;
 import io.github.pactstart.pay.wxpay.autoconfigure.WxPayProperties;
 import io.github.pactstart.pay.wxpay.request.OrderQueryRequest;
 import io.github.pactstart.pay.wxpay.request.PayResultNoticeRequest;
+import io.github.pactstart.pay.wxpay.request.transfer.TransferRequest;
 import io.github.pactstart.pay.wxpay.response.OrderQueryResponse;
+import io.github.pactstart.pay.wxpay.response.transfer.TransferResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
+import org.junit.Test;
 
 @Slf4j
 public class WxPayServiceTest {
@@ -17,12 +21,19 @@ public class WxPayServiceTest {
     @Before
     public void init() throws Exception {
         WxPayProperties wxPayProperties = new WxPayProperties();
-        wxPayProperties.setAppId("wx1bf9298bed6de593");
-        wxPayProperties.setMchId("1501242711");
-        wxPayProperties.setCertFile("classpath:cert/apiclient_cert.p12");
-        wxPayProperties.setKey("4982887cd30b46d387a76d91db94c789");
+        wxPayProperties.setAppId("");
+        wxPayProperties.setMchId("");
+        wxPayProperties.setCertFile("/cert/apiclient_cert.p12");
+        wxPayProperties.setKey("");
         wxPayProperties.setNotifyUrl("xxx");
         wxPayService = new WxPayService(wxPayProperties);
+    }
+
+    @Test
+    public void testTransfer() throws Exception {
+        TransferRequest request = new TransferRequest("201036150583742042112", "oHxsm0jlGEfFFoWnpBIeD1N17r3g", 1, "测试企业付款到零钱", "127.0.0.1");
+        TransferResponse response = wxPayService.transfer(request);
+        System.out.println(JsonUtils.obj2String(response));
     }
 
     //    @Test

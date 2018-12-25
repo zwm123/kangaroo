@@ -11,7 +11,11 @@ import io.github.pactstart.pay.wxpay.model.Coupon;
 import io.github.pactstart.pay.wxpay.model.CouponRefund;
 import io.github.pactstart.pay.wxpay.model.OrderRefund;
 import io.github.pactstart.pay.wxpay.request.*;
+import io.github.pactstart.pay.wxpay.request.transfer.TransferQueryRequest;
+import io.github.pactstart.pay.wxpay.request.transfer.TransferRequest;
 import io.github.pactstart.pay.wxpay.response.*;
+import io.github.pactstart.pay.wxpay.response.transfer.TransferQueryResponse;
+import io.github.pactstart.pay.wxpay.response.transfer.TransferResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -58,6 +62,36 @@ public class WxPayService {
 //            log.error("调用微信支付相关接口参数不合法", JSON.toJSONString(invalidParamMap));
 //            throw new WxPayException("参数不合法");
 //        }
+    }
+
+    /**
+     * 企业付款到零钱
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    public TransferResponse transfer(TransferRequest request) throws Exception {
+        validateParam(request);
+        Map<String, String> paramMap = getParamMap(request);
+        Map<String, String> responseParamMap = wxPay.transfer(paramMap);
+        TransferResponse response = JSON.parseObject(JSON.toJSONString(responseParamMap), TransferResponse.class);
+        return response;
+    }
+
+    /**
+     * 查询企业付款
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    public TransferQueryResponse transferQuery(TransferQueryRequest request) throws Exception {
+        validateParam(request);
+        Map<String, String> paramMap = getParamMap(request);
+        Map<String, String> responseParamMap = wxPay.transfer(paramMap);
+        TransferQueryResponse response = JSON.parseObject(JSON.toJSONString(responseParamMap), TransferQueryResponse.class);
+        return response;
     }
 
     /**
