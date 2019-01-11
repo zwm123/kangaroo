@@ -8,8 +8,7 @@ import java.io.IOException;
 public class ResponseUtils {
 
     public static void outputJson(HttpServletResponse httpServletResponse, Object obj) throws IOException {
-        httpServletResponse.setContentType("application/json");
-        httpServletResponse.setCharacterEncoding("utf-8");
+        httpServletResponse.setContentType("application/json; charset=UTF-8");
         httpServletResponse.getWriter().println(JsonUtils.obj2String(obj));
     }
 

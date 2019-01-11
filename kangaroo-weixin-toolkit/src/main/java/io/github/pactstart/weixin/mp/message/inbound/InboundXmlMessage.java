@@ -18,7 +18,7 @@ public abstract class InboundXmlMessage {
 
     private static Logger logger = LoggerFactory.getLogger(InboundXmlMessage.class);
 
-    public static InboundXmlMessage read(InputStream in) {
+    public static AbstractReceivedMessage read(InputStream in) {
         SAXReader saxReader = new SAXReader();
         Document document = null;
         try {
@@ -29,7 +29,7 @@ public abstract class InboundXmlMessage {
         Element root = document.getRootElement();
         String msgType = root.elementText("MsgType");
         boolean isEvent = "event".equals(msgType);
-        InboundXmlMessage xmlMessage = null;
+        AbstractReceivedMessage xmlMessage = null;
         if (isEvent) {
             String event = root.elementText("Event");
             if ("subscribe".equals(event) || "unsubscribe".equals(event)) {
@@ -52,10 +52,13 @@ public abstract class InboundXmlMessage {
                 xmlMessage = new LocationSelectMenuEvent();
             } else if ("pic_weixin".equals(event)) {
                 //弹出微信相册发图器的事件推送
+                xmlMessage = new PicEvent();
             } else if ("pic_sysphoto".equals(event)) {
                 //弹出系统拍照发图的事件推送
+                xmlMessage = new PicEvent();
             } else if ("pic_photo_or_album".equals(event)) {
                 //弹出拍照或者相册发图的事件推送
+                xmlMessage = new PicEvent();
             } else if ("scancode_push".equals(event)) {
                 //扫码推事件的事件推送
             } else if ("qualification_verify_success".equals(event) || "qualification_verify_fail".equals(event)) {
@@ -80,7 +83,9 @@ public abstract class InboundXmlMessage {
                 xmlMessage = new LinkMessage();
             }
         }
-        xmlMessage.read(root);
+        if (xmlMessage != null) {
+            xmlMessage.read(root);
+        }
         return xmlMessage;
     }
 

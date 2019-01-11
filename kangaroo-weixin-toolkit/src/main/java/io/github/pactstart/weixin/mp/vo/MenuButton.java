@@ -28,6 +28,7 @@ public class MenuButton implements Serializable {
 
     private String appid;
 
+
     @JSONField(name = "page_path")
     private String pagePath;
 
