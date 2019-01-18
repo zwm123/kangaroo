@@ -18,4 +18,16 @@ public class ScanQrCodeEvent extends AbstractReceivedMessage {
         this.scanType = scanCodeInfoElement.elementText("ScanType");
         this.scanResult = scanCodeInfoElement.elementText("ScanResult");
     }
+
+    public String getEventKey() {
+        return eventKey;
+    }
+
+    public String getScanType() {
+        return scanType;
+    }
+
+    public String getScanResult() {
+        return scanResult;
+    }
 }

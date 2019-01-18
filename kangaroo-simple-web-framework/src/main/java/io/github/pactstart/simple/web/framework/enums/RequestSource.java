@@ -6,7 +6,9 @@ public enum RequestSource {
 
     iOS(2),
 
-    PC(3);
+    PC(3),
+
+    weixin(4);
 
     private int value;
 
@@ -36,5 +38,9 @@ public enum RequestSource {
             }
         }
         return result;
+    }
+
+    public boolean isApp() {
+        return this == RequestSource.Android || this == RequestSource.iOS;
     }
 }

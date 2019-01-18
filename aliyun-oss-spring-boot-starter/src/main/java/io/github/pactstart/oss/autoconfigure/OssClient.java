@@ -2,13 +2,13 @@ package io.github.pactstart.oss.autoconfigure;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
-import com.aliyun.oss.model.MatchMode;
-import com.aliyun.oss.model.PolicyConditions;
+import com.aliyun.oss.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.List;
 
 public class OssClient {
 
@@ -68,5 +68,36 @@ public class OssClient {
     public String uploadFile(String key, InputStream inputStream) {
         internalClient.putObject(ossConfig.getBucket(), key, inputStream);
         return this.host + "/" + key;
+    }
+
+    /**
+     * 下载文件
+     *
+     * @param key
+     * @return
+     */
+    public InputStream downloadFile(String key) {
+        OSSObject ossObject = internalClient.getObject(ossConfig.getBucket(), key);
+        return ossObject.getObjectContent();
+    }
+
+    /**
+     * 查找文件
+     *
+     * @return
+     */
+    public List<OSSObjectSummary> listFile() {
+        ObjectListing objectListing = internalClient.listObjects(ossConfig.getBucket());
+        return objectListing.getObjectSummaries();
+    }
+
+    /**
+     * 删除文件
+     *
+     * @param key
+     * @return
+     */
+    public void deleteFile(String key) {
+        internalClient.deleteObject(ossConfig.getBucket(), key);
     }
 }

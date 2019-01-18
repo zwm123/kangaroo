@@ -18,4 +18,16 @@ public class PicEvent extends AbstractReceivedMessage {
         this.count = sendPicsInfoElement.elementText("Count");
         this.picList = sendPicsInfoElement.elementText("PicList");
     }
+
+    public String getEventKey() {
+        return eventKey;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public String getPicList() {
+        return picList;
+    }
 }
