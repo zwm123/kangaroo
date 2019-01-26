@@ -54,7 +54,7 @@ public class TemplateSendRequest extends AbstractAccessTokenRequest<TemplateSend
             miniprogram.put("pagepath", miniProgramPagePath);
             jsonObject.put("miniprogram", miniprogram);
         }
-        jsonObject.put("param", data);
+        jsonObject.put("data", data);
         return new StringEntity(jsonObject.toJSONString(), ContentType.APPLICATION_JSON);
     }
 
