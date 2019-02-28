@@ -14,9 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 public class DefaultRequestCompleteCallbackServiceImpl implements RequestCompleteCallbackService {
+
+    private Set<String> excludeUrlSet;
+
+    public DefaultRequestCompleteCallbackServiceImpl() {
+    }
+
+    public DefaultRequestCompleteCallbackServiceImpl(Set<String> excludeUrlSet) {
+        this.excludeUrlSet = excludeUrlSet;
+    }
 
     @Override
     public void callback(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex, boolean servletRequestWrapperEnabled) throws Exception {
@@ -76,6 +86,10 @@ public class DefaultRequestCompleteCallbackServiceImpl implements RequestComplet
      * @param data
      */
     public void call(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex, boolean servletRequestWrapperEnabled, Map<String, Object> data) {
+        String url = data.get("url").toString();
+        if (excludeUrlSet != null && excludeUrlSet.contains(url)) {
+            return;
+        }
         if (ex != null) {
             log.error(JsonUtils.obj2String(data));
         } else {
