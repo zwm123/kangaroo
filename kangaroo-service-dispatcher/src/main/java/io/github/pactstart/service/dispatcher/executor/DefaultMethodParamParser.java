@@ -1,10 +1,10 @@
 package io.github.pactstart.service.dispatcher.executor;
 
 import com.alibaba.fastjson.JSON;
-import com.pactrex.common.dto.ResponseCode;
-import com.pactrex.proxy.annotation.ServiceParam;
-import com.pactrex.proxy.exception.ServiceApiException;
-import com.pactrex.proxy.request.ServiceApiRequest;
+import io.github.pactstart.biz.common.errorcode.ResponseCode;
+import io.github.pactstart.service.dispatcher.annotation.ServiceParam;
+import io.github.pactstart.service.dispatcher.exception.ServiceApiException;
+import io.github.pactstart.service.dispatcher.request.ServiceApiRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -8,7 +8,9 @@ import lombok.Setter;
 public class RefundQueryRequest {
 
     /**
-     * 微信的订单号，微信订单号查询的优先级是： refund_id > out_refund_no > transaction_id > out_trade_no
+     * <pre>
+     *     微信的订单号，微信订单号查询的优先级是： refund_id &gt; out_refund_no &gt; transaction_id &gt; out_trade_no
+     * </pre>
      */
     private String transaction_id;
 

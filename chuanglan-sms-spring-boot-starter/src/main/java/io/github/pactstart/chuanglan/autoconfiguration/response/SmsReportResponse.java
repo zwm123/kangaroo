@@ -2,10 +2,6 @@ package io.github.pactstart.chuanglan.autoconfiguration.response;
 
 import java.util.List;
 
-/**
- * @author tianyh
- * @Description:状态报告响应实体类
- */
 public class SmsReportResponse {
     /**
      * 请求状态

@@ -1,9 +1,5 @@
 package io.github.pactstart.chuanglan.autoconfiguration.response;
 
-/**
- * @author tianyh
- * @Description:普通短信发送响应实体类
- */
 public class SmsSendResponse {
     /**
      * 响应时间

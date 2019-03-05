@@ -85,12 +85,6 @@ public class WXPayReport {
 
     }
 
-    /**
-     * 单例，双重校验，请在 JDK 1.5及更高版本中使用
-     *
-     * @param config
-     * @return
-     */
     public static WXPayReport getInstance(WXPayConfig config) {
         if (INSTANCE == null) {
             synchronized (WXPayReport.class) {
@@ -102,15 +96,6 @@ public class WXPayReport {
         return INSTANCE;
     }
 
-    /**
-     * http 请求
-     *
-     * @param data
-     * @param connectTimeoutMs
-     * @param readTimeoutMs
-     * @return
-     * @throws Exception
-     */
     private static String httpRequest(String data, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         BasicHttpClientConnectionManager connManager;
         connManager = new BasicHttpClientConnectionManager(
@@ -229,8 +214,8 @@ public class WXPayReport {
 
         /**
          * 转换成 csv 格式
-         *
-         * @return
+         * @param key key
+         * @return csv格式字符串
          */
         public String toLineString(String key) {
             String separator = ",";

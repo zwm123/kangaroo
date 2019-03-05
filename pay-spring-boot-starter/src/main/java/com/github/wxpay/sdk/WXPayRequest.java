@@ -37,15 +37,15 @@ public class WXPayRequest {
     /**
      * 请求，只请求一次，不做重试
      *
-     * @param domain
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @param connectTimeoutMs
-     * @param readTimeoutMs
+     * @param domain 请求域名
+     * @param urlSuffix 请求路径
+     * @param uuid uuid
+     * @param data 请求数据
+     * @param connectTimeoutMs 连接超时时间
+     * @param readTimeoutMs 读取超时时间
      * @param useCert          是否使用证书，针对退款、撤销等操作
-     * @return
-     * @throws Exception
+     * @return 响应数据
+     * @throws Exception 异常
      */
     private String requestOnce(final String domain, String urlSuffix, String uuid, String data, int connectTimeoutMs, int readTimeoutMs, boolean useCert) throws Exception {
         BasicHttpClientConnectionManager connManager;
@@ -208,10 +208,12 @@ public class WXPayRequest {
     /**
      * 可重试的，非双向认证的请求
      *
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @return
+     * @param urlSuffix 请求路径
+     * @param uuid uuid
+     * @param data 请求数据
+     * @param autoReport 是否上报
+     * @return 响应字符串
+     * @throws Exception 异常
      */
     public String requestWithoutCert(String urlSuffix, String uuid, String data, boolean autoReport) throws Exception {
         return this.request(urlSuffix, uuid, data, config.getHttpConnectTimeoutMs(), config.getHttpReadTimeoutMs(), false, autoReport);
@@ -220,24 +222,27 @@ public class WXPayRequest {
     /**
      * 可重试的，非双向认证的请求
      *
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @param connectTimeoutMs
-     * @param readTimeoutMs
-     * @return
+     * @param urlSuffix 请求路径
+     * @param uuid uuid
+     * @param data 请求数据
+     * @param connectTimeoutMs 连接超时时间
+     * @param readTimeoutMs 读超时时间
+     * @param autoReport 是否上报
+     * @return 响应数据
+     * @throws Exception 异常
      */
     public String requestWithoutCert(String urlSuffix, String uuid, String data, int connectTimeoutMs, int readTimeoutMs, boolean autoReport) throws Exception {
         return this.request(urlSuffix, uuid, data, connectTimeoutMs, readTimeoutMs, false, autoReport);
     }
 
     /**
-     * 可重试的，双向认证的请求
-     *
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @return
+     *  可重试的，双向认证的请求
+     * @param urlSuffix 请求路径
+     * @param uuid uuid
+     * @param data 请求数据
+     * @param autoReport 是否自动上报
+     * @return 响应数据
+     * @throws Exception 异常
      */
     public String requestWithCert(String urlSuffix, String uuid, String data, boolean autoReport) throws Exception {
         return this.request(urlSuffix, uuid, data, config.getHttpConnectTimeoutMs(), config.getHttpReadTimeoutMs(), true, autoReport);
@@ -246,12 +251,14 @@ public class WXPayRequest {
     /**
      * 可重试的，双向认证的请求
      *
-     * @param urlSuffix
-     * @param uuid
-     * @param data
-     * @param connectTimeoutMs
-     * @param readTimeoutMs
-     * @return
+     * @param urlSuffix 请求路径
+     * @param uuid uuid
+     * @param data 请求数据
+     * @param connectTimeoutMs 连接超时时间
+     * @param readTimeoutMs 读超时时间
+     * @param autoReport 是否上报
+     * @return 响应数据
+     * @throws Exception 异常
      */
     public String requestWithCert(String urlSuffix, String uuid, String data, int connectTimeoutMs, int readTimeoutMs, boolean autoReport) throws Exception {
         return this.request(urlSuffix, uuid, data, connectTimeoutMs, readTimeoutMs, true, autoReport);

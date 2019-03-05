@@ -11,10 +11,10 @@ public class CollectionsUtils {
     /**
      * 判断两个集合是否相等
      *
-     * @param c1
-     * @param c2
-     * @param <T>
-     * @return
+     * @param c1 集合1
+     * @param c2 集合2
+     * @param <T> 元素类型
+     * @return 是否相等
      */
     public static <T> boolean equals(Collection<T> c1, Collection<T> c2) {
         if (c1 == null && c2 == null) {

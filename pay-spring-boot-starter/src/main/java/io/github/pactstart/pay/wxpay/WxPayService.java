@@ -67,9 +67,9 @@ public class WxPayService {
     /**
      * 企业付款到零钱
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public TransferResponse transfer(TransferRequest request) throws Exception {
         validateParam(request);
@@ -82,9 +82,9 @@ public class WxPayService {
     /**
      * 查询企业付款
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public TransferQueryResponse transferQuery(TransferQueryRequest request) throws Exception {
         validateParam(request);
@@ -97,9 +97,9 @@ public class WxPayService {
     /**
      * app支付
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public AppUnifiedOrderResponse appUnifiedOrder(AppUnifiedOrderRequest request) throws Exception {
         validateParam(request);
@@ -111,9 +111,9 @@ public class WxPayService {
 
     /**
      * 获取app支付参数
-     * @param response
-     * @return
-     * @throws Exception
+     * @param response 预支付响应
+     * @return app支付参数
+     * @throws Exception 异常
      */
     public Map<String, String> getAppPayParam(AppUnifiedOrderResponse response) throws Exception {
         Map<String, String> appPayParamMap = Maps.newHashMap();
@@ -133,9 +133,9 @@ public class WxPayService {
     /**
      * H5支付
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public H5UnifiedOrderResponse h5UnifiedOrder(H5UnifiedOrderRequest request) throws Exception {
         validateParam(request);
@@ -148,9 +148,9 @@ public class WxPayService {
     /**
      * 公众号支付
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public JsapiUnifiedOrderResponse jsapiUnifiedOrder(JsapiUnifiedOrderRequest request) throws Exception {
         validateParam(request);
@@ -163,9 +163,9 @@ public class WxPayService {
     /**
      * 小程序支付
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public WxaUnifiedOrderResponse wxaUnifiedOrder(WxaUnifiedOrderRequest request) throws Exception {
         validateParam(request);
@@ -178,9 +178,9 @@ public class WxPayService {
     /**
      * 扫码支付
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public NativeUnifiedOrderResponse nativeUnifiedOrder(NativeUnifiedOrderRequest request) throws Exception {
         validateParam(request);
@@ -193,9 +193,9 @@ public class WxPayService {
     /**
      * 刷卡支付
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public MicropayResponse microUnifiedOrder(MicropayRequest request) throws Exception {
         validateParam(request);
@@ -210,9 +210,9 @@ public class WxPayService {
      * 以下情况需要调用关单接口：商户订单支付失败需要生成新单号重新发起支付，要对原订单号调用关单，避免重复支付；系统下单后，用户支付超时，系统退出不再受理，避免用户继续，请调用关单接口。
      * 注意：订单生成后不能马上调用关单接口，最短调用时间间隔为5分钟。
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public CloseOrderResponse closeOrder(CloseOrderRequest request) throws Exception {
         validateParam(request);
@@ -228,9 +228,9 @@ public class WxPayService {
      * 注意：7天以内的交易单可调用撤销，其他正常支付的单如需实现相同功能请调用申请退款API。提交支付交易后调用【查询订单API】，没有明确的支付结果再调用【撤销订单API】。
      * 调用支付接口后请勿立即调用撤销订单API，建议支付后至少15s后再调用撤销订单接口。
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public ReverseOrderResponse reverseOrder(ReverseOrderRequest request) throws Exception {
         validateParam(request);
@@ -249,9 +249,9 @@ public class WxPayService {
      * 错误或无效请求频率限制：6qps，即每秒钟异常或错误的退款申请请求不超过6次<br>
      * 4、每个支付订单的部分退款次数不能超过50次<br>
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public RefundResponse refund(RefundRequest request) throws Exception {
         validateParam(request);
@@ -271,9 +271,9 @@ public class WxPayService {
      * 2、 调用支付接口后，返回系统错误或未知交易状态情况；<br>
      * 3、 调用刷卡支付API，返回USERPAYING的状态；<br>
      * 4、调用关单或撤销接口API之前，需确认支付状态；<br>
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public OrderQueryResponse orderQuery(OrderQueryRequest request) throws Exception {
         validateParam(request);
@@ -294,9 +294,9 @@ public class WxPayService {
      * 商户需要查询同一订单下超过10笔的退款单时，可传入订单号及offset来查询，微信支付会返回offset及后面的10笔，以此类推。当商户传入的offset超过total_refund_count，则系统会返回报错PARAM_ERROR。<br>
      * 举例：一笔订单下的退款单有36笔，当商户想查询第25笔时，可传入订单号及offset=24，微信支付平台会返回第25笔到第35笔的退款单信息，或商户可直接传入退款单号查询退款<br>
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public RefundQueryResponse refundQuery(RefundQueryRequest request) throws Exception {
         validateParam(request);
@@ -319,9 +319,9 @@ public class WxPayService {
      * 4、对账单接口只能下载三个月以内的账单。<br>
      * 5、对账单是以商户号纬度来生成的，如一个商户号与多个appid有绑定关系，则使用其中任何一个appid都可以请求下载对账单。对账单中的appid取自交易时候提交的appid，与请求下载对账单时使用的appid无关。<br>
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public DownloadBillResponse downloadBill(DownloadBillRequest request) throws Exception {
         validateParam(request);
@@ -334,9 +334,9 @@ public class WxPayService {
     /**
      * 接口主要用于扫码原生支付模式一中的二维码链接转成短链接(weixin://wxpay/s/XXXXXX)，减小二维码数据量，提升扫描速度和精确度。
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public ShortUrlResponse shortUrl(ShortUrlRequest request) throws Exception {
         validateParam(request);
@@ -349,9 +349,9 @@ public class WxPayService {
     /**
      * 通过授权码查询公众号Openid，调用查询后，该授权码只能由此商户号发起扣款，直至授权码更新。
      *
-     * @param request
-     * @return
-     * @throws Exception
+     * @param request 请求
+     * @return 响应
+     * @throws Exception 异常
      */
     public AuthCodeToOpenIdResponse authCodeToOpenid(AuthCodeToOpenIdRequest request) throws Exception {
         validateParam(request);
@@ -364,9 +364,9 @@ public class WxPayService {
     /**
      * 解析支付结果通知数据
      *
-     * @param noticeXml
-     * @return
-     * @throws Exception
+     * @param noticeXml 通知xml
+     * @return 通知bean对象
+     * @throws Exception 异常
      */
     public PayResultNoticeRequest parsePayNoticeData(String noticeXml) throws Exception {
         Map<String, String> reqData = WXPayUtil.xmlToMap(noticeXml);
@@ -381,9 +381,9 @@ public class WxPayService {
     /**
      * 验证支付结果通知签名
      *
-     * @param reqData
-     * @return
-     * @throws Exception
+     * @param reqData 参数
+     * @return 是否合法
+     * @throws Exception 异常
      */
     public boolean isPayResultNotifySignatureValid(Map<String, Object> reqData) throws Exception {
         Map<String, String> data = Maps.newHashMap();

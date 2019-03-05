@@ -78,12 +78,12 @@ public class DefaultRequestCompleteCallbackServiceImpl implements RequestComplet
     /**
      * 模板方法，供子类覆盖
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @param ex
-     * @param servletRequestWrapperEnabled
-     * @param data
+     * @param request 请求
+     * @param response 响应
+     * @param handler 处理器
+     * @param ex 异常
+     * @param servletRequestWrapperEnabled 流是否开启包装
+     * @param data 请求相关数据
      */
     public void call(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex, boolean servletRequestWrapperEnabled, Map<String, Object> data) {
         String url = data.get("url").toString();

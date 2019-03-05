@@ -5,13 +5,13 @@
     <parent>
         <artifactId>kangaroo-parent</artifactId>
         <groupId>io.github.pactstart</groupId>
-        <version>1.0</version>
+        <version>1.0.0</version>
         <relativePath>../kangaroo-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kangaroo-code-generator</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
 
     <name>kangaroo-code-generator</name>
     <description>基于MBG提供数据库到实体和Mapper以及映射文件的生成。</description>

@@ -30,8 +30,8 @@ public enum WxPayTradeTypeEnum {
     /**
      * 默认valueOf找不到匹配项会抛出异常，这里返回空
      *
-     * @param tradeType
-     * @return
+     * @param tradeType 交易类型
+     * @return 交易类型枚举
      */
     public static WxPayTradeTypeEnum valueOfName(String tradeType) {
         WxPayTradeTypeEnum result = null;

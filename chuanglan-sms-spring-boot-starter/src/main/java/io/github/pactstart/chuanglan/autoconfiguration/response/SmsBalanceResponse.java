@@ -1,9 +1,5 @@
 package io.github.pactstart.chuanglan.autoconfiguration.response;
 
-/**
- * @author tianyh
- * @Description:账号余额响应实体类
- */
 public class SmsBalanceResponse {
     /**
      * 响应时间

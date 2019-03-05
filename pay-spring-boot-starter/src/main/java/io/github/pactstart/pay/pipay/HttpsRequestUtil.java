@@ -18,6 +18,8 @@ public class HttpsRequestUtil {
      * 发起https请求并获取结果
      *
      * @param requestUrl 请求地址
+     * @param requestData  请求数据
+     * @return 响应数据
      */
     public static String doHttpsPostRequest(String requestUrl, String requestData) {
         HttpsURLConnection connection = null;

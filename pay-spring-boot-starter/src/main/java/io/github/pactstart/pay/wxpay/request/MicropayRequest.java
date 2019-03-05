@@ -36,8 +36,11 @@ public class MicropayRequest {
     private String body;
 
     /**
-     * 商品详细描述，对于使用单品优惠的商户，改字段必须按照规范上传，详见“单品优惠参数说明”： https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_102&index=2
-     * 非必填，String(8192)
+     * <pre>
+     *     商品详细描述，对于使用单品优惠的商户，改字段必须按照规范上传，详见“单品优惠参数说明”：@See <a href="https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_102&index=2"></a>
+     *     非必填，String(8192)
+     * </pre>
+     *
      */
     @Length(max = 128, message = "商品详细描述detail限8192个字符")
     private String detail;

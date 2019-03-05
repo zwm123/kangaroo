@@ -18,10 +18,6 @@ public class ApplicationException extends RuntimeException {
         this.responseCode = responseCode;
     }
 
-    /**
-     * @param responseCode
-     * @param message      覆盖错误码中的描述
-     */
     public ApplicationException(ResponseCode responseCode, String message) {
         super(message);
         this.responseCode = new ResponseCode(responseCode.getCode(), message);

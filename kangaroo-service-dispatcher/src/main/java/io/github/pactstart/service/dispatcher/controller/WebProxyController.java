@@ -4,6 +4,7 @@ import io.github.pactstart.commonutils.JsonUtils;
 import io.github.pactstart.commonutils.ValidUtils;
 import io.github.pactstart.service.dispatcher.dispatcher.ServiceDispatcher;
 import io.github.pactstart.service.dispatcher.request.WebServiceApiRequest;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public abstract class WebProxyController {
                     String[] param = item.split("=");
                     data.put(param[0], param[1]);
                 }
-                reqContent = JsonUtils.toJSONString(data);
+                reqContent = JsonUtils.obj2String(data);
             } else {
                 reqContent = "{}";
             }

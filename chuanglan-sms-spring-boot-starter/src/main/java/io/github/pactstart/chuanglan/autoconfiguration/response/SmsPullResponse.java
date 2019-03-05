@@ -2,10 +2,6 @@ package io.github.pactstart.chuanglan.autoconfiguration.response;
 
 import java.util.List;
 
-/**
- * @author tianyh
- * @Description:上行明细响应实体类
- */
 public class SmsPullResponse {
     /**
      * 请求状态

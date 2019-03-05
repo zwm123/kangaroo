@@ -5,12 +5,6 @@ import java.util.Map;
 
 /**
  * Ognl工具类，主要是为了在ognl表达式访问静态方法时可以减少长长的类名称编写 Ognl访问静态方法的表达式为: @class@method(args)
- * <p>示例使用:<p>
- * <pre>
- *  <if test="@Ognl@isNotEmpty(userId)">
- *      and user_id = #{userId}
- *  </if>
- * </pre>
  */
 public class Ognl {
 

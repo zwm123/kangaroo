@@ -135,7 +135,7 @@ public class MicropayResponse {
 
     /**
      * 代金券金额
-     * “代金券或立减优惠”金额<=订单总金额，订单总金额-“代金券或立减优惠”金额=现金支付金额，详见支付金额
+     * “代金券或立减优惠”金额&lt;=订单总金额，订单总金额-“代金券或立减优惠”金额=现金支付金额，详见支付金额
      * 非必填，Int
      */
     private Integer coupon_fee;
@@ -166,7 +166,7 @@ public class MicropayResponse {
     private String time_end;
 
     /**
-     * 单品优惠功能字段，需要接入请见详细说明https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_101&index=1
+     * 单品优惠功能字段，需要接入请见详细说明 @See <a href="https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_101&index=1" ></a>
      * 必填，String(6000)
      */
     private String promotion_detail;

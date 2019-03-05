@@ -25,13 +25,13 @@ public enum WxPayRefundStatusEnum {
     /**
      * 默认valueOf找不到匹配项会抛出异常，这里返回空
      *
-     * @param tradeType
-     * @return
+     * @param refundStatus 退款状态
+     * @return 退款状态枚举
      */
-    public static WxPayRefundStatusEnum valueOfName(String tradeType) {
+    public static WxPayRefundStatusEnum valueOfName(String refundStatus) {
         WxPayRefundStatusEnum result = null;
         for (WxPayRefundStatusEnum item : values()) {
-            if (item.equals(tradeType)) {
+            if (item.equals(refundStatus)) {
                 result = item;
                 break;
             }

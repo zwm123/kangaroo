@@ -23,8 +23,8 @@ public enum RequestSource {
     /**
      * 不抛异常，没找到返回null
      *
-     * @param name
-     * @return
+     * @param name 来源
+     * @return 枚举
      */
     public static RequestSource valueOfName(String name) {
         if (name == null || name.trim().length() == 0) {

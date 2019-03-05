@@ -6,21 +6,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-//import java.io.PrintWriter;
-
-/**
- * @author tianyh
- * @Description:HTTP 请求
- */
 public class ChuangLanSmsUtil {
-    /**
-     * @param path
-     * @param postContent
-     * @return String
-     * @throws
-     * @author tianyh
-     * @Description
-     */
+
     public static String sendSmsByPost(String path, String postContent) {
         URL url = null;
         try {

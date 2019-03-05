@@ -40,8 +40,8 @@ public enum WxPayTradeStateEnum {
     /**
      * 默认valueOf找不到匹配项会抛出异常，这里返回空
      *
-     * @param tradeState
-     * @return
+     * @param tradeState 交易状态
+     * @return 交易状态枚举
      */
     public static WxPayTradeStateEnum valueOfName(String tradeState) {
         WxPayTradeStateEnum result = null;

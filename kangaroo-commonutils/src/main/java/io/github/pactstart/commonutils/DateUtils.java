@@ -339,13 +339,6 @@ public class DateUtils {
         return convertSuccess;
     }
 
-    /**
-     * 根据指定的格式比较两个日期是否相等
-     * @param dateSrc
-     * @param dateDesc
-     * @param format
-     * @return
-     */
     public static boolean isEqualsDate(Date dateSrc, Date dateDesc, String format){
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         return dateFormat.format(dateSrc).equals(dateFormat.format(dateDesc));
@@ -415,10 +408,10 @@ public class DateUtils {
     }
 
     /**
-     * 解析UTC时间格式的字符串为Date
-     *
+     *  解析UTC时间格式的字符串为Date
      * @param utcTime 格式"2017-09-07T04:35:53Z"
-     * @return
+     * @return 日期
+     * @throws ParseException 解析异常
      */
     public Date parseUTC(String utcTime) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

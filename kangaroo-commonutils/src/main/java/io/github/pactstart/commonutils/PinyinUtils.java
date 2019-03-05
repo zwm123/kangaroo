@@ -11,12 +11,12 @@ public class PinyinUtils {
     /**
      * 获取汉语拼音首字母
      *
-     * @param chines
-     * @return
+     * @param chinese 中文字符串
+     * @return 中文首字母字符串
      */
-    public static String getAlpha(String chines) {
+    public static String getAlpha(String chinese) {
         String pinyinName = "";
-        char[] nameChar = chines.toCharArray();
+        char[] nameChar = chinese.toCharArray();
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
         defaultFormat.setCaseType(HanyuPinyinCaseType.UPPERCASE);
         defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
@@ -44,8 +44,8 @@ public class PinyinUtils {
     /**
      * 将字符串中的中文转化为拼音，英文字符不变
      *
-     * @param inputString
-     * @return
+     * @param inputString 中文
+     * @return 中文拼音
      */
     public static String convertPinyin(String inputString) {
         HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();

@@ -28,6 +28,9 @@ public class SpringContextHolder implements ApplicationContextAware {
 
     /**
      * 从静态变量ApplicationContext中取得Bean, 自动转型为所赋值对象的类型.
+     * @param name bean的名称
+     * @param <T> bean的类型
+     * @return bean
      */
     @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) {
@@ -36,8 +39,10 @@ public class SpringContextHolder implements ApplicationContextAware {
     }
 
     /**
-     * 从静态变量ApplicationContext中取得Bean, 自动转型为所赋值对象的类型.
-     * 如果有多个Bean符合Class, 取出第一个.
+     * 从静态变量ApplicationContext中取得Bean, 自动转型为所赋值对象的类型.如果有多个Bean符合Class, 取出第一个.
+     * @param requiredType 指定类型
+     * @param <T> 泛型类型
+     * @return 指定类型的bean
      */
     public static <T> T getBean(Class<T> requiredType) {
         checkApplicationContext();
@@ -47,8 +52,8 @@ public class SpringContextHolder implements ApplicationContextAware {
     /**
      * 判断当前bean容器中是否包含指定名称的bean
      *
-     * @param name
-     * @return
+     * @param name bean的名称
+     * @return true包含false不包含
      */
     public static boolean containsBean(String name) {
         checkApplicationContext();
@@ -58,9 +63,9 @@ public class SpringContextHolder implements ApplicationContextAware {
     /**
      * 根据类型获取容器中实例的集合
      *
-     * @param requiredType
-     * @param <T>
-     * @return
+     * @param requiredType 指定类型
+     * @param <T> 泛型类型
+     * @return 指定类型的对象
      */
     public static <T> Map<String, T> getBeans(Class<T> requiredType) {
         checkApplicationContext();

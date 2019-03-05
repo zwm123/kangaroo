@@ -19,14 +19,21 @@ public class DataUtils {
     /**
      * 指定随机数种子生成指定范围内的随机数
      *
-     * @param seed
-     * @param bound
-     * @return
+     * @param seed 随机数种子
+     * @param bound 边界
+     * @return 随机数
      */
     public static long genRandomWithSeed(long seed, int bound) {
         return new Random(seed).nextInt(bound);
     }
 
+    /**
+     * 格式化字符串
+     *
+     * @param template 字符串模板
+     * @param params   参数键值对
+     * @return 格式化的字符串
+     */
     public static String formatSO(String template, Map<String, Object> params) {
         Matcher m = Pattern.compile("\\$\\{\\w+\\}").matcher(template);
         StringBuffer sb = new StringBuffer();
@@ -39,6 +46,12 @@ public class DataUtils {
         return sb.toString();
     }
 
+    /**
+     * 格式化字符串
+     * @param template 字符串模板
+     * @param params 参数键值对
+     * @return 格式化的字符串
+     */
     public static String formatSS(String template, Map<String, String> params) {
         Matcher m = Pattern.compile("\\$\\{\\w+\\}").matcher(template);
         StringBuffer sb = new StringBuffer();
@@ -53,9 +66,8 @@ public class DataUtils {
 
     /**
      * 指定长度数字生成器
-     *
      * @param length 要生成的数字字符串的长度
-     * @return
+     * @return 随机字符串
      */
     public static String numRandomGenerator(int length) {
         Long num = (long) ((Math.random() * 9 + 1) * Math.pow(10, length - 1));
@@ -66,18 +78,28 @@ public class DataUtils {
      * 指定长度字符串生成器
      *
      * @param length 表示生成字符串的长度
-     * @return
+     * @return 随机字符串
      */
     public static String strRandomGenerate(int length) {
         String base = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnopqrstuvwxyz23456789";
         return genStr(base, length);
     }
 
+    /**
+     * 生成阅读友好的字符串（去除i1oO0等相似的字符）
+     * @param length 表示生成字符串的长度
+     * @return 随机字符串
+     */
     public static String friendlyStrRandomGenerate(int length) {
         String base = "abcefhjkmnrstuvwxyz2345678";
         return genStr(base, length);
     }
 
+    /**
+     * 判断指定字符串是否包含数字
+     * @param str 字符串
+     * @return true包含，false不包含
+     */
     public static boolean containsNum(String str) {
         for (int i = 0; i < str.length(); i++) {
             char item = str.charAt(i);
@@ -88,6 +110,11 @@ public class DataUtils {
         return false;
     }
 
+    /**
+     * 判断字符串是否包含字母
+     * @param str 字符串
+     * @return true包含，false不包含
+     */
     public static boolean containsLetter(String str) {
         for (int i = 0; i < str.length(); i++) {
             char item = str.charAt(i);
@@ -99,10 +126,10 @@ public class DataUtils {
     }
 
     /**
-     * 判断是否全部重复
+     * 判断字符串的每个字符是否都一样
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return true一样，false不一样
      */
     public static boolean isRepeatStr(String str) {
         if (str.isEmpty()) {
@@ -120,8 +147,8 @@ public class DataUtils {
     /**
      * 是否是连续递增数字
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return true是，false否
      */
     public static boolean idOrderNumberic(String str) {
         boolean flag = true;//如果全是连续数字返回true
@@ -152,8 +179,8 @@ public class DataUtils {
     /**
      * 是否连续递减数字
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return true是，false否
      */
     public static boolean idOrderNumberic_(String str) {
         boolean flag = true;//如果全是连续数字返回true
@@ -184,8 +211,8 @@ public class DataUtils {
     /**
      * 校验身份证号是否合法
      *
-     * @param idCard
-     * @return
+     * @param idCard 身份证号
+     * @return true合法，false不合法
      */
     @SuppressWarnings("AlibabaUndefineMagicConstant")
     public static boolean checkIDCard(String idCard) {
@@ -209,6 +236,8 @@ public class DataUtils {
 
     /**
      * 校验银行卡卡号
+     * @param bankCard 银行卡号
+     * @return true正确，false不正确
      */
     public static boolean checkBankCard(String bankCard) {
         if (bankCard.length() < 15 || bankCard.length() > 19) {
@@ -252,12 +281,14 @@ public class DataUtils {
 
     /**
      * 使用md5算法进行加密
+     * @param str 字符串
+     * @return md5加密后的字符串
      */
-    public static String md5(String src) {
+    public static String md5(String str) {
         try {
             StringBuffer buffer = new StringBuffer();
             char[] chars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-            byte[] bytes = src.getBytes();
+            byte[] bytes = str.getBytes();
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] targ = md.digest(bytes);
             for (byte b : targ) {
@@ -273,6 +304,8 @@ public class DataUtils {
 
     /**
      * 深度复制,复制的整个对象图
+     * @param src 原对象
+     * @return 复制后的对象
      */
     public static Serializable deeplyCopy(Serializable src) {
         try {
@@ -297,19 +330,18 @@ public class DataUtils {
     /**
      * 判断字符串是否为数字
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return true是false否
      */
     public static boolean isNumeric(String str) {
         return PATTERN.matcher(str).matches();
     }
 
     /**
-     * 随机生成在[min, max]区间内的随机整数
-     *
-     * @param min
-     * @param max
-     * @return
+     *  随机生成在[min, max]区间内的随机整数
+     * @param min 最大值
+     * @param max 最小值
+     * @return 随机数
      */
     public static int randomInt(int min, int max) {
         Random random = new Random();
@@ -320,14 +352,14 @@ public class DataUtils {
     /**
      * 获取UUID字符串(不带横杠)
      *
-     * @return
+     * @return 字符串
      */
     public static String uuidStr() {
         return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
     }
 
     /**
-     * 把数组所有元素排序，并按照“参数=参数值”的模式用“&”字符拼接成字符串
+     * 把数组所有元素排序，并按照“参数=参数值”的模式用“&amp;”字符拼接成字符串
      *
      * @param params 需要排序并参与字符拼接的参数组
      * @return 拼接后字符串
@@ -365,12 +397,17 @@ public class DataUtils {
     /**
      * 获取当前格式化时间戳,yyyyMMddHHmmssSSS
      *
-     * @return
+     * @return 当前时间戳字符串
      */
     public static String getCurrentTimStampStr() {
         return new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
     }
 
+    /**
+     * 除首字母外的其他字符用型号替换
+     * @param str 原字符串
+     * @return 字符串
+     */
     public static String getEntryStr(String str) {
         if (str != null && str.trim().length() > 1) {
             StringBuilder temp = new StringBuilder();
@@ -385,17 +422,25 @@ public class DataUtils {
         }
     }
 
-    public static String getEntryBankcard(String bankcard, int beginLen, int endLen) {
-        if (bankcard != null && bankcard.trim().length() > beginLen + endLen) {
+    /**
+     * 将银行卡号中指定位置的字符用星号替换
+     *
+     * @param bankcard 银行卡号
+     * @param begin    开始位置
+     * @param end      结束位置
+     * @return 星号替换后的银行卡号
+     */
+    public static String getEntryBankcard(String bankcard, int begin, int end) {
+        if (bankcard != null && bankcard.trim().length() > begin + end) {
             StringBuilder temp = new StringBuilder();
-            if (beginLen != 0) {
-                temp.append(bankcard.substring(0, beginLen));
+            if (begin != 0) {
+                temp.append(bankcard.substring(0, begin));
             }
-            int nLen = bankcard.length() - beginLen - endLen;
-            for (int i = beginLen; i < nLen; ++i) {
+            int nLen = bankcard.length() - begin - end;
+            for (int i = begin; i < nLen; ++i) {
                 temp.append("*");
             }
-            temp.append(bankcard.substring(bankcard.length() - endLen));
+            temp.append(bankcard.substring(bankcard.length() - end));
             return temp.toString();
         } else {
             return bankcard;
@@ -405,8 +450,8 @@ public class DataUtils {
     /**
      * 是否是中文
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return true是false否
      */
     public static boolean isChinese(String str) {
         return str != null && ALL_CHINESE.matcher(str).matches();
@@ -415,8 +460,8 @@ public class DataUtils {
     /**
      * 字符串中是否包含中文
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return true包含false不包含
      */
     public static boolean isContainsChinese(String str) {
         return str != null && CHINESE.matcher(str).find();
@@ -425,9 +470,9 @@ public class DataUtils {
     /**
      * 按指定格式格式化日期
      *
-     * @param format
-     * @param date
-     * @return
+     * @param format 格式
+     * @param date 日期
+     * @return 格式化的日期
      */
     public static String formatDate(String format, Date date) {
         return new SimpleDateFormat(format).format(date);
@@ -436,10 +481,10 @@ public class DataUtils {
     /**
      * 转换年月日为yyyy-MM-dd格式
      *
-     * @param year
-     * @param month
-     * @param day
-     * @return
+     * @param year 年
+     * @param month 月
+     * @param day 日
+     * @return yyyy-MM-dd格式的字符串
      */
     public static String getDateStr(int year, int month, int day) {
         StringBuilder sb = new StringBuilder();
@@ -455,6 +500,11 @@ public class DataUtils {
         return sb.toString();
     }
 
+    /**
+     * 将指定集合中的int数据用逗号分隔
+     * @param list 集合
+     * @return 逗号分隔后的字符串
+     */
     public static String separateWithComma(Collection<Integer> list) {
         if (!ValidUtils.isValid(list)) {
             return "";
@@ -466,6 +516,11 @@ public class DataUtils {
         return sb.substring(0, sb.length() - 1);
     }
 
+    /**
+     * 将指定集合中的string用逗号分隔
+     * @param list 集合
+     * @return 逗号分隔后的字符串
+     */
     public static String separateStrWithComma(Collection<String> list) {
         if (!ValidUtils.isValid(list)) {
             return "";

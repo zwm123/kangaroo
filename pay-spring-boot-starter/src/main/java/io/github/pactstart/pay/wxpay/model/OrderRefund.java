@@ -40,7 +40,7 @@ public class OrderRefund {
 
     /**
      * 退款金额
-     * 退款金额=申请退款金额-非充值代金券退款金额，退款金额<=申请退款金额
+     * 退款金额=申请退款金额-非充值代金券退款金额，退款金额&lt;=申请退款金额
      */
     private Integer settlement_refund_fee;
 

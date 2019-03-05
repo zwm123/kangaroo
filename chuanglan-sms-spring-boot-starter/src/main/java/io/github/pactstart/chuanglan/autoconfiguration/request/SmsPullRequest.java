@@ -1,9 +1,5 @@
 package io.github.pactstart.chuanglan.autoconfiguration.request;
 
-/**
- * @author tianyh
- * @Description:查询上行短信实体类
- */
 public class SmsPullRequest {
     /**
      * 创蓝API账号，必填

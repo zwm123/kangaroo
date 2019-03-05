@@ -29,10 +29,6 @@ public class ReflectionUtils {
         }
     }
 
-    /**
-     * @param beanClass
-     * @return
-     */
     public static PropertyDescriptor[] getProperties(Class<?> beanClass) {
         HashMap<String, PropertyDescriptor> propertyMap = new HashMap<String, PropertyDescriptor>();
         addProperties(beanClass, propertyMap);

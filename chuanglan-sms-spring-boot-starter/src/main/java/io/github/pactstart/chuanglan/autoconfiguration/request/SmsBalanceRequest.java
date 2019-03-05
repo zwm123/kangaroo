@@ -1,9 +1,5 @@
 package io.github.pactstart.chuanglan.autoconfiguration.request;
 
-/**
- * @author tianyh
- * @Description:查询账号余额实体类
- */
 public class SmsBalanceRequest {
     /**
      * 创蓝API账号，必填

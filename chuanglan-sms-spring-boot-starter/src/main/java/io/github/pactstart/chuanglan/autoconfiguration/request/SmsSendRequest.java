@@ -1,9 +1,5 @@
 package io.github.pactstart.chuanglan.autoconfiguration.request;
 
-/**
- * @author tianyh
- * @Description:普通短信发送实体类
- */
 public class SmsSendRequest {
     /**
      * 创蓝API账号，必填

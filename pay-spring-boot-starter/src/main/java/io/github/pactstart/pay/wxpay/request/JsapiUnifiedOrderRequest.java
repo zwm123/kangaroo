@@ -21,7 +21,8 @@ public class JsapiUnifiedOrderRequest {
     /**
      * 终端设备号(门店号或收银设备ID)，默认请传"WEB"
      * 示例值：013467007045764fe
-     * 非必填,String(32)
+     * 非必填,String(32)     *
+
      */
     @Length(max = 32, message = "设备号device_info限32个字符")
     private String device_info = "WEB";
@@ -37,8 +38,11 @@ public class JsapiUnifiedOrderRequest {
     private String body;
 
     /**
-     * 商品详细描述，对于使用单品优惠的商户，改字段必须按照规范上传，详见“单品优惠参数说明”： https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_102&index=2
-     * 非必填，String(8192)
+     * <pre>
+     *     商品详细描述，对于使用单品优惠的商户，改字段必须按照规范上传，详见“单品优惠参数说明”： @See <a href="https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_102&index=2" ></a>
+     *     非必填，String(8192)
+     * </pre>
+     *
      */
     @Length(max = 128, message = "商品详细描述detail限8192个字符")
     private String detail;

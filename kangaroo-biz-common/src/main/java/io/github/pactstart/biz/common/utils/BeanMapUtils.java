@@ -15,8 +15,9 @@ public class BeanMapUtils {
     /**
      * 将对象装换为map
      *
-     * @param bean
-     * @return
+     * @param bean 对象
+     * @param <T> 对象泛型类型
+     * @return map 键值对集合
      */
     public static <T> Map<String, Object> beanToMap(T bean) {
         Map<String, Object> map = Maps.newHashMap();
@@ -32,10 +33,10 @@ public class BeanMapUtils {
     /**
      * 将对象装换为map,并制定忽略字段名
      *
-     * @param bean
-     * @param ignoreFields
-     * @param <T>
-     * @return
+     * @param bean 对象
+     * @param ignoreFields 需要忽略的字段列表
+     * @param <T> 对象泛型类型
+     * @return map 键值对集合
      */
     public static <T> Map<String, Object> beanToMapIgnore(T bean, List<String> ignoreFields) {
         if (CollectionUtils.isEmpty(ignoreFields)) {
@@ -64,9 +65,10 @@ public class BeanMapUtils {
     /**
      * 将map装换为javabean对象
      *
-     * @param map
-     * @param bean
-     * @return
+     * @param map 键值对集合
+     * @param bean 对象
+     * @param <T> 对象泛型类型
+     * @return 对象
      */
     public static <T> T mapToBean(Map<String, Object> map, T bean) {
         BeanMap beanMap = BeanMap.create(bean);
@@ -75,10 +77,10 @@ public class BeanMapUtils {
     }
 
     /**
-     * 将List<T>转换为List<Map<String, Object>>
-     *
-     * @param objList
-     * @return
+     * 将对象列表转换为键值对集合列表
+     * @param objList objList 对象列表
+     * @param <T> 泛型类型
+     * @return 键值对集合列表
      */
     public static <T> List<Map<String, Object>> objectsToMaps(List<T> objList) {
         List<Map<String, Object>> list = Lists.newArrayList();
@@ -95,11 +97,12 @@ public class BeanMapUtils {
     }
 
     /**
-     * 将List<Map<String,Object>>转换为List<T>
+     * 将键值对集合列表转换为对象列表
      *
-     * @param maps
-     * @param clazz
-     * @return
+     * @param maps 键值对集合列表
+     * @param clazz 对象类型
+     * @param <T> 泛型类型
+     * @return 对象列表
      */
     public static <T> List<T> mapsToObjects(List<Map<String, Object>> maps, Class<T> clazz) {
         List<T> list = Lists.newArrayList();

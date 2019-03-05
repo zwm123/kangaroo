@@ -40,8 +40,8 @@ public class JsonUtils {
     /**
      * bean转json字符串
      *
-     * @param object
-     * @return
+     * @param object 对象
+     * @return json字符串
      */
     public static String obj2String(Object object) {
         return JSON.toJSONString(object, COMMON_FEATURES);
@@ -49,9 +49,10 @@ public class JsonUtils {
 
     /**
      * bean转json字符串
-     *
-     * @param object
-     * @return
+     * @param object 对象
+     * @param config 序列化配置
+     * @param serializerFeatures 序列化特征
+     * @return json字符串
      */
     public static String obj2String(Object object, SerializeConfig config, SerializerFeature[] serializerFeatures) {
         return JSON.toJSONString(object, config, serializerFeatures);
@@ -59,9 +60,9 @@ public class JsonUtils {
 
     /**
      * bean转json字符串
-     *
-     * @param object
-     * @return
+     * @param object 对象
+     * @param serializerFeatures 序列化特征
+     * @return json字符串
      */
     public static String obj2String(Object object, SerializerFeature[] serializerFeatures) {
         return JSON.toJSONString(object, serializerFeatures);
@@ -69,11 +70,10 @@ public class JsonUtils {
 
     /**
      * 字符串转对象
-     *
-     * @param text
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param text json字符串
+     * @param clazz 对象类型
+     * @param <T> 泛型类型
+     * @return 对象
      */
     public static <T> T string2Obj(String text, Class<T> clazz) {
         return JSON.parseObject(text, clazz);
@@ -82,10 +82,10 @@ public class JsonUtils {
     /**
      * 字节转对象
      *
-     * @param bytes
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param bytes 字节数组
+     * @param clazz 对象类型
+     * @param <T> 泛型类型
+     * @return 对象
      */
     public static <T> T byte2Obj(byte[] bytes, Class<T> clazz) {
         return JSON.parseObject(bytes, clazz);
@@ -94,10 +94,10 @@ public class JsonUtils {
     /**
      * json字符串转换为List
      *
-     * @param text
-     * @param clazz
-     * @param <T>
-     * @return
+     * @param text json字符串
+     * @param clazz 对象类型
+     * @param <T> 泛型类型
+     * @return 对象
      */
     public static <T> List<T> string2List(String text, Class<T> clazz) {
         return JSON.parseArray(text, clazz);

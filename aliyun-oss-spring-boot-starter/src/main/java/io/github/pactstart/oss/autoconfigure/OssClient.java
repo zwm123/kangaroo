@@ -27,8 +27,8 @@ public class OssClient {
      * 上传的目录是由服务端指定的，这样的好处就是安全。 每个客户端只能上传到指定的目录，实现安全隔离
      *
      * @param dir 必须以/结尾
-     * @return
-     * @throws Exception
+     * @return 上传策略对象
+     * @throws Exception 异常
      */
     public PostPolicyResponse getPostPolicy(String dir) throws Exception {
         try {
@@ -61,9 +61,9 @@ public class OssClient {
     /**
      * 上传文件，返回绝对路径
      *
-     * @param key
-     * @param inputStream
-     * @return
+     * @param key 文件路径
+     * @param inputStream 文件流
+     * @return 文件全路径
      */
     public String uploadFile(String key, InputStream inputStream) {
         internalClient.putObject(ossConfig.getBucket(), key, inputStream);
@@ -76,8 +76,8 @@ public class OssClient {
     /**
      * 下载文件
      *
-     * @param key
-     * @return
+     * @param key 文件路径
+     * @return 文件流
      */
     public InputStream downloadFile(String key) {
         OSSObject ossObject = internalClient.getObject(ossConfig.getBucket(), key);
@@ -87,7 +87,7 @@ public class OssClient {
     /**
      * 查找文件
      *
-     * @return
+     * @return 文件列表对象
      */
     public List<OSSObjectSummary> listFile() {
         ObjectListing objectListing = internalClient.listObjects(ossConfig.getBucket());
@@ -96,9 +96,7 @@ public class OssClient {
 
     /**
      * 删除文件
-     *
-     * @param key
-     * @return
+     * @param key 文件路径
      */
     public void deleteFile(String key) {
         internalClient.deleteObject(ossConfig.getBucket(), key);

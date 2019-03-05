@@ -8,25 +8,11 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EmojiUtils {
 
-    public static void main(String[] args) throws Exception {
-        byte[] testbytes = {105, 111, 115, -30, -102, -67, 32, 36, -18, -128, -104, 32, 36, -16, -97, -113, -128, 32, 36, -18, -112, -86};
-        String tmpstr = new String(testbytes, "utf-8");
-//        System.out.println(URLEncoder.encode(tmpstr, "utf-8"));  
-        System.out.println(filterEmoji(tmpstr));
-//  
-
-        System.out.println("containsEmoji2: " + containsEmoji("😄"));
-        System.out.println(containsEmoji(tmpstr));
-
-
-    }
-
-
     /**
      * 检测是否有emoji字符
      *
-     * @param source
-     * @return 一旦含有就抛出
+     * @param source 字符串
+     * @return true是，false否
      */
     public static boolean containsEmoji(String source) {
         if (StringUtils.isBlank(source)) {
@@ -47,7 +33,7 @@ public class EmojiUtils {
      * 判断是否为非Emoji字符
      *
      * @param codePoint 比较的单个字符
-     * @return
+     * @return bool
      */
     private static boolean isNotEmojiCharacter(char codePoint) {
         return (codePoint == 0x0) ||
@@ -62,8 +48,8 @@ public class EmojiUtils {
     /**
      * 过滤emoji 或者 其他非文字类型的字符
      *
-     * @param source
-     * @return
+     * @param source 可能含有emoji表情的字符串
+     * @return 过滤后的字符串
      */
     public static String filterEmoji(String source) {
         if (StringUtils.isBlank(source)) {

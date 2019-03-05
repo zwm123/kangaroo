@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
 public class ValidUtils {
 
     /**
-     * 判断字符串有效性
+     * 判断字符串是否合法（空、空白字符串均不合法）
+     * @param src 字符串
+     * @return true合法，false不合法
      */
     public static boolean isValid(String src) {
         if (src == null || "".equals(src.trim())) {
@@ -21,7 +23,9 @@ public class ValidUtils {
     }
 
     /**
-     * 判断集合的有效性
+     * 判断集合是否为空
+     * @param col 集合
+     * @return true不为空，false不合法
      */
     public static boolean isValid(Collection<?> col) {
         if (col == null || col.isEmpty()) {
@@ -31,7 +35,9 @@ public class ValidUtils {
     }
 
     /**
-     * 判断数组是否有效
+     * 判断数组是否为空
+     * @param arr 数组
+     * @return true不为空，false不合法
      */
     public static boolean isValid(Object[] arr) {
         if (arr == null || arr.length == 0) {
@@ -41,20 +47,20 @@ public class ValidUtils {
     }
 
     /**
-     * 判断布尔对象是否有效
+     * 判断布尔对象是否有效（不为空，且为true）
      *
-     * @param bool
-     * @return
+     * @param bool 布尔
+     * @return true有效，false无效
      */
     public static boolean isValid(Boolean bool) {
         return bool != null && bool;
     }
 
     /**
-     * 验证手机是否合法，如果合法返回true,否则返回false
-     *
-     * @param phone
-     * @return
+     *  验证手机是否合法，如果合法返回true,否则返回false
+     * @param phone 手机号
+     * @param strict 是否开启严格验证模式
+     * @return true合法，false不合法
      */
     public static boolean isPhone(String phone, boolean strict) {
         if (!ValidUtils.isValid(phone)) {
@@ -68,10 +74,10 @@ public class ValidUtils {
     }
 
     /**
-     * 验证手机是否邮箱，如果合法返回true,否则返回false
+     * 验证字符串是否为邮箱格式
      *
-     * @param email
-     * @return
+     * @param email 字符串
+     * @return true是false否
      */
     public static boolean isEmail(String email) {
         return isValid(email) && email.matches("(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})");
@@ -80,8 +86,8 @@ public class ValidUtils {
     /**
      * 验证URL是否有效
      *
-     * @param url
-     * @return
+     * @param url url
+     * @return true是false否
      */
     public static boolean isURL(String url) {
         if (!isValid(url)) {
@@ -100,6 +106,13 @@ public class ValidUtils {
         return url.matches(regex);
     }
 
+    /**
+     * 判断字符串中${xx}的变量是否在params中均有赋值
+     *
+     * @param template 字符串
+     * @param params   参数
+     * @return true是false否
+     */
     public static boolean isAllWildcardVariableValid(String template, Map<String, String> params) {
         Matcher m = Pattern.compile("\\$\\{\\w+\\}").matcher(template);
         while (m.find()) {

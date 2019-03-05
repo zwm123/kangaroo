@@ -1,9 +1,5 @@
 package io.github.pactstart.chuanglan.autoconfiguration.request;
 
-/**
- * @author tianyh
- * @Description:查询状态报告实体类
- */
 public class SmsReportRequest {
     /**
      * 创蓝API账号，必填
