@@ -10,15 +10,13 @@ import io.github.pactstart.pay.wxpay.request.transfer.TransferRequest;
 import io.github.pactstart.pay.wxpay.response.OrderQueryResponse;
 import io.github.pactstart.pay.wxpay.response.transfer.TransferResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
 
 @Slf4j
 public class WxPayServiceTest {
 
     private WxPayService wxPayService;
 
-    @Before
+    //    @Before
     public void init() throws Exception {
         WxPayProperties wxPayProperties = new WxPayProperties();
         wxPayProperties.setAppId("");
@@ -29,7 +27,7 @@ public class WxPayServiceTest {
         wxPayService = new WxPayService(wxPayProperties);
     }
 
-    @Test
+    //    @Test
     public void testTransfer() throws Exception {
         TransferRequest request = new TransferRequest("201036150583742042112", "oHxsm0jlGEfFFoWnpBIeD1N17r3g", 1, "测试企业付款到零钱", "127.0.0.1");
         TransferResponse response = wxPayService.transfer(request);

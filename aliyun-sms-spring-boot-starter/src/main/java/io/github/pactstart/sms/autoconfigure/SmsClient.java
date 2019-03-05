@@ -6,9 +6,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsResponse;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
-import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.profile.IClientProfile;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,28 +25,19 @@ import java.util.Map;
  */
 public class SmsClient {
 
-    //产品名称:云通信短信API产品,开发者无需替换
-    static final String product = "Dysmsapi";
-    //产品域名,开发者无需替换
-    static final String domain = "dysmsapi.aliyuncs.com";
-
     private SmsConfig smsConfig;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+    IAcsClient client = null;
 
     public SmsClient(SmsConfig smsConfig) {
         this.smsConfig = smsConfig;
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", smsConfig.getAccessKeyId(), smsConfig.getAccessKeySecret());
+        this.client = new DefaultAcsClient(profile);
     }
 
-    public SmsResponse sendSms(String signName, String templateCode, String phone, Map<String, String> params) throws ClientException {
-
-        //可自助调整超时时间
-        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
-
-        //初始化acsClient,暂不支持region化
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", smsConfig.getAccessKeyId(), smsConfig.getAccessKeySecret());
-        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
-        IAcsClient acsClient = new DefaultAcsClient(profile);
-
+    public SmsResponse sendSms(String signName, String templateCode, String phone, Map<String, String> params) throws Exception {
         //组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
         //必填:待发送手机号
@@ -67,7 +56,7 @@ public class SmsClient {
         //request.setOutId("");
 
         //hint 此处可能会抛出异常，注意catch
-        SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+        SendSmsResponse sendSmsResponse = client.getAcsResponse(request);
 
         SmsResponse resp = new SmsResponse();
         if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
@@ -84,17 +73,7 @@ public class SmsClient {
     }
 
 
-    public QuerySendDetailsResponse querySendDetails(String phone, String bizId, Date sendDate, long pageNum, long pageSize) throws ClientException {
-
-        //可自助调整超时时间
-        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
-
-        //初始化acsClient,暂不支持region化
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", smsConfig.getAccessKeyId(), smsConfig.getAccessKeySecret());
-        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
-        IAcsClient acsClient = new DefaultAcsClient(profile);
-
+    public QuerySendDetailsResponse querySendDetails(String phone, String bizId, Date sendDate, long pageNum, long pageSize) throws Exception {
         //组装请求对象
         QuerySendDetailsRequest request = new QuerySendDetailsRequest();
         //必填-号码
@@ -110,7 +89,7 @@ public class SmsClient {
         request.setCurrentPage(pageNum);
 
         //hint 此处可能会抛出异常，注意catch
-        QuerySendDetailsResponse querySendDetailsResponse = acsClient.getAcsResponse(request);
+        QuerySendDetailsResponse querySendDetailsResponse = client.getAcsResponse(request);
 
         return querySendDetailsResponse;
     }

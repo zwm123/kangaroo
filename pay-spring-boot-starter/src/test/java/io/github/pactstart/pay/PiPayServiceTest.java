@@ -5,8 +5,6 @@ import io.github.pactstart.pay.pipay.PiPayService;
 import io.github.pactstart.pay.pipay.autoconfigure.PiPayConfig;
 import io.github.pactstart.pay.pipay.request.PagePayRequest;
 import io.github.pactstart.pay.pipay.response.OrderQueryResponse;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +14,7 @@ public class PiPayServiceTest {
 
     private PiPayService piPayService;
 
-    @Before
+    //    @Before
     public void init() throws Exception {
         PiPayConfig piPayConfig = new PiPayConfig();
         piPayConfig.setMid("102265");
@@ -28,7 +26,7 @@ public class PiPayServiceTest {
         piPayService = new PiPayService(piPayConfig);
     }
 
-    @Test
+    //    @Test
     public void testGetFormStr() {
         Map<String, String> extPrams = new HashMap<>();
         extPrams.put("unifiedOrderNo", UUID.randomUUID().toString().replace("-", ""));
@@ -38,7 +36,7 @@ public class PiPayServiceTest {
         System.out.println(formStr);
     }
 
-    @Test
+    //    @Test
     public void testQueryOrder() throws Exception {
         long start = System.currentTimeMillis();
         OrderQueryResponse orderQueryResponse = piPayService.orderQuery("211048246890308702208", null);

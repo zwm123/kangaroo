@@ -67,6 +67,9 @@ public class OssClient {
      */
     public String uploadFile(String key, InputStream inputStream) {
         internalClient.putObject(ossConfig.getBucket(), key, inputStream);
+        if (ossConfig.getCustomDomain() != null && ossConfig.getCustomDomain().length() > 0) {
+            return ossConfig.getCustomDomain() + "/" + key;
+        }
         return this.host + "/" + key;
     }
 

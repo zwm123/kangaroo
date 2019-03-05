@@ -15,6 +15,8 @@ public class OssConfig {
 
     private long expireTime = 1800;
 
+    private String customDomain;
+
     public String getAccessKeyId() {
         return accessKeyId;
     }
@@ -53,5 +55,13 @@ public class OssConfig {
 
     public void setExpireTime(long expireTime) {
         this.expireTime = expireTime;
+    }
+
+    public String getCustomDomain() {
+        return customDomain;
+    }
+
+    public void setCustomDomain(String customDomain) {
+        this.customDomain = customDomain;
     }
 }

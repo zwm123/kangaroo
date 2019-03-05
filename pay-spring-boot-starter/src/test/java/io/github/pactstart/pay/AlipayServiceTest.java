@@ -15,7 +15,6 @@ import io.github.pactstart.pay.alipay.autoconfigure.AliPayConfig;
 import io.github.pactstart.pay.alipay.request.AppPayRequest;
 import io.github.pactstart.pay.alipay.request.PagePayRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
 
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
@@ -25,7 +24,7 @@ public class AlipayServiceTest {
 
     private AliPayService aliPayService;
 
-    @Before
+    //    @Before
     public void init() throws Exception {
         AliPayConfig aliPayConfig = new AliPayConfig();
         aliPayConfig.setAppid("2018071760706339");
