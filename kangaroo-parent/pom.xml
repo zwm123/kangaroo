@@ -135,7 +135,7 @@
             <dependency>
                 <groupId>io.github.pactstart</groupId>
                 <artifactId>kangaroo-biz-common</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>io.github.pactstart</groupId>
@@ -195,7 +195,7 @@
             <dependency>
                 <groupId>io.github.pactstart</groupId>
                 <artifactId>kangaroo-simple-web-framework</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>io.github.pactstart</groupId>
@@ -345,6 +345,11 @@
                 <version>${pinyin4j.version}</version>
             </dependency>
             <!-- apache commons -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.10</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>

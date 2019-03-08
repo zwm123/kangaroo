@@ -33,6 +33,12 @@ public class MVCConfig {
     private boolean enableAjax;
 
     /**
+     * 需要ajax请求的接口
+     */
+    private List<String> ajaxUrlPatternList = Lists.newArrayList("/*");
+    ;
+
+    /**
      * 支持的匿名访问接口，多个用逗号分隔，支持Ant Path Pattern
      */
     private String anonUrls = "";

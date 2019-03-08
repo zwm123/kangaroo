@@ -6,7 +6,7 @@
 
     <groupId>io.github.pactstart</groupId>
     <artifactId>kangaroo-dependencies</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
 
     <name>kangaroo-dependencies</name>
@@ -120,7 +120,7 @@
             <dependency>
                 <groupId>io.github.pactstart</groupId>
                 <artifactId>kangaroo-biz-common</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>io.github.pactstart</groupId>
@@ -164,17 +164,17 @@
             </dependency>
             <dependency>
                 <groupId>io.github.pactstart</groupId>
-                <artifactId>redis-spring-boot-starter</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.pactstart</groupId>
                 <artifactId>kangaroo-mq</artifactId>
                 <version>1.0.0</version>
             </dependency>
             <dependency>
                 <groupId>io.github.pactstart</groupId>
                 <artifactId>aliyun-mq-spring-boot-starter</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pactstart</groupId>
+                <artifactId>redis-mq-spring-boot-starter</artifactId>
                 <version>1.0.0</version>
             </dependency>
             <dependency>
@@ -190,7 +190,7 @@
             <dependency>
                 <groupId>io.github.pactstart</groupId>
                 <artifactId>kangaroo-simple-web-framework</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>io.github.pactstart</groupId>
@@ -340,6 +340,11 @@
                 <version>${pinyin4j.version}</version>
             </dependency>
             <!-- apache commons -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.10</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>

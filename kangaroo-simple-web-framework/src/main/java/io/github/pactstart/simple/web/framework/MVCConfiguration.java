@@ -66,7 +66,7 @@ public class MVCConfiguration extends WebMvcConfigurerAdapter {
         AjaxFilter ajaxFilter = new AjaxFilter();
         registrationBean.setFilter(ajaxFilter);
         registrationBean.setOrder(1);
-        registrationBean.setUrlPatterns(mvcConfig.getUrlPatternsForFilter());
+        registrationBean.setUrlPatterns(mvcConfig.getAjaxUrlPatternList());
         return registrationBean;
     }
 

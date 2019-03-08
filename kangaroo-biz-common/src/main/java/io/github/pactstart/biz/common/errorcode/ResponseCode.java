@@ -44,6 +44,10 @@ public class ResponseCode implements Serializable {
     public static final ResponseCode REQUEST_SOURCE_NOT_ALLOWED = new ResponseCode(1000017, "请求来源不合法");
     //数据过期，需要重新刷新
     public static final ResponseCode DATA_EXPIRED_NEED_REFRESH = new ResponseCode(100018, "数据状态已过期，需要重新刷新");
+    //请求已过期
+    public static final ResponseCode REQUEST_EXPIRED = new ResponseCode(100019, "请求已过期");
+    //签名不合法
+    public static final ResponseCode SIGN_INVALID = new ResponseCode(100020, "签名不合法");
 
     private int code;
 
