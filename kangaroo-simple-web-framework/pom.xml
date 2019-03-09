@@ -5,13 +5,13 @@
     <parent>
         <artifactId>kangaroo-parent</artifactId>
         <groupId>io.github.pactstart</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <relativePath>../kangaroo-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kangaroo-simple-web-framework</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <dependencies>
         <dependency>
@@ -25,7 +25,6 @@
         <dependency>
             <groupId>io.github.pactstart</groupId>
             <artifactId>kangaroo-biz-common</artifactId>
-            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

@@ -42,6 +42,10 @@ public class EncryptFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
+        if (req.getContentType() == null || !req.getContentType().contains("application/json")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         if (encryptConfig.isDebug()) {
             filterChain.doFilter(req, resp);
@@ -64,72 +68,74 @@ public class EncryptFilter implements Filter {
         EncryptRequestWrapper requestWrapper = null;
         EncryptResponseWrapper responseWrapper = null;
 
-        if (isEnableEncrypt) {
-            //请求解密
-            requestWrapper = new EncryptRequestWrapper(req);
-            String requestData = requestWrapper.getRequestData();
-            log.debug("RequestData: {}", requestData);
-
-            if (encryptConfig.isCheckSign()) {
-                String sign = req.getHeader("sign");
-
-                String timestamp = req.getHeader("timestamp");
-                if (!ValidUtils.isValid(timestamp)) {
-                    ResponseUtils.outputJson(resp, ResponseCode.LACK_NECESSARY_REQUEST_HEADER);
-                    return;
-                }
-                if (Math.abs(System.currentTimeMillis() - Long.valueOf(timestamp)) > encryptConfig.getExpireTime()) {
-                    ResponseUtils.outputJson(resp, ResponseCode.REQUEST_EXPIRED);
-                    return;
-                }
-                Map<String, Object> params = Maps.newHashMap();
-                params.put("timestamp", timestamp);
-                params.put("data", requestData);
-                String sign2 = SignUtils.sign(params, encryptConfig.getKey());
-                if (!sign2.equalsIgnoreCase(sign)) {
-                    ResponseUtils.outputJson(resp, ResponseCode.SIGN_INVALID);
-                    return;
-                }
-            }
-            try {
-                String decyptRequestData = encryptAlgorithm.decrypt(requestData, encryptConfig.getKey());
-                log.debug("DecryptRequestData: {}", decyptRequestData);
-                requestWrapper.setRequestData(decyptRequestData);
-            } catch (Exception e) {
-                log.error("请求数据解密失败", e);
-                throw new RuntimeException(e);
-            }
-            //构造响应加密请求
-            responseWrapper = new EncryptResponseWrapper(resp);
-            //过滤链处理
-            filterChain.doFilter(requestWrapper, responseWrapper);
-            //响应加密
-            String responseData = responseWrapper.getResponseData();
-            log.debug("ResponseData: {}", responseData);
-            ServletOutputStream out = null;
-            try {
-                responseData = encryptAlgorithm.encrypt(responseData, encryptConfig.getKey());
-                log.debug("EncryptResponseData: {}", responseData);
-
-                servletResponse.setContentLength(responseData.length());
-                servletResponse.setCharacterEncoding(encryptConfig.getResponseCharset());
-                out = servletResponse.getOutputStream();
-                out.write(responseData.getBytes(encryptConfig.getResponseCharset()));
-            } catch (Exception e) {
-                log.error("响应数据加密失败", e);
-                throw new RuntimeException(e);
-            } finally {
-                if (out != null) {
-                    out.flush();
-                    out.close();
-                }
-            }
-
-        } else {
+        if (!isEnableEncrypt) {
             filterChain.doFilter(req, resp);
+            return;
+        }
+        //请求解密
+        requestWrapper = new EncryptRequestWrapper(req);
+        String requestData = requestWrapper.getRequestData();
+        log.debug("uri:{},RequestData: {}", uri, requestData);
+
+        if (encryptConfig.isCheckSign()) {
+            String sign = req.getHeader("sign");
+            String timestamp = req.getHeader("timestamp");
+            if (!ValidUtils.isValid(timestamp)) {
+                ResponseUtils.outputJson(resp, ResponseCode.LACK_NECESSARY_REQUEST_HEADER);
+                return;
+            }
+            if (Math.abs(System.currentTimeMillis() - Long.valueOf(timestamp)) > encryptConfig.getExpireTime()) {
+                ResponseUtils.outputJson(resp, ResponseCode.REQUEST_EXPIRED);
+                return;
+            }
+            Map<String, Object> params = Maps.newHashMap();
+            params.put("timestamp", timestamp);
+            params.put("data", requestData);
+            String sign2 = SignUtils.sign(params, encryptConfig.getKey());
+            if (!sign2.equalsIgnoreCase(sign)) {
+                ResponseUtils.outputJson(resp, ResponseCode.SIGN_INVALID);
+                return;
+            }
+        }
+        if (requestData.startsWith("{")) {
+            filterChain.doFilter(req, resp);
+            return;
+        }
+        try {
+            String decyptRequestData = encryptAlgorithm.decrypt(requestData, encryptConfig.getKey());
+            log.debug("DecryptRequestData: {}", decyptRequestData);
+            requestWrapper.setRequestData(decyptRequestData);
+        } catch (Exception e) {
+            log.error("请求数据解密失败", e);
+            ResponseUtils.outputJson(resp, new ResponseCode(ResponseCode.SYSTEM_ERROR, "数据解密失败"));
+            return;
+        }
+        //构造响应加密请求
+        responseWrapper = new EncryptResponseWrapper(resp);
+        //过滤链处理
+        filterChain.doFilter(requestWrapper, responseWrapper);
+        //响应加密
+        String responseData = responseWrapper.getResponseData();
+        log.debug("ResponseData: {}", responseData);
+        ServletOutputStream out = null;
+        try {
+            responseData = encryptAlgorithm.encrypt(responseData, encryptConfig.getKey());
+            log.debug("EncryptResponseData: {}", responseData);
+
+            servletResponse.setContentLength(responseData.length());
+            servletResponse.setCharacterEncoding(encryptConfig.getResponseCharset());
+            out = servletResponse.getOutputStream();
+            out.write(responseData.getBytes(encryptConfig.getResponseCharset()));
+        } catch (Exception e) {
+            log.error("响应数据加密失败", e);
+            throw new RuntimeException(e);
+        } finally {
+            if (out != null) {
+                out.flush();
+                out.close();
+            }
         }
     }
-
 
     @Override
     public void destroy() {

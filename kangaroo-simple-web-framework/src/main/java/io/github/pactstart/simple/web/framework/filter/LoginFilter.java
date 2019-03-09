@@ -59,7 +59,15 @@ public class LoginFilter implements Filter {
                 ResponseUtils.outputJson(response, ResponseCode.NOT_YET_LOGIN);
                 return;
             } else {
-                ResponseUtils.clientRedirect(authUrl, response);
+                if (authUrl.startsWith("http")) {
+                    if (authUrl.endsWith(servletPath)) {
+                        filterChain.doFilter(servletRequest, servletResponse);
+                        return;
+                    }
+                    ResponseUtils.clientRedirect(authUrl, response);
+                } else {
+                    ResponseUtils.outputError("未提供登录授权地址", response);
+                }
                 return;
             }
         } else {
