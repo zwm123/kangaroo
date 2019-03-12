@@ -169,7 +169,7 @@ public class WXPayUtil {
      */
     public static boolean isSignatureValid(Map<String, String> data, String key, SignType signType) throws Exception {
         if (!data.containsKey(WXPayConstants.FIELD_SIGN)) {
-            return false;
+            return true;
         }
         String sign = data.get(WXPayConstants.FIELD_SIGN);
         return generateSignature(data, key, signType).equals(sign);
