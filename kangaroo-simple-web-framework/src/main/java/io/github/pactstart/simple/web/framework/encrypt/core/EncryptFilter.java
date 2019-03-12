@@ -78,7 +78,6 @@ public class EncryptFilter implements Filter {
         log.debug("uri:{},RequestData: {}", uri, requestData);
 
         if (encryptConfig.isCheckSign()) {
-            String sign = req.getHeader("sign");
             String timestamp = req.getHeader("timestamp");
             if (!ValidUtils.isValid(timestamp)) {
                 ResponseUtils.outputJson(resp, ResponseCode.LACK_NECESSARY_REQUEST_HEADER);
@@ -92,13 +91,13 @@ public class EncryptFilter implements Filter {
             params.put("timestamp", timestamp);
             params.put("data", requestData);
             String sign2 = SignUtils.sign(params, encryptConfig.getKey());
-            if (!sign2.equalsIgnoreCase(sign)) {
+            if (!sign2.equalsIgnoreCase(req.getHeader("sign"))) {
                 ResponseUtils.outputJson(resp, ResponseCode.SIGN_INVALID);
                 return;
             }
         }
         if (requestData.startsWith("{")) {
-            filterChain.doFilter(req, resp);
+            filterChain.doFilter(requestWrapper, resp);
             return;
         }
         try {
@@ -128,7 +127,8 @@ public class EncryptFilter implements Filter {
             out.write(responseData.getBytes(encryptConfig.getResponseCharset()));
         } catch (Exception e) {
             log.error("响应数据加密失败", e);
-            throw new RuntimeException(e);
+            ResponseUtils.outputJson(resp, new ResponseCode(ResponseCode.SYSTEM_ERROR, "响应数据加密失败"));
+            return;
         } finally {
             if (out != null) {
                 out.flush();
