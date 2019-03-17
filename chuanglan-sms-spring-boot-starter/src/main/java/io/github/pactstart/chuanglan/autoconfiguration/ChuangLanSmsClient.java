@@ -111,7 +111,7 @@ public class ChuangLanSmsClient {
         //短信发送的URL 请登录zz.253.com 获取完整的URL接口信息
         String smsSingleRequestServerUrl = chuangLanConfig.getUrl() + "/msg/send/json";
 
-        SmsSendRequest smsSingleRequest = new SmsSendRequest(chuangLanConfig.getAccount(), chuangLanConfig.getPassword(), msg, "true");
+        SmsSendRequest smsSingleRequest = new SmsSendRequest(chuangLanConfig.getAccount(), chuangLanConfig.getPassword(), msg, phone);
 
         String requestJson = JSON.toJSONString(smsSingleRequest);
 
