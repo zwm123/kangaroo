@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jpush-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>jpush-spring-boot-starter</name>
     <description>极光推送通过spring-boot-starter方式的封装，用于给移动端App推送通知。</description>

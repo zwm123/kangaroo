@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class PushObject {
 
+    private boolean allAlias;
+
     /**
      * 推送用户别名列表
      */
@@ -28,6 +30,14 @@ public class PushObject {
     private int badge = 1;
 
     Map<String, Object> extras = new HashMap<String, Object>();
+
+    public boolean isAllAlias() {
+        return allAlias;
+    }
+
+    public void setAllAlias(boolean allAlias) {
+        this.allAlias = allAlias;
+    }
 
     public List<String> getAlias() {
         return alias;
@@ -76,5 +86,6 @@ public class PushObject {
     public void setExtras(Map<String, Object> extras) {
         this.extras = extras;
     }
+
 
 }

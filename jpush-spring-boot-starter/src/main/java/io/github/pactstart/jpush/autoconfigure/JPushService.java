@@ -67,7 +67,7 @@ public class JPushService {
         }
         PushPayload payload = PushPayload.newBuilder()
                 .setPlatform(Platform.android_ios()) //推送平台
-                .setAudience(Audience.alias(pushObject.getAlias())) //推送目标
+                .setAudience(pushObject.isAllAlias() ? Audience.all() : Audience.alias(pushObject.getAlias())) //推送目标
                 .setNotification(Notification.newBuilder()
                         .setAlert(pushObject.getAlert()) //通知信息
                         .addPlatformNotification(androidBuilder.build())
